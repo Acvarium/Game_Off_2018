@@ -1,113 +1,109 @@
 extends KinematicBody2D
 
-var  gravity = 1000.0 # Pixels/second
+const GRAVITY = 500.0
 
-const FLOOR_ANGLE_TOLERANCE = 1
+const FLOOR_ANGLE_TOLERANCE = 40
 const WALK_FORCE = 600
-const WALK_MIN_SPEED = 300
-const WALK_MAX_SPEED = 300
-const STOP_FORCE = 5000
-const JUMP_SPEED = 400
+const WALK_MIN_SPEED = 10
+const WALK_MAX_SPEED = 200
+const STOP_FORCE = 1300
+const JUMP_SPEED = 200
+const JUMP_MAX_AIRBORNE_TIME = 0.2
 
+const SLIDE_STOP_VELOCITY = 1.0 # one pixel/second
+const SLIDE_STOP_MIN_TRAVEL = 1.0 # one pixel
+
+var on_the_ladder = false
 var velocity = Vector2()
 var on_air_time = 100
 var jumping = false
-var onSteps = false
+var dir = Vector2()
+var last_dir = Vector2()
 var prev_jump_pressed = false
 
-
-func _fixed_process(delta):
-	# Create forces
-	
-	var force = Vector2(0, gravity)
-
-	var left = Input.is_action_pressed("left")
-	var right = Input.is_action_pressed("right")
+func _physics_process(delta):
+	var force = Vector2(0, GRAVITY)
+	if on_the_ladder:
+		force = Vector2(0, 0)
+	var walk_left = Input.is_action_pressed("ui_left")
+	var walk_right = Input.is_action_pressed("ui_right")
 	var jump = Input.is_action_pressed("jump")
-	var up = Input.is_action_pressed("up")
-	var down = Input.is_action_pressed("down")
-	
-	#var rLeft = Input.action_release("left")
+	var up = Input.is_action_pressed("ui_up")
+	var down = Input.is_action_pressed("ui_down")
 	
 	var stop = true
-	
-	
-	if (left):
-		velocity.x = -WALK_MAX_SPEED
+	if walk_left:
+		dir.x = -1
+		if velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED:
+			force.x -= WALK_FORCE
+			stop = false
+		if last_dir.x != -1:
+			$anim.play("walk_left")
+	elif walk_right:
+		dir.x = 1
+		if velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED:
+			force.x += WALK_FORCE
+			stop = false
+			
+		if last_dir.x != 1:
+			$anim.play("walk_right")
+	else:
+		dir.x = 0
+		if $anim.is_playing():
+			$anim.stop()
+	if on_the_ladder:
+		if up:
+			velocity.y = -WALK_MAX_SPEED
+		elif down:
+			velocity.y = WALK_MAX_SPEED
+		else:
+			velocity.y = 0
+			
+	if stop:
 
-	elif (right):
-		velocity.x = WALK_MAX_SPEED
-
-	if (up) and onSteps:
-		velocity.y = -WALK_MAX_SPEED 
-
-	elif (down) and onSteps:
-		velocity.y = WALK_MAX_SPEED 
-
-	if jump and not onSteps and is_colliding():
-		velocity.y = -JUMP_SPEED
-
-	if (stop):
 		var vsign = sign(velocity.x)
 		var vlen = abs(velocity.x)
-
-		vlen -= STOP_FORCE*delta
-		if (vlen < 0):
+		
+		vlen -= STOP_FORCE * delta
+		if vlen < 0:
 			vlen = 0
 		
-		velocity.x = vlen*vsign
+		velocity.x = vlen * vsign
 
-		if onSteps:
-			var vSignY = sign(velocity.y)
-			var vLenY = abs(velocity.y)
-	
-			vLenY -= STOP_FORCE*delta
-			if (vLenY < 0):
-				vLenY = 0
-			velocity.y = vLenY*vSignY
-
-	velocity.y += gravity*delta
-
+	# Integrate forces to velocity
+	velocity += force * delta	
 	# Integrate velocity into motion and move
-	var motion = velocity*delta
-	motion = move(motion)
+	velocity = move_and_slide(velocity, Vector2(0, -1))
+	
+	if is_on_floor():
+		on_air_time = 0
+		
+	if jumping and velocity.y > 0:
+		# If falling, no longer jumping
+		jumping = false
+	
+	if on_air_time < JUMP_MAX_AIRBORNE_TIME and jump and not prev_jump_pressed and not jumping:
+		# Jump must also be allowed to happen if the character left the floor a little bit ago.
+		# Makes controls more snappy.
+		velocity.y = -JUMP_SPEED
+		jumping = true
+	
+	on_air_time += delta
+	prev_jump_pressed = jump
+	
+	
+	last_dir = dir
+	
+func _on_Area2D_area_entered(area):
+	print("in")
 
-	if (is_colliding()) and not jump:
-		var n = get_collision_normal()
-		motion = n.slide(motion)
-		velocity = n.slide(velocity)
-		move(motion)
+func _on_Area2D_area_exited(area):
+	print("out")
 
-	if get_pos().x < 0:
-		var a = get_pos()
-		a.x += 1024
-		set_pos(a)
-	if get_pos().x > 1024:
-		var a = get_pos()
-		a.x -= 1024
-		set_pos(a)
-	if velocity.x > 0:
-		get_node("Sprite").set_flip_h(true)
-	elif velocity.x < 0:
-		get_node("Sprite").set_flip_h(false)
-
-func _ready():
-	set_fixed_process(true)
-
-#func _on_steps_body_enter( body ):
-#	onSteps = true
-#	gravity = 0.0
-#	velocity.y = 0.0
-#	velocity.x = 0.0
-#
-#func _on_steps_body_exit( body ):
-#	gravity = 900.0
-#	velocity.y = 0.0
-#	velocity.x = 0.0
-#	onSteps = false
-#	pass # replace with function body
-
-
-func _on_jumper_body_enter( body ):
-	velocity.y = -abs(velocity.y)*1.1
-	pass # replace with function body
+func _on_Area2D_body_entered(body):
+	print("in")
+	on_the_ladder = true
+	
+func _on_Area2D_body_exited(body):
+	print("out")
+	on_the_ladder = false

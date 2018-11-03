@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://objects/player.gd" type="Script" id=1]
-[ext_resource path="res://textures/hero.png" type="Texture" id=2]
+[ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=1]
+[ext_resource path="res://objects/player.gd" type="Script" id=2]
+[ext_resource path="res://textures/hero.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -9,9 +10,89 @@ custom_solver_bias = 0.0
 radius = 17.6183
 height = 21.4248
 
+[sub_resource type="Animation" id=3]
+
+resource_name = "walk_left"
+length = 0.4
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=4]
+
+resource_name = "walk_right"
+length = 0.4
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
 [node name="main" type="Node2D" index="0"]
 
 [node name="level" type="Node2D" parent="." index="0"]
+
+[node name="TileMap" type="TileMap" parent="level" index="0"]
+
+mode = 0
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 64, 64 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( 262158, 0, 0, 262160, 0, 0, 262161, 0, 0, 262162, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0 )
+_sections_unfolded = [ "Cell" ]
+
+[node name="ladder" type="TileMap" parent="level" index="1"]
+
+mode = 0
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 64, 64 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 2
+collision_mask = 2
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( 262158, 0, 0, 262159, 1, 0, 262160, 0, 0, 262161, 0, 0, 262162, 0, 0, 327689, 1, 0, 327690, 1, 0, 327695, 1, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 1, 0, 393231, 1, 0, 458762, 1, 0, 458767, 1, 0, 524298, 1, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 1, 0, 589834, 1, 0, 589840, 1, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0 )
+_sections_unfolded = [ "Cell", "Collision" ]
 
 [node name="player" type="KinematicBody2D" parent="." index="1"]
 
@@ -20,7 +101,7 @@ input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -29,15 +110,89 @@ __meta__ = {
 
 position = Vector2( 0, -4 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 vframes = 3
 hframes = 8
-frame = 12
+frame = 14
 _sections_unfolded = [ "Animation", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player" index="1"]
 
-visible = false
 shape = SubResource( 1 )
+
+[node name="anim" type="AnimationPlayer" parent="player" index="2"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/walk_left = SubResource( 3 )
+anims/walk_right = SubResource( 4 )
+blend_times = [  ]
+
+[node name="Area2D" type="Area2D" parent="player" index="3"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+collision_mask = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision", "Pickable" ]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="player/Area2D" index="0"]
+
+shape = SubResource( 1 )
+
+[node name="ui" type="Node2D" parent="." index="2"]
+
+[node name="dir" type="Label" parent="ui" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="last_dir" type="Label" parent="ui" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 30.0
+margin_right = 40.0
+margin_bottom = 44.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[connection signal="area_entered" from="player/Area2D" to="player" method="_on_Area2D_area_entered"]
+
+[connection signal="area_exited" from="player/Area2D" to="player" method="_on_Area2D_area_exited"]
+
+[connection signal="body_entered" from="player/Area2D" to="player" method="_on_Area2D_body_entered"]
+
+[connection signal="body_exited" from="player/Area2D" to="player" method="_on_Area2D_body_exited"]
 
 
