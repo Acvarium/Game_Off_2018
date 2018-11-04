@@ -34,7 +34,7 @@ func _physics_process(delta):
 	t.text = tt
 	direction = Vector2()
 	on_the_ladder = (currentCell == 1 or cellUnder == 1)
-	if Input.is_action_pressed("ui_up") and on_the_ladder:
+	if Input.is_action_pressed("ui_up") and currentCell == 1:
 		if !obstacle(UP):
 			if $anim.current_animation != "up":
 				$anim.play("up")
@@ -43,28 +43,21 @@ func _physics_process(delta):
 			currentDir = Vector2(0,-1)
 	elif Input.is_action_pressed("ui_down") and on_the_ladder:
 		if !obstacle(DOWN):
-			if $anim.current_animation != "up":
-				$anim.play("up")
 			direction.y = 1
 		if !is_moving:
 			currentDir = Vector2(0,1)
 	elif Input.is_action_pressed("ui_left") and (obstacle(DOWN) or on_the_ladder):
 		if !obstacle(LEFT):
 			direction.x = -1
-			if $anim.current_animation != "left":
-				$anim.play("left")
 		if !is_moving:
 			currentDir = Vector2(-1,0)
 	elif Input.is_action_pressed("ui_right") and (obstacle(DOWN) or on_the_ladder):
 		if !obstacle(RIGHT):
-			if $anim.current_animation != "right":
-				$anim.play("right")
 			direction.x = 1
 		if !is_moving:
 			currentDir = Vector2(1,0)
 	elif !on_the_ladder and !obstacle(DOWN) :
-		if $anim.current_animation != "fall":
-			$anim.play("fall")
+
 		direction.y = 1
 		if !is_moving:
 			currentDir = Vector2(0,1)
@@ -90,7 +83,24 @@ func _physics_process(delta):
 			velocity.y = distance_to_target.y * target_direction.y
 			is_moving = false
 		move_and_collide(velocity)
+	if direction.y == 1:
+		if $anim.current_animation != "fall":
+			$anim.play("fall")
+	elif direction.y == -1:
+		if $anim.current_animation != "up":
+			$anim.play("up")
+	elif direction.x == -1:
+		if $anim.current_animation != "left":
+			$anim.play("left")
+	elif direction.x == 1:
+		if $anim.current_animation != "right":
+			$anim.play("right")
 
+	if direction == Vector2():
+		if $anim.is_playing():
+			$anim.stop()
+		$Sprite.frame = 6
+		
 func obstacle(dir):
 	if dir == UP:
 		return $rays/up.is_colliding() or $rays/up2.is_colliding() 

@@ -2,7 +2,8 @@ extends Node2D
 const cell_size = 64
 const world_size = 128
 var world = []
-var halfs = true
+var offset = Vector2(32,32)
+
 var tilemap = null
 
 func _ready():
@@ -13,10 +14,7 @@ func _ready():
 			world[x].append(null)
 
 func map_to_world(cell):
-	var h = 0
-	if halfs:
-		h = cell_size / 2
-	var pos = Vector2(cell.x * cell_size + h, cell.y * cell_size + h)
+	var pos = Vector2(cell.x * cell_size + offset.x, cell.y * cell_size + offset.y)
 	return pos
 
 func world_to_map(pos):
