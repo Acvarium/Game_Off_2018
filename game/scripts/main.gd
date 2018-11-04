@@ -1,12 +1,14 @@
 extends Node2D
-const cell_size = 64
-const world_size = 128
+var cell_size = 32
+var tile_cell_size = 64
+var world_size = 128
 var world = []
 var offset = Vector2(32,32)
 
 var tilemap = null
 
 func _ready():
+	offset = Vector2(0,0)
 	tilemap = $level/level
 	for x in range(world_size):
 		world.append([])
@@ -23,7 +25,8 @@ func world_to_map(pos):
 	return cell
 
 func current_cell(pos):
-	var cell_pos = world_to_map(pos)
+	pos = pos + Vector2(tile_cell_size/4, tile_cell_size/4)
+	var cell_pos = Vector2(int(pos.x / tile_cell_size), int(pos.y / tile_cell_size))
 	var cell = tilemap.get_cell(cell_pos.x, cell_pos.y)
 	$ui/last_dir.text = str(cell) + " " + str(cell_pos) 
 	return cell

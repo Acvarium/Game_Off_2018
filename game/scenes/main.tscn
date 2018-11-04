@@ -268,9 +268,7 @@ exclude_parent = true
 cast_to = Vector2( 0, -20 )
 collision_mask = 1
 
-[node name="Position2D" type="Position2D" parent="player" index="4"]
-
-[node name="Camera2D" type="Camera2D" parent="player" index="5"]
+[node name="Camera2D" type="Camera2D" parent="player" index="4"]
 
 anchor_mode = 1
 rotating = false
@@ -295,6 +293,27 @@ editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
+
+[node name="points" type="Node2D" parent="player" index="5"]
+
+[node name="p_left" type="Position2D" parent="player/points" index="0"]
+
+position = Vector2( -8, 0 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="p_right" type="Position2D" parent="player/points" index="1"]
+
+position = Vector2( 8, 0 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="p_center" type="Position2D" parent="player/points" index="2"]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="p_down" type="Position2D" parent="player/points" index="3"]
+
+position = Vector2( 0, 14 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
