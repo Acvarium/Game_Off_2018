@@ -24,12 +24,23 @@ func world_to_map(pos):
 	var cell = Vector2(int(pos.x / cell_size), int(pos.y / cell_size))
 	return cell
 
-func current_cell(pos):
+func world_to_tile(pos):
 	pos = pos + Vector2(tile_cell_size/4, tile_cell_size/4)
 	var cell_pos = Vector2(int(pos.x / tile_cell_size), int(pos.y / tile_cell_size))
-	var cell = tilemap.get_cell(cell_pos.x, cell_pos.y)
-	$ui/last_dir.text = str(cell) + " " + str(cell_pos) 
-	return cell
+	var tile = tilemap.get_cell(cell_pos.x, cell_pos.y)
+	$ui/last_dir.text = str(tile) + " " + str(cell_pos) 
+	return tile
+
+func to_64(pos):
+	$ui/dtext3.text = str(world_to_map(pos)) + " " + str(pos)
+	pos = pos + Vector2(tile_cell_size/4, tile_cell_size/4)
+	var cell_pos = Vector2(int(pos.x / tile_cell_size), int(pos.y / tile_cell_size))
+	pos = tilemap.map_to_world(cell_pos)
+	pos.x += 32
+	pos.y += 32
+	var grid_pos = world_to_map(pos)
+	$ui/dtext4.text = str(grid_pos) + " " + str(pos)
+	return pos
 
 func is_cell_vacant(player):
 	var direction = player.direction

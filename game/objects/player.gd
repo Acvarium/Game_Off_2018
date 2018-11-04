@@ -24,16 +24,23 @@ func _physics_process(delta):
 	$rays/down.force_raycast_update()
 	$rays/left.force_raycast_update()
 	$rays/right.force_raycast_update()
-	var currentCell = main_node.current_cell(position)
+	var currentCell = main_node.world_to_tile(position)
 	var pointUnder = position
-	pointUnder.y += 32
-	var cellUnder = main_node.current_cell(pointUnder)
-	
+	pointUnder.y += 28
+	var cellUnder = main_node.world_to_tile(pointUnder)
+	main_node.to_64(position)
 	var t = main_node.get_node("ui/dir")
 	var tt = "UP " + str(obstacle(UP)) + " DOWN " + str(obstacle(DOWN))
 	t.text = tt
 	direction = Vector2()
 	on_the_ladder = (currentCell == 1 or cellUnder == 1)
+	var tile_pos = main_node.to_64(position)
+	if Input.is_action_pressed("B"):
+		if tile_pos.x > position.x:
+			direction.x = 1
+			if !is_moving:
+				currentDir = Vector2(1,0)
+		
 	if Input.is_action_pressed("ui_up") and currentCell == 1:
 		if !obstacle(UP):
 			if $anim.current_animation != "up":
@@ -41,11 +48,20 @@ func _physics_process(delta):
 			direction.y = -1
 		if !is_moving:
 			currentDir = Vector2(0,-1)
+		if tile_pos.x > position.x:
+			direction.x = 1
+			if !is_moving:
+				currentDir = Vector2(1,0)
 	elif Input.is_action_pressed("ui_down") and on_the_ladder:
 		if !obstacle(DOWN):
 			direction.y = 1
 		if !is_moving:
 			currentDir = Vector2(0,1)
+		if tile_pos.x > position.x:
+			direction.x = 1
+			if !is_moving:
+				currentDir = Vector2(1,0)
+		
 	elif Input.is_action_pressed("ui_left") and (obstacle(DOWN) or on_the_ladder):
 		if !obstacle(LEFT):
 			direction.x = -1

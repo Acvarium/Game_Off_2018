@@ -312,7 +312,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="p_down" type="Position2D" parent="player/points" index="3"]
 
-position = Vector2( 0, 14 )
+position = Vector2( 0, 28 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="ui" type="CanvasLayer" parent="." index="2"]
@@ -337,6 +337,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
+text = "1"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -347,15 +348,56 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 30.0
+margin_top = 19.0
 margin_right = 40.0
-margin_bottom = 44.0
+margin_bottom = 33.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
+text = "2"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="dtext3" type="Label" parent="ui" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 40.0
+margin_right = 40.0
+margin_bottom = 54.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "3"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="dtext4" type="Label" parent="ui" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 60.0
+margin_right = 40.0
+margin_bottom = 74.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "4"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
