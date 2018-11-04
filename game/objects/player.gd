@@ -71,7 +71,7 @@ func _physics_process(delta):
 		print(main_node.is_cell_vacant(self))
 		target_direction = direction
 		if main_node.is_cell_vacant(self):
-			target_pos = main_node.update_tank_pos(self)
+			target_pos = main_node.update_player_pos(self)
 			is_moving = true
 	elif is_moving:
 		speed = max_speed
@@ -86,10 +86,6 @@ func _physics_process(delta):
 			is_moving = false
 		
 		move_and_collide(velocity)
-#		if velocity.x < -0.1:
-#			$Sprite.scale.x = -0.5
-#		elif velocity.x > 0.1:
-#			$Sprite.scale.x = 0.5
 
 
 func obstacle(dir):
