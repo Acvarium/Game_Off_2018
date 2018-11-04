@@ -65,7 +65,6 @@ func _physics_process(delta):
 		if $anim.is_playing():
 			$anim.stop()
 	if !is_moving and direction != Vector2():
-		print(main_node.is_cell_vacant(self))
 		target_direction = direction
 		if main_node.is_cell_vacant(self):
 			target_pos = main_node.update_player_pos(self)
@@ -117,10 +116,3 @@ func obstacle(dir):
 	elif dir == RIGHT:
 		return $rays/right.is_colliding() or $rays/right2.is_colliding()
 
-func _on_Area2D_body_entered(body):
-	print("in")
-	on_the_ladder = true
-	
-func _on_Area2D_body_exited(body):
-	print("out")
-	on_the_ladder = false
