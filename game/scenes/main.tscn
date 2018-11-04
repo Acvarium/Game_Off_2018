@@ -296,23 +296,23 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
 
 [node name="points" type="Node2D" parent="player" index="5"]
 
-[node name="p_left" type="Position2D" parent="player/points" index="0"]
+[node name="left" type="Position2D" parent="player/points" index="0"]
 
-position = Vector2( -8, 0 )
+position = Vector2( -20, 0 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="p_right" type="Position2D" parent="player/points" index="1"]
-
-position = Vector2( 8, 0 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="p_center" type="Position2D" parent="player/points" index="2"]
+[node name="center" type="Position2D" parent="player/points" index="1"]
 
 _sections_unfolded = [ "Transform" ]
 
-[node name="p_down" type="Position2D" parent="player/points" index="3"]
+[node name="down" type="Position2D" parent="player/points" index="2"]
 
 position = Vector2( 0, 28 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="l_down" type="Position2D" parent="player/points" index="3"]
+
+position = Vector2( -20, 28 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="ui" type="CanvasLayer" parent="." index="2"]

@@ -25,6 +25,7 @@ func _physics_process(delta):
 	$rays/left.force_raycast_update()
 	$rays/right.force_raycast_update()
 	var currentCell = main_node.world_to_tile(position)
+	
 	var pointUnder = position
 	pointUnder.y += 28
 	var cellUnder = main_node.world_to_tile(pointUnder)
@@ -33,35 +34,44 @@ func _physics_process(delta):
 	var tt = "UP " + str(obstacle(UP)) + " DOWN " + str(obstacle(DOWN))
 	t.text = tt
 	direction = Vector2()
-	on_the_ladder = (currentCell == 1 or cellUnder == 1)
+	
 	var tile_pos = main_node.to_64(position)
+	var l_tile_pos = main_node.to_64($points/left.global_position)
+	var l_cell = main_node.world_to_tile($points/left.global_position)
+	var ld_cell = main_node.world_to_tile($points/l_down.global_position)
+	
+	on_the_ladder = (currentCell == 1 or cellUnder == 1 or l_cell == 1 or ld_cell == 1)
 	if Input.is_action_pressed("B"):
 		if tile_pos.x > position.x:
 			direction.x = 1
 			if !is_moving:
 				currentDir = Vector2(1,0)
-		
-	if Input.is_action_pressed("ui_up") and currentCell == 1:
-		if !obstacle(UP):
-			if $anim.current_animation != "up":
-				$anim.play("up")
-			direction.y = -1
-		if !is_moving:
-			currentDir = Vector2(0,-1)
+	elif Input.is_action_pressed("A"):
 		if tile_pos.x > position.x:
-			direction.x = 1
+			direction.x = -1
 			if !is_moving:
-				currentDir = Vector2(1,0)
-	elif Input.is_action_pressed("ui_down") and on_the_ladder:
-		if !obstacle(DOWN):
-			direction.y = 1
-		if !is_moving:
-			currentDir = Vector2(0,1)
+				currentDir = Vector2(-1,0)
+	if (Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")) and on_the_ladder:
 		if tile_pos.x > position.x:
-			direction.x = 1
+			if currentCell == 1 :
+				direction.x = 1
+				if !is_moving:
+					currentDir = Vector2(1,0)
+			else:
+				direction.x = -1
+				if !is_moving:
+					currentDir = Vector2(-1,0)
+		if Input.is_action_pressed("ui_up") and currentCell == 1:
+			if !obstacle(UP):
+				direction.y = -1
+				if !is_moving:
+					currentDir = Vector2(0,-1)
+		if Input.is_action_pressed("ui_down"):
+			if !obstacle(DOWN):
+				direction.y = 1
 			if !is_moving:
-				currentDir = Vector2(1,0)
-		
+				currentDir = Vector2(0,1)
+			
 	elif Input.is_action_pressed("ui_left") and (obstacle(DOWN) or on_the_ladder):
 		if !obstacle(LEFT):
 			direction.x = -1
@@ -113,11 +123,10 @@ func _physics_process(delta):
 	elif direction.x == 1:
 		if $anim.current_animation != "right":
 			$anim.play("right")
-
 	if direction == Vector2():
 		if $anim.is_playing():
 			$anim.stop()
-		if currentCell == 1:
+		if on_the_ladder and velocity.y != 0:
 			$Sprite.frame = 20
 		else:
 			$Sprite.frame = 6
