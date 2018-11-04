@@ -1,104 +1,80 @@
 extends KinematicBody2D
 
-const GRAVITY = 500.0
-
-const FLOOR_ANGLE_TOLERANCE = 40
-const WALK_FORCE = 600
-const WALK_MIN_SPEED = 10
-const WALK_MAX_SPEED = 200
-const STOP_FORCE = 1300
-const JUMP_SPEED = 200
-const JUMP_MAX_AIRBORNE_TIME = 0.2
-
-const SLIDE_STOP_VELOCITY = 1.0 # one pixel/second
-const SLIDE_STOP_MIN_TRAVEL = 1.0 # one pixel
-
+var target_pos = Vector2()
+var target_direction = Vector2()
+var is_moving = false
 var on_the_ladder = false
+var main_node
+var speed = 0
+var max_speed = 150
 var velocity = Vector2()
-var on_air_time = 100
-var jumping = false
-var dir = Vector2()
-var last_dir = Vector2()
-var prev_jump_pressed = false
+enum ENTITY_TYPES {UP, DOWN, LEFT, RIGHT}
+
+var direction = Vector2()
+var currentDir = Vector2(0,-1)
+
+func _ready():
+	main_node = get_node("/root/main")
+	$rays/up.add_exception(self)
+	$rays/down.add_exception(self)
+	$rays/left.add_exception(self)
+	$rays/right.add_exception(self)
 
 func _physics_process(delta):
-	var force = Vector2(0, GRAVITY)
-	if on_the_ladder:
-		force = Vector2(0, 0)
-	var walk_left = Input.is_action_pressed("ui_left")
-	var walk_right = Input.is_action_pressed("ui_right")
-	var jump = Input.is_action_pressed("jump")
-	var up = Input.is_action_pressed("ui_up")
-	var down = Input.is_action_pressed("ui_down")
-	
-	var stop = true
-	if walk_left:
-		dir.x = -1
-		if velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED:
-			force.x -= WALK_FORCE
-			stop = false
-		if last_dir.x != -1:
-			$anim.play("walk_left")
-	elif walk_right:
-		dir.x = 1
-		if velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED:
-			force.x += WALK_FORCE
-			stop = false
+	var t = main_node.get_node("ui/dir")
+	var tt = "UP " + str(obstacle(UP)) + " DOWN " + str(obstacle(DOWN))
+	t.text = tt
+	direction = Vector2()
+	if Input.is_action_pressed("ui_up"):
+		if !obstacle(UP):
+			direction.y = -1
+		if !is_moving:
+			currentDir = Vector2(0,-1)
+	elif Input.is_action_pressed("ui_down"):
+		if !obstacle(DOWN):
+			direction.y = 1
+		if !is_moving:
+			currentDir = Vector2(0,1)
+	elif Input.is_action_pressed("ui_left"):
+		if !obstacle(LEFT):
+			direction.x = -1
+		if !is_moving:
+			currentDir = Vector2(-1,0)
+	elif Input.is_action_pressed("ui_right"):
+		if !obstacle(RIGHT):
+			direction.x = 1
+		if !is_moving:
+			currentDir = Vector2(1,0)
+
+	if !is_moving and direction != Vector2():
+		print(main_node.is_cell_vacant(self))
+		target_direction = direction
+		if main_node.is_cell_vacant(self):
+			target_pos = main_node.update_tank_pos(self)
+			is_moving = true
+	elif is_moving:
+		speed = max_speed
+		velocity = speed * target_direction * delta
+		var distance_to_target = Vector2(abs(target_pos.x - position.x), abs(target_pos.y - position.y))
+		if abs(velocity.x) > distance_to_target.x:
+			velocity.x = distance_to_target.x * target_direction.x
+			is_moving = false
 			
-		if last_dir.x != 1:
-			$anim.play("walk_right")
-	else:
-		dir.x = 0
-		if $anim.is_playing():
-			$anim.stop()
-	if on_the_ladder:
-		if up:
-			velocity.y = -WALK_MAX_SPEED
-		elif down:
-			velocity.y = WALK_MAX_SPEED
-		else:
-			velocity.y = 0
-			
-	if stop:
+		if abs(velocity.y) > distance_to_target.y:
+			velocity.y = distance_to_target.y * target_direction.y
+			is_moving = false
+		move_and_collide(velocity)
 
-		var vsign = sign(velocity.x)
-		var vlen = abs(velocity.x)
-		
-		vlen -= STOP_FORCE * delta
-		if vlen < 0:
-			vlen = 0
-		
-		velocity.x = vlen * vsign
 
-	# Integrate forces to velocity
-	velocity += force * delta	
-	# Integrate velocity into motion and move
-	velocity = move_and_slide(velocity, Vector2(0, -1))
-	
-	if is_on_floor():
-		on_air_time = 0
-		
-	if jumping and velocity.y > 0:
-		# If falling, no longer jumping
-		jumping = false
-	
-	if on_air_time < JUMP_MAX_AIRBORNE_TIME and jump and not prev_jump_pressed and not jumping:
-		# Jump must also be allowed to happen if the character left the floor a little bit ago.
-		# Makes controls more snappy.
-		velocity.y = -JUMP_SPEED
-		jumping = true
-	
-	on_air_time += delta
-	prev_jump_pressed = jump
-	
-	
-	last_dir = dir
-	
-func _on_Area2D_area_entered(area):
-	print("in")
-
-func _on_Area2D_area_exited(area):
-	print("out")
+func obstacle(dir):
+	if dir == UP:
+		return $rays/up.is_colliding()
+	elif dir == DOWN:
+		return $rays/down.is_colliding() 
+	elif dir == LEFT:
+		return $rays/left.is_colliding()
+	elif dir == RIGHT:
+		return $rays/right.is_colliding()
 
 func _on_Area2D_body_entered(body):
 	print("in")
