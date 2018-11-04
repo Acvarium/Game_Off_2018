@@ -12,7 +12,6 @@ enum ENTITY_TYPES {UP, DOWN, LEFT, RIGHT}
 
 var direction = Vector2()
 var currentDir = Vector2(0,-1)
-
 func _ready():
 	main_node = get_node("/root/main")
 	$rays/up.add_exception(self)
@@ -25,11 +24,16 @@ func _physics_process(delta):
 	$rays/down.force_raycast_update()
 	$rays/left.force_raycast_update()
 	$rays/right.force_raycast_update()
+	var currentCell = main_node.current_cell(position)
+	var pointUnder = position
+	pointUnder.y += 32
+	var cellUnder = main_node.current_cell(pointUnder)
 	
 	var t = main_node.get_node("ui/dir")
 	var tt = "UP " + str(obstacle(UP)) + " DOWN " + str(obstacle(DOWN))
 	t.text = tt
 	direction = Vector2()
+	on_the_ladder = (currentCell == 1 or cellUnder == 1)
 	if Input.is_action_pressed("ui_up") and on_the_ladder:
 		if !obstacle(UP):
 			if $anim.current_animation != "up":
@@ -58,7 +62,7 @@ func _physics_process(delta):
 			direction.x = 1
 		if !is_moving:
 			currentDir = Vector2(1,0)
-	elif !on_the_ladder and !obstacle(DOWN):
+	elif !on_the_ladder and !obstacle(DOWN) :
 		if $anim.current_animation != "fall":
 			$anim.play("fall")
 		direction.y = 1
@@ -77,6 +81,7 @@ func _physics_process(delta):
 		speed = max_speed
 		velocity = speed * target_direction * delta
 		var distance_to_target = Vector2(abs(target_pos.x - position.x), abs(target_pos.y - position.y))
+		
 		if abs(velocity.x) > distance_to_target.x:
 			velocity.x = distance_to_target.x * target_direction.x
 			is_moving = false
@@ -84,9 +89,7 @@ func _physics_process(delta):
 		if abs(velocity.y) > distance_to_target.y:
 			velocity.y = distance_to_target.y * target_direction.y
 			is_moving = false
-		
 		move_and_collide(velocity)
-
 
 func obstacle(dir):
 	if dir == UP:

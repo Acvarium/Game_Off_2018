@@ -3,8 +3,10 @@ const cell_size = 64
 const world_size = 128
 var world = []
 var halfs = true
+var tilemap = null
 
 func _ready():
+	tilemap = $level/level
 	for x in range(world_size):
 		world.append([])
 		for y in range(world_size):
@@ -20,6 +22,12 @@ func map_to_world(cell):
 func world_to_map(pos):
 	pos = pos + Vector2(cell_size/4, cell_size/4)
 	var cell = Vector2(int(pos.x / cell_size), int(pos.y / cell_size))
+	return cell
+
+func current_cell(pos):
+	var cell_pos = world_to_map(pos)
+	var cell = tilemap.get_cell(cell_pos.x, cell_pos.y)
+	$ui/last_dir.text = str(cell) + " " + str(cell_pos) 
 	return cell
 
 func is_cell_vacant(player):
