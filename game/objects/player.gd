@@ -84,7 +84,10 @@ func _physics_process(delta):
 			is_moving = false
 		move_and_collide(velocity)
 	if direction.y == 1:
-		if $anim.current_animation != "fall":
+		if on_the_ladder:
+			if $anim.current_animation != "up":
+				$anim.play("up")
+		elif $anim.current_animation != "fall":
 			$anim.play("fall")
 	elif direction.y == -1:
 		if $anim.current_animation != "up":
@@ -99,7 +102,10 @@ func _physics_process(delta):
 	if direction == Vector2():
 		if $anim.is_playing():
 			$anim.stop()
-		$Sprite.frame = 6
+		if currentCell == 1:
+			$Sprite.frame = 20
+		else:
+			$Sprite.frame = 6
 		
 func obstacle(dir):
 	if dir == UP:
