@@ -24,11 +24,15 @@ func _physics_process(delta):
 	$rays/down.force_raycast_update()
 	$rays/left.force_raycast_update()
 	$rays/right.force_raycast_update()
-	var currentCell = main_node.world_to_tile(position)
+	
+	$points/center/x.visible = (main_node.world_to_tile($points/center.global_position) == 1)
+	$points/left/x.visible = (main_node.world_to_tile($points/left.global_position) == 1)
+	$points/down/x.visible = (main_node.world_to_tile($points/down.global_position) == 1)
+	$points/l_down/x.visible = (main_node.world_to_tile($points/l_down.global_position) == 1)
+	
 	
 	var pointUnder = position
 	pointUnder.y += 28
-	var cellUnder = main_node.world_to_tile(pointUnder)
 	main_node.to_64(position)
 	var t = main_node.get_node("ui/dir")
 	var tt = "UP " + str(obstacle(UP)) + " DOWN " + str(obstacle(DOWN))
@@ -37,10 +41,13 @@ func _physics_process(delta):
 	
 	var tile_pos = main_node.to_64(position)
 	var l_tile_pos = main_node.to_64($points/left.global_position)
+	
+	var c_cell = main_node.world_to_tile(position)
 	var l_cell = main_node.world_to_tile($points/left.global_position)
 	var ld_cell = main_node.world_to_tile($points/l_down.global_position)
+	var d_cell = main_node.world_to_tile(pointUnder)
 	
-	on_the_ladder = (currentCell == 1 or cellUnder == 1 or l_cell == 1 or ld_cell == 1)
+	on_the_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	if Input.is_action_pressed("B"):
 		if tile_pos.x > position.x:
 			direction.x = 1
@@ -53,7 +60,7 @@ func _physics_process(delta):
 				currentDir = Vector2(-1,0)
 	if (Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")) and on_the_ladder:
 		if tile_pos.x > position.x:
-			if currentCell == 1 :
+			if c_cell == 1 or d_cell == 1:
 				direction.x = 1
 				if !is_moving:
 					currentDir = Vector2(1,0)
@@ -61,7 +68,7 @@ func _physics_process(delta):
 				direction.x = -1
 				if !is_moving:
 					currentDir = Vector2(-1,0)
-		if Input.is_action_pressed("ui_up") and currentCell == 1:
+		if Input.is_action_pressed("ui_up") and c_cell == 1:
 			if !obstacle(UP):
 				direction.y = -1
 				if !is_moving:
@@ -129,8 +136,9 @@ func _physics_process(delta):
 		if on_the_ladder and velocity.y != 0:
 			$Sprite.frame = 20
 		else:
-			$Sprite.frame = 6
-		
+			if abs(velocity.x) < 3:
+				$Sprite.frame = 6
+					
 func obstacle(dir):
 	if dir == UP:
 		return $rays/up.is_colliding() or $rays/up2.is_colliding() 
