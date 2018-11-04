@@ -6,7 +6,7 @@ var is_moving = false
 var on_the_ladder = false
 var main_node
 var speed = 0
-var max_speed = 200
+var max_speed = 350
 var velocity = Vector2()
 enum ENTITY_TYPES {UP, DOWN, LEFT, RIGHT}
 
@@ -32,29 +32,41 @@ func _physics_process(delta):
 	direction = Vector2()
 	if Input.is_action_pressed("ui_up") and on_the_ladder:
 		if !obstacle(UP):
+			if $anim.current_animation != "up":
+				$anim.play("up")
 			direction.y = -1
 		if !is_moving:
 			currentDir = Vector2(0,-1)
 	elif Input.is_action_pressed("ui_down") and on_the_ladder:
 		if !obstacle(DOWN):
+			if $anim.current_animation != "up":
+				$anim.play("up")
 			direction.y = 1
 		if !is_moving:
 			currentDir = Vector2(0,1)
 	elif Input.is_action_pressed("ui_left") and (obstacle(DOWN) or on_the_ladder):
 		if !obstacle(LEFT):
 			direction.x = -1
+			if $anim.current_animation != "left":
+				$anim.play("left")
 		if !is_moving:
 			currentDir = Vector2(-1,0)
 	elif Input.is_action_pressed("ui_right") and (obstacle(DOWN) or on_the_ladder):
 		if !obstacle(RIGHT):
+			if $anim.current_animation != "right":
+				$anim.play("right")
 			direction.x = 1
 		if !is_moving:
 			currentDir = Vector2(1,0)
 	elif !on_the_ladder and !obstacle(DOWN):
+		if $anim.current_animation != "fall":
+			$anim.play("fall")
 		direction.y = 1
 		if !is_moving:
 			currentDir = Vector2(0,1)
-
+	else:
+		if $anim.is_playing():
+			$anim.stop()
 	if !is_moving and direction != Vector2():
 		print(main_node.is_cell_vacant(self))
 		target_direction = direction
@@ -74,10 +86,10 @@ func _physics_process(delta):
 			is_moving = false
 		
 		move_and_collide(velocity)
-		if velocity.x < -0.1:
-			$Sprite.scale.x = -0.5
-		elif velocity.x > 0.1:
-			$Sprite.scale.x = 0.5
+#		if velocity.x < -0.1:
+#			$Sprite.scale.x = -0.5
+#		elif velocity.x > 0.1:
+#			$Sprite.scale.x = 0.5
 
 
 func obstacle(dir):
