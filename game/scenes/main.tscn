@@ -304,6 +304,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="x" type="Sprite" parent="player/points/left" index="0"]
 
+visible = false
 modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
@@ -314,6 +315,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="x" type="Sprite" parent="player/points/center" index="0"]
 
+visible = false
 modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
@@ -325,6 +327,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="x" type="Sprite" parent="player/points/down" index="0"]
 
+visible = false
 modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
@@ -336,6 +339,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="x" type="Sprite" parent="player/points/l_down" index="0"]
 
+visible = false
 modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]

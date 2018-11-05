@@ -25,11 +25,10 @@ func _physics_process(delta):
 	$rays/left.force_raycast_update()
 	$rays/right.force_raycast_update()
 	
-	$points/center/x.visible = (main_node.world_to_tile($points/center.global_position) == 1)
-	$points/left/x.visible = (main_node.world_to_tile($points/left.global_position) == 1)
-	$points/down/x.visible = (main_node.world_to_tile($points/down.global_position) == 1)
-	$points/l_down/x.visible = (main_node.world_to_tile($points/l_down.global_position) == 1)
-	
+#	$points/center/x.visible = (main_node.world_to_tile($points/center.global_position) == 1)
+#	$points/left/x.visible = (main_node.world_to_tile($points/left.global_position) == 1)
+#	$points/down/x.visible = (main_node.world_to_tile($points/down.global_position) == 1)
+#	$points/l_down/x.visible = (main_node.world_to_tile($points/l_down.global_position) == 1)
 	
 	var pointUnder = position
 	pointUnder.y += 28
