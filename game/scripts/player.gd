@@ -47,7 +47,7 @@ func _physics_process(delta):
 #	$points/down/x.visible = d_cell == 1
 #	$points/l_down/x.visible = ld_cell == 1
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
-	var on_pipe = t_type(c_cell) == 2  or t_type(l_cell) == 2 
+	var on_pipe = (t_type(c_cell) == 2  or t_type(l_cell) == 2) and tile_pos.y <= position.y
 	on_the_ladder = on_ladder or on_pipe
 	if cooldown and abs(direction.y) == 0:
 		if Input.is_action_pressed("B"):
