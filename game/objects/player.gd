@@ -60,7 +60,15 @@ func _physics_process(delta):
 				currentDir = Vector2(-1,0)
 	if (Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")) and on_the_ladder:
 		if tile_pos.x > position.x:
-			if c_cell == 1 or d_cell == 1:
+			var go_right = (c_cell == 1 or d_cell == 1)
+			if (Input.is_action_pressed("ui_up") and c_cell == 1 and d_cell != 1):
+				go_right = true
+			elif Input.is_action_pressed("ui_up") and l_cell == 1 and ld_cell != 1:
+				go_right = false
+			elif Input.is_action_pressed("ui_down") and ld_cell == 1 and d_cell != 1:
+				go_right = false
+				
+			if go_right:
 				direction.x = 1
 				if !is_moving:
 					currentDir = Vector2(1,0)

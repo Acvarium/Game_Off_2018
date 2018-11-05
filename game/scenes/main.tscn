@@ -299,7 +299,6 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
 
 [node name="left" type="Position2D" parent="player/points" index="0"]
 
-editor/display_folded = true
 position = Vector2( -20, 0 )
 _sections_unfolded = [ "Transform" ]
 
