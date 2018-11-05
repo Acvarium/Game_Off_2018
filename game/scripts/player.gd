@@ -46,8 +46,9 @@ func _physics_process(delta):
 #	$points/left/x.visible = l_cell == 1
 #	$points/down/x.visible = d_cell == 1
 #	$points/l_down/x.visible = ld_cell == 1
-	
-	on_the_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
+	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
+	var on_pipe = t_type(c_cell) == 2  or t_type(l_cell) == 2 
+	on_the_ladder = on_ladder or on_pipe
 	if cooldown and abs(direction.y) == 0:
 		if Input.is_action_pressed("B"):
 			var cell_to_empty = main_node.world_to_tile_pos(position)
@@ -82,7 +83,7 @@ func _physics_process(delta):
 					$Sprite.frame = 19
 	
 	if (Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")) and on_the_ladder:
-		if tile_pos.x > position.x:
+		if tile_pos.x > position.x and t_type(c_cell) != 2:
 			var go_right = (c_cell == 1 or d_cell == 1)
 			if (Input.is_action_pressed("ui_up") and c_cell == 1 and d_cell != 1):
 				go_right = true
@@ -156,24 +157,39 @@ func _physics_process(delta):
 		if $anim.current_animation != "up":
 			$anim.play("up")
 	elif direction.x == -1:
-		if $anim.current_animation != "left":
-			$anim.play("left")
+		if t_type(c_cell) == 2:
+			if $anim.current_animation != "up":
+				$anim.play("up")
+		else:
+			if $anim.current_animation != "left":
+				$anim.play("left")
 	elif direction.x == 1:
-		if $anim.current_animation != "right":
-			$anim.play("right")
+		if t_type(c_cell) == 2:
+			if $anim.current_animation != "up":
+				$anim.play("up")
+		else:
+			if $anim.current_animation != "right":
+				$anim.play("right")
 	if direction == Vector2():
 		if $anim.is_playing():
 			$anim.stop()
 		if on_the_ladder and velocity.y != 0:
 			$Sprite.frame = 20
 		else:
-			if abs(velocity.x) < 3:
+			if abs(velocity.x) < 3 and t_type(c_cell) != 2:
 				$Sprite.frame = 6
 
 func can_be_holed(cell):
-	if cell == -1 or cell == 1 or cell == 2 or cell == 6 or cell == 7 or cell == 8:
-		return false
-	return true
+	var cell_name = main_node.get_tile_name(cell)
+	return cell_name.left(1) == 'g'
+
+func t_type(cell):
+	var cell_name = main_node.get_tile_name(cell)
+	if cell_name == 'ladder':
+		return 1
+	if cell_name.left(1) == 'p':
+		return 2
+	return -1
 
 func obstacle(dir):
 	if dir == UP:

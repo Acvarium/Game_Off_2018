@@ -46,8 +46,7 @@ func add_empty_cell(cell_pos):
 func get_cell(cell_pos):
 	return tilemap.get_cell(cell_pos.x, cell_pos.y)
 
-func get_tile_name(cell_pos):
-	var cell = get_cell(cell_pos)
+func get_tile_name(cell):
 	return tilemap.tile_set.tile_get_name(cell)
 
 func replace_cell(cell_pos, cell):
