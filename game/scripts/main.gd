@@ -35,19 +35,20 @@ func world_to_tile_pos(pos):
 	var cell_pos = Vector2(int(pos.x / tile_cell_size), int(pos.y / tile_cell_size))
 	return cell_pos
 
-
 func add_empty_cell(cell_pos):
 	var empty_cell = empty_cell_obj.instance()
 	$level.add_child(empty_cell)
 	empty_cell.cell = tilemap.get_cell(cell_pos.x, cell_pos.y)
-	print(empty_cell.cell)
 	empty_cell.cell_pos = cell_pos
 	empty_cell.position = tilemap.map_to_world(cell_pos) + Vector2(32,32)
 	replace_cell(cell_pos, -1)
-#func tile_to_world_pos(cell_pos):
 
 func get_cell(cell_pos):
 	return tilemap.get_cell(cell_pos.x, cell_pos.y)
+
+func get_tile_name(cell_pos):
+	var cell = get_cell(cell_pos)
+	return tilemap.tile_set.tile_get_name(cell)
 
 func replace_cell(cell_pos, cell):
 	tilemap.set_cell(cell_pos.x, cell_pos.y, cell)
