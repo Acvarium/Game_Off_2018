@@ -42,6 +42,11 @@ func _physics_process(delta):
 	var ld_cell = main_node.world_to_tile($points/l_down.global_position)
 	var d_cell = main_node.world_to_tile(pointUnder)
 	
+#	$points/center/x.visible = c_cell == 1
+#	$points/left/x.visible = l_cell == 1
+#	$points/down/x.visible = d_cell == 1
+#	$points/l_down/x.visible = ld_cell == 1
+	
 	on_the_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	if cooldown:
 		if Input.is_action_pressed("B"):
@@ -81,7 +86,7 @@ func _physics_process(delta):
 			var go_right = (c_cell == 1 or d_cell == 1)
 			if (Input.is_action_pressed("ui_up") and c_cell == 1 and d_cell != 1):
 				go_right = true
-			elif Input.is_action_pressed("ui_up") and l_cell == 1 and ld_cell != 1:
+			elif Input.is_action_pressed("ui_up") and l_cell == 1 and c_cell != 1:
 				go_right = false
 			elif Input.is_action_pressed("ui_down") and ld_cell == 1 and d_cell != 1:
 				go_right = false
