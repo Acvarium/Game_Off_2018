@@ -48,7 +48,7 @@ func _physics_process(delta):
 #	$points/l_down/x.visible = ld_cell == 1
 	
 	on_the_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
-	if cooldown:
+	if cooldown and abs(direction.y) == 0:
 		if Input.is_action_pressed("B"):
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x -= 1
