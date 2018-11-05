@@ -9,6 +9,7 @@ var speed = 0
 var max_speed = 350
 var velocity = Vector2()
 enum ENTITY_TYPES {UP, DOWN, LEFT, RIGHT}
+var cooldown = true
 
 var direction = Vector2()
 var currentDir = Vector2(0,-1)
@@ -24,11 +25,6 @@ func _physics_process(delta):
 	$rays/down.force_raycast_update()
 	$rays/left.force_raycast_update()
 	$rays/right.force_raycast_update()
-	
-#	$points/center/x.visible = (main_node.world_to_tile($points/center.global_position) == 1)
-#	$points/left/x.visible = (main_node.world_to_tile($points/left.global_position) == 1)
-#	$points/down/x.visible = (main_node.world_to_tile($points/down.global_position) == 1)
-#	$points/l_down/x.visible = (main_node.world_to_tile($points/l_down.global_position) == 1)
 	
 	var pointUnder = position
 	pointUnder.y += 28
@@ -47,16 +43,39 @@ func _physics_process(delta):
 	var d_cell = main_node.world_to_tile(pointUnder)
 	
 	on_the_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
-	if Input.is_action_pressed("B"):
-		if tile_pos.x > position.x:
-			direction.x = 1
-			if !is_moving:
-				currentDir = Vector2(1,0)
-	elif Input.is_action_pressed("A"):
-		if tile_pos.x > position.x:
-			direction.x = -1
-			if !is_moving:
-				currentDir = Vector2(-1,0)
+	if cooldown:
+		if Input.is_action_pressed("B"):
+			var cell_to_empty = main_node.world_to_tile_pos(position)
+			cell_to_empty.x -= 1
+			cell_to_empty.y += 1
+			var _cell = main_node.get_cell(cell_to_empty) 
+			if can_be_holed(_cell):
+				if tile_pos.x > position.x:
+					direction.x = 1
+					if !is_moving:
+						currentDir = Vector2(1,0)
+				else:
+					main_node.add_empty_cell(cell_to_empty)
+					cooldown = false
+					$cooldown.start()
+					$Sprite.frame = 17
+		
+		elif Input.is_action_pressed("A"):
+			var cell_to_empty = main_node.world_to_tile_pos(position)
+			cell_to_empty.x += 1
+			cell_to_empty.y += 1
+			var _cell = main_node.get_cell(cell_to_empty) 
+			if can_be_holed(_cell):
+				if tile_pos.x > position.x:
+					direction.x = -1
+					if !is_moving:
+						currentDir = Vector2(-1,0)
+				else:
+					main_node.add_empty_cell(cell_to_empty)
+					cooldown = false
+					$cooldown.start()
+					$Sprite.frame = 19
+	
 	if (Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")) and on_the_ladder:
 		if tile_pos.x > position.x:
 			var go_right = (c_cell == 1 or d_cell == 1)
@@ -145,7 +164,12 @@ func _physics_process(delta):
 		else:
 			if abs(velocity.x) < 3:
 				$Sprite.frame = 6
-					
+
+func can_be_holed(cell):
+	if cell == -1 or cell == 1:
+		return false
+	return true
+
 func obstacle(dir):
 	if dir == UP:
 		return $rays/up.is_colliding() or $rays/up2.is_colliding() 
@@ -156,3 +180,5 @@ func obstacle(dir):
 	elif dir == RIGHT:
 		return $rays/right.is_colliding() or $rays/right2.is_colliding()
 
+func _on_cooldown_timeout():
+	cooldown = true

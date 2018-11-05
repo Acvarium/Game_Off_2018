@@ -4,7 +4,7 @@ var tile_cell_size = 64
 var world_size = 128
 var world = []
 var offset = Vector2(32,32)
-
+var empty_cell_obj = load("res://objects/empty_cell.tscn")
 var tilemap = null
 
 func _ready():
@@ -25,11 +25,32 @@ func world_to_map(pos):
 	return cell
 
 func world_to_tile(pos):
-	pos = pos + Vector2(tile_cell_size/4, tile_cell_size/4)
-	var cell_pos = Vector2(int(pos.x / tile_cell_size), int(pos.y / tile_cell_size))
+	var cell_pos = world_to_tile_pos(pos)
 	var tile = tilemap.get_cell(cell_pos.x, cell_pos.y)
 	$ui/last_dir.text = str(tile) + " " + str(cell_pos) 
 	return tile
+
+func world_to_tile_pos(pos):
+	pos = pos + Vector2(tile_cell_size/4, tile_cell_size/4)
+	var cell_pos = Vector2(int(pos.x / tile_cell_size), int(pos.y / tile_cell_size))
+	return cell_pos
+
+
+func add_empty_cell(cell_pos):
+	var empty_cell = empty_cell_obj.instance()
+	$level.add_child(empty_cell)
+	empty_cell.cell = tilemap.get_cell(cell_pos.x, cell_pos.y)
+	print(empty_cell.cell)
+	empty_cell.cell_pos = cell_pos
+	empty_cell.position = tilemap.map_to_world(cell_pos) + Vector2(32,32)
+	replace_cell(cell_pos, -1)
+#func tile_to_world_pos(cell_pos):
+
+func get_cell(cell_pos):
+	return tilemap.get_cell(cell_pos.x, cell_pos.y)
+
+func replace_cell(cell_pos, cell):
+	tilemap.set_cell(cell_pos.x, cell_pos.y, cell)
 
 func to_64(pos):
 	$ui/dtext3.text = str(world_to_map(pos)) + " " + str(pos)
