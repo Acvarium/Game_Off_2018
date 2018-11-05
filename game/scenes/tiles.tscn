@@ -125,4 +125,104 @@ bounce = 0.0
 visible = false
 shape = SubResource( 1 )
 
+[node name="tiles6" type="Sprite" parent="." index="6"]
+
+editor/display_folded = true
+position = Vector2( 778.911, 665.141 )
+texture = ExtResource( 1 )
+vframes = 7
+hframes = 10
+frame = 24
+_sections_unfolded = [ "Animation" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="tiles6" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tiles6/StaticBody2D" index="0"]
+
+visible = false
+shape = SubResource( 1 )
+
+[node name="tiles7" type="Sprite" parent="." index="7"]
+
+editor/display_folded = true
+position = Vector2( 648.911, 665.141 )
+texture = ExtResource( 1 )
+vframes = 7
+hframes = 10
+frame = 23
+_sections_unfolded = [ "Animation" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="tiles7" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tiles7/StaticBody2D" index="0"]
+
+visible = false
+shape = SubResource( 1 )
+
+[node name="tiles8" type="Sprite" parent="." index="8"]
+
+editor/display_folded = true
+position = Vector2( 848.911, 665.141 )
+texture = ExtResource( 1 )
+vframes = 7
+hframes = 10
+frame = 25
+_sections_unfolded = [ "Animation" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="tiles8" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tiles8/StaticBody2D" index="0"]
+
+visible = false
+shape = SubResource( 1 )
+
+[node name="tiles9" type="Sprite" parent="." index="9"]
+
+editor/display_folded = true
+position = Vector2( 978.911, 665.141 )
+texture = ExtResource( 1 )
+vframes = 7
+hframes = 10
+frame = 26
+_sections_unfolded = [ "Animation" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="tiles9" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tiles9/StaticBody2D" index="0"]
+
+visible = false
+shape = SubResource( 1 )
+
 
