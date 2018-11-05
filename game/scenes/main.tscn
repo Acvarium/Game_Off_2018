@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=2]
-[ext_resource path="res://objects/empty_cell.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/player.gd" type="Script" id=4]
-[ext_resource path="res://textures/hero.png" type="Texture" id=5]
-[ext_resource path="res://textures/4x.png" type="Texture" id=6]
+[ext_resource path="res://scripts/player.gd" type="Script" id=3]
+[ext_resource path="res://textures/hero.png" type="Texture" id=4]
+[ext_resource path="res://textures/4x.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -161,8 +160,6 @@ format = 1
 tile_data = PoolIntArray( 15, 2, 0, 65550, 2, 0, 65551, 1, 0, 65552, 2, 0, 131086, 1, 0, 131087, 1, 0, 131088, 1, 0, 131091, 2, 0, 196622, 1, 0, 196623, 1, 0, 196624, 1, 0, 196627, 1, 0, 196628, 3, 0, 196629, 0, 0, 196630, 0, 0, 196631, 4, 0, 262158, 5, 0, 262159, 1, 0, 262160, 3, 0, 262161, 0, 0, 262162, 4, 0, 262163, 1073741826, 0, 262168, 5, 0, 327690, 2, 0, 327695, 1, 0, 327705, 5, 0, 393221, 3, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 4, 0, 393226, 1, 0, 393231, 1, 0, 393242, 5, 0, 393245, 2, 0, 458762, 1, 0, 458766, 2, 0, 458767, 1, 0, 458768, 2, 0, 458779, 3, 0, 458780, 4, 0, 458781, 1, 0, 458782, 3, 0, 458783, 0, 0, 458784, 4, 0, 524298, 1, 0, 524301, 5, 0, 524302, 1, 0, 524303, 5, 0, 524304, 1, 0, 524305, 5, 0, 524317, 1, 0, 589834, 1, 0, 589838, 1, 0, 589840, 1, 0, 589853, 1, 0, 655361, 3, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 4, 0, 655370, 1, 0, 655371, 3, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 4, 0, 655383, 2, 0, 655389, 1, 0, 720906, 1, 0, 720919, 1, 0, 720920, 3, 0, 720921, 0, 0, 720922, 0, 0, 720923, 0, 0, 720924, 4, 0, 720925, 1, 0, 786442, 1, 0, 786455, 1, 0, 786461, 1073741826, 0, 851978, 1, 0, 851991, 1, 0, 917511, 3, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 4, 0, 917527, 1, 0, 917540, 2, 0, 983063, 1, 0, 983064, 3, 0, 983065, 0, 0, 983066, 0, 0, 983067, 0, 0, 983068, 0, 0, 983069, 0, 0, 983070, 4, 0, 983072, 3, 0, 983073, 0, 0, 983074, 0, 0, 983075, 4, 0, 983076, 1, 0, 1048599, 1, 0, 1048612, 1, 0, 1114135, 1, 0, 1114148, 1, 0, 1179671, 1, 0, 1179675, 2, 0, 1179684, 1, 0, 1245204, 3, 0, 1245205, 0, 0, 1245206, 0, 0, 1245207, 0, 0, 1245208, 0, 0, 1245209, 0, 0, 1245210, 4, 0, 1245211, 1, 0, 1245220, 1, 0, 1310747, 1, 0, 1310752, 3, 0, 1310753, 0, 0, 1310754, 0, 0, 1310755, 0, 0, 1310756, 0, 0, 1310757, 0, 0, 1310758, 4, 0, 1376283, 1, 0, 1376287, 5, 0, 1441819, 1, 0, 1441822, 5, 0, 1507355, 3, 0, 1507356, 0, 0, 1507357, 4, 0 )
 _sections_unfolded = [ "Cell" ]
 
-[node name="empty_cell" parent="level" index="1" instance=ExtResource( 3 )]
-
 [node name="player" type="KinematicBody2D" parent="." index="1"]
 
 position = Vector2( 544, 352 )
@@ -170,7 +167,7 @@ input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 _sections_unfolded = [ "Transform", "collision" ]
 __meta__ = {
 "_edit_group_": true
@@ -179,7 +176,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="player" index="0"]
 
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 vframes = 3
 hframes = 8
 frame = 17
@@ -311,7 +308,7 @@ _sections_unfolded = [ "Transform" ]
 
 visible = false
 modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="center" type="Position2D" parent="player/points" index="1"]
@@ -322,7 +319,7 @@ _sections_unfolded = [ "Transform" ]
 
 visible = false
 modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="down" type="Position2D" parent="player/points" index="2"]
@@ -334,7 +331,7 @@ _sections_unfolded = [ "Transform" ]
 
 visible = false
 modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="l_down" type="Position2D" parent="player/points" index="3"]
@@ -346,7 +343,7 @@ _sections_unfolded = [ "Transform" ]
 
 visible = false
 modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="cooldown" type="Timer" parent="player" index="6"]
@@ -358,7 +355,6 @@ autostart = false
 
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0

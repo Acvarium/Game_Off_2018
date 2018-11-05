@@ -166,7 +166,7 @@ func _physics_process(delta):
 				$Sprite.frame = 6
 
 func can_be_holed(cell):
-	if cell == -1 or cell == 1:
+	if cell == -1 or cell == 1 or cell == 2:
 		return false
 	return true
 
