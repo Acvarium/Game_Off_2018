@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=2]
 [ext_resource path="res://scripts/player.gd" type="Script" id=3]
 [ext_resource path="res://textures/hero.png" type="Texture" id=4]
 [ext_resource path="res://textures/4x.png" type="Texture" id=5]
+[ext_resource path="res://sounds/blaster.ogg" type="AudioStream" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -352,6 +353,19 @@ process_mode = 1
 wait_time = 1.5
 one_shot = true
 autostart = false
+
+[node name="sounds" type="Node2D" parent="player" index="7"]
+
+[node name="blaster" type="AudioStreamPlayer2D" parent="player/sounds" index="0"]
+
+stream = ExtResource( 6 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
 
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 

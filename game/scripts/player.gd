@@ -61,33 +61,31 @@ func _physics_process(delta):
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x -= 1
 			cell_to_empty.y += 1
-			var _cell = main_node.get_cell(cell_to_empty) 
-			if can_be_holed(_cell):
-				if tile_pos.x > position.x:
-					direction.x = 1
-					if !is_moving:
-						currentDir = Vector2(1,0)
-				else:
-					main_node.add_empty_cell(cell_to_empty)
-					cooldown = false
-					$cooldown.start()
-					$Sprite.frame = 17
+			if tile_pos.x > position.x:
+				direction.x = 1
+				if !is_moving:
+					currentDir = Vector2(1,0)
+			elif can_be_holed(cell_to_empty):
+				$sounds/blaster.play()
+				main_node.add_empty_cell(cell_to_empty)
+				cooldown = false
+				$cooldown.start()
+				$Sprite.frame = 17
 		
 		elif Input.is_action_pressed("A"):
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x += 1
 			cell_to_empty.y += 1
-			var _cell = main_node.get_cell(cell_to_empty) 
-			if can_be_holed(_cell):
-				if tile_pos.x > position.x:
-					direction.x = -1
-					if !is_moving:
-						currentDir = Vector2(-1,0)
-				else:
-					main_node.add_empty_cell(cell_to_empty)
-					cooldown = false
-					$cooldown.start()
-					$Sprite.frame = 19
+			if tile_pos.x > position.x:
+				direction.x = -1
+				if !is_moving:
+					currentDir = Vector2(-1,0)
+			elif can_be_holed(cell_to_empty):
+				$sounds/blaster.play()
+				main_node.add_empty_cell(cell_to_empty)
+				cooldown = false
+				$cooldown.start()
+				$Sprite.frame = 19
 	
 
 	var can_move_up = (Input.is_action_pressed("ui_up") and (c_cell_t == 1 or l_cell_t == 1))
@@ -189,9 +187,17 @@ func _physics_process(delta):
 			if abs(velocity.x) < 3 and !(t_type(c_cell) == 2 or t_type(l_cell) == 2):
 				$Sprite.frame = 6
 
-func can_be_holed(cell):
-	var cell_name = main_node.get_tile_name(cell)
-	return cell_name.left(1) == 'g'
+func can_be_holed(cell_pos):
+	var _cell = main_node.get_cell(cell_pos) 
+	var cell_name = main_node.get_tile_name(_cell)
+	if cell_name.left(1) == 'g':
+		var up_cell_pos = cell_pos
+		up_cell_pos.y -= 1
+		var up_cell = main_node.get_cell(up_cell_pos)
+		var up_cell_name = main_node.get_tile_name(up_cell)
+		if up_cell == -1 or up_cell_name == "ladder_top":
+			return true
+	return false
 
 func t_type(cell):
 	var cell_name = main_node.get_tile_name(cell)
