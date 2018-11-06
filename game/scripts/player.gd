@@ -92,7 +92,7 @@ func _physics_process(delta):
 	var can_move_down = Input.is_action_pressed("ui_down") 
 	
 	if can_move_up or can_move_down:
-		if tile_pos.x > position.x and t_type(c_cell) != 2:
+		if tile_pos.x > position.x:
 			var go_right = (c_cell == 1 or d_cell == 1)
 			if (Input.is_action_pressed("ui_up") and c_cell == 1 and d_cell != 1):
 				go_right = true
