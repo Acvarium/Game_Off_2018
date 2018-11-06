@@ -41,15 +41,20 @@ func _physics_process(delta):
 	var l_cell = main_node.world_to_tile($points/left.global_position)
 	var ld_cell = main_node.world_to_tile($points/l_down.global_position)
 	var d_cell = main_node.world_to_tile(pointUnder)
-
-	$points/center/x.visible = c_cell == 1
-	$points/left/x.visible = l_cell == 1
-	$points/down/x.visible = d_cell == 1
-	$points/l_down/x.visible = ld_cell == 1
 	
+	var c_cell_t = t_type(c_cell)
+	var l_cell_t = t_type(l_cell)
+	var ld_cell_t = t_type(ld_cell)
+	var d_cell_t = t_type(d_cell)
+	
+	var debug_type = 2
+	$points/center/x.visible = c_cell_t ==  debug_type
+	$points/left/x.visible = l_cell_t ==  debug_type
+	$points/down/x.visible = d_cell_t ==  debug_type
+	$points/l_down/x.visible = ld_cell_t ==  debug_type
 	
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
-	var on_pipe = (t_type(c_cell) == 2  or t_type(l_cell) == 2) and tile_pos.y <= position.y
+	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
 	on_the_ladder = on_ladder or on_pipe
 	if cooldown and abs(direction.y) == 0:
 		if Input.is_action_pressed("B"):
@@ -84,10 +89,7 @@ func _physics_process(delta):
 					$cooldown.start()
 					$Sprite.frame = 19
 	
-	var c_cell_t = t_type(c_cell)
-	var l_cell_t = t_type(l_cell)
-#	var ld_cell_t = t_type(ld_cell)
-#	var d_cell_t = t_type(d_cell)
+
 	var can_move_up = (Input.is_action_pressed("ui_up") and (c_cell_t == 1 or l_cell_t == 1))
 	var can_move_down = Input.is_action_pressed("ui_down") 
 	
@@ -165,14 +167,14 @@ func _physics_process(delta):
 		if $anim.current_animation != "up":
 			$anim.play("up")
 	elif direction.x == -1:
-		if t_type(c_cell) == 2:
+		if c_cell_t == 2:
 			if $anim.current_animation != "up":
 				$anim.play("up")
 		else:
 			if $anim.current_animation != "left":
 				$anim.play("left")
 	elif direction.x == 1:
-		if t_type(c_cell) == 2:
+		if c_cell_t == 2 or l_cell_t == 2:
 			if $anim.current_animation != "up":
 				$anim.play("up")
 		else:
@@ -184,7 +186,7 @@ func _physics_process(delta):
 		if on_the_ladder and velocity.y != 0:
 			$Sprite.frame = 20
 		else:
-			if abs(velocity.x) < 3 and t_type(c_cell) != 2:
+			if abs(velocity.x) < 3 and !(t_type(c_cell) == 2 or t_type(l_cell) == 2):
 				$Sprite.frame = 6
 
 func can_be_holed(cell):
