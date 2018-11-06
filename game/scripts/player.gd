@@ -42,10 +42,10 @@ func _physics_process(delta):
 	var ld_cell = main_node.world_to_tile($points/l_down.global_position)
 	var d_cell = main_node.world_to_tile(pointUnder)
 	
-#	$points/center/x.visible = c_cell == 1
-#	$points/left/x.visible = l_cell == 1
-#	$points/down/x.visible = d_cell == 1
-#	$points/l_down/x.visible = ld_cell == 1
+	$points/center/x.visible = c_cell == 1
+	$points/left/x.visible = l_cell == 1
+	$points/down/x.visible = d_cell == 1
+	$points/l_down/x.visible = ld_cell == 1
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	var on_pipe = (t_type(c_cell) == 2  or t_type(l_cell) == 2) and tile_pos.y <= position.y
 	on_the_ladder = on_ladder or on_pipe
@@ -82,7 +82,14 @@ func _physics_process(delta):
 					$cooldown.start()
 					$Sprite.frame = 19
 	
-	if (Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")) and on_the_ladder:
+	var c_cell_t = t_type(c_cell)
+	var l_cell_t = t_type(l_cell)
+	var ld_cell_t = t_type(ld_cell)
+	var d_cell_t = t_type(d_cell)
+	var can_move_up = (Input.is_action_pressed("ui_up") and (c_cell_t == 1 or l_cell_t == 1))
+	var can_move_down = (Input.is_action_pressed("ui_down") and (ld_cell_t == 1 or d_cell_t == 1))
+	
+	if can_move_up or can_move_down:
 		if tile_pos.x > position.x and t_type(c_cell) != 2:
 			var go_right = (c_cell == 1 or d_cell == 1)
 			if (Input.is_action_pressed("ui_up") and c_cell == 1 and d_cell != 1):
@@ -110,7 +117,7 @@ func _physics_process(delta):
 				direction.y = 1
 			if !is_moving:
 				currentDir = Vector2(0,1)
-			
+		
 	elif Input.is_action_pressed("ui_left") and (obstacle(DOWN) or on_the_ladder):
 		if !obstacle(LEFT):
 			direction.x = -1
@@ -122,13 +129,12 @@ func _physics_process(delta):
 		if !is_moving:
 			currentDir = Vector2(1,0)
 	elif !on_the_ladder and !obstacle(DOWN) :
-
 		direction.y = 1
 		if !is_moving:
 			currentDir = Vector2(0,1)
-	else:
-		if $anim.is_playing():
-			$anim.stop()
+#	else:
+#		if $anim.is_playing():
+#			$anim.stop()
 	if !is_moving and direction != Vector2():
 		target_direction = direction
 		if main_node.is_cell_vacant(self):
