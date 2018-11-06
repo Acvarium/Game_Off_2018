@@ -47,7 +47,11 @@ func get_cell(cell_pos):
 	return tilemap.get_cell(cell_pos.x, cell_pos.y)
 
 func get_tile_name(cell):
-	return tilemap.tile_set.tile_get_name(cell)
+	var cell_name = ""
+	var ids = tilemap.tile_set.get_tiles_ids()
+	if ids.find(cell, 0) != -1:
+		cell_name = tilemap.tile_set.tile_get_name(cell)
+	return cell_name
 
 func replace_cell(cell_pos, cell):
 	tilemap.set_cell(cell_pos.x, cell_pos.y, cell)

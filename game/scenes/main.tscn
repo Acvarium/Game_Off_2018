@@ -6,7 +6,7 @@
 [ext_resource path="res://textures/hero.png" type="Texture" id=4]
 [ext_resource path="res://textures/4x.png" type="Texture" id=5]
 
-[sub_resource type="CapsuleShape2D" id=8]
+[sub_resource type="CapsuleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 13.7249
@@ -133,7 +133,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( -0.5, 0.5 ) ]
 }
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
@@ -186,7 +186,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 
 visible = false
 position = Vector2( 0, 5 )
-shape = SubResource( 8 )
+shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="player" index="2"]
 
