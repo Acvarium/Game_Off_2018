@@ -42,7 +42,7 @@ func add_empty_cell(cell_pos):
 	empty_cell.cell_pos = cell_pos
 	empty_cell.position = tilemap.map_to_world(cell_pos) + Vector2(32,32)
 	replace_cell(cell_pos, -1)
-	return true
+	return empty_cell
 
 func get_cell(cell_pos):
 	return tilemap.get_cell(cell_pos.x, cell_pos.y)

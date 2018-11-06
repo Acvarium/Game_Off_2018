@@ -140,6 +140,8 @@ script = ExtResource( 1 )
 
 [node name="level" type="Node2D" parent="." index="0"]
 
+editor/display_folded = true
+
 [node name="level" type="TileMap" parent="level" index="0"]
 
 mode = 0
@@ -163,6 +165,7 @@ _sections_unfolded = [ "Cell" ]
 
 [node name="player" type="KinematicBody2D" parent="." index="1"]
 
+editor/display_folded = true
 position = Vector2( 544, 352 )
 input_pickable = false
 collision_layer = 1
@@ -369,6 +372,7 @@ area_mask = 1
 
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0

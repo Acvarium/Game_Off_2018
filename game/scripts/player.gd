@@ -10,9 +10,13 @@ var max_speed = 350
 var velocity = Vector2()
 enum ENTITY_TYPES {UP, DOWN, LEFT, RIGHT}
 var cooldown = true
+var current_hole = null
 
 var direction = Vector2()
 var currentDir = Vector2(0,-1)
+var b_press = false
+var a_press = false
+
 func _ready():
 	main_node = get_node("/root/main")
 	$rays/up.add_exception(self)
@@ -56,7 +60,18 @@ func _physics_process(delta):
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
 	on_the_ladder = on_ladder or on_pipe
-	if cooldown and abs(direction.y) == 0:
+	if Input.is_action_just_released("B"):
+		b_press = false
+		if current_hole != null:
+			current_hole.play_back()
+		current_hole = null
+	if Input.is_action_just_released("A"):
+		a_press = false
+		if current_hole != null:
+			current_hole.play_back()
+		current_hole = null
+
+	if abs(direction.y) == 0:
 		if Input.is_action_pressed("B"):
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x -= 1
@@ -65,11 +80,10 @@ func _physics_process(delta):
 				direction.x = 1
 				if !is_moving:
 					currentDir = Vector2(1,0)
-			elif can_be_holed(cell_to_empty):
+			elif can_be_holed(cell_to_empty) and !b_press:
+				b_press = true
 				$sounds/blaster.play()
-				main_node.add_empty_cell(cell_to_empty)
-				cooldown = false
-				$cooldown.start()
+				current_hole = main_node.add_empty_cell(cell_to_empty)
 				$Sprite.frame = 17
 		
 		elif Input.is_action_pressed("A"):
@@ -80,11 +94,10 @@ func _physics_process(delta):
 				direction.x = -1
 				if !is_moving:
 					currentDir = Vector2(-1,0)
-			elif can_be_holed(cell_to_empty):
+			elif can_be_holed(cell_to_empty) and !a_press:
+				a_press = true
 				$sounds/blaster.play()
 				main_node.add_empty_cell(cell_to_empty)
-				cooldown = false
-				$cooldown.start()
 				$Sprite.frame = 19
 	
 
