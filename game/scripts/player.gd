@@ -87,7 +87,7 @@ func _physics_process(delta):
 	var ld_cell_t = t_type(ld_cell)
 	var d_cell_t = t_type(d_cell)
 	var can_move_up = (Input.is_action_pressed("ui_up") and (c_cell_t == 1 or l_cell_t == 1))
-	var can_move_down = (Input.is_action_pressed("ui_down") and (ld_cell_t == 1 or d_cell_t == 1))
+	var can_move_down = Input.is_action_pressed("ui_down") 
 	
 	if can_move_up or can_move_down:
 		if tile_pos.x > position.x and t_type(c_cell) != 2:
