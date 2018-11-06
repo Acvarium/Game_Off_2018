@@ -41,11 +41,13 @@ func _physics_process(delta):
 	var l_cell = main_node.world_to_tile($points/left.global_position)
 	var ld_cell = main_node.world_to_tile($points/l_down.global_position)
 	var d_cell = main_node.world_to_tile(pointUnder)
+#
+#	$points/center/x.visible = c_cell == 1
+#	$points/left/x.visible = l_cell == 1
+#	$points/down/x.visible = d_cell == 1
+#	$points/l_down/x.visible = ld_cell == 1
 	
-	$points/center/x.visible = c_cell == 1
-	$points/left/x.visible = l_cell == 1
-	$points/down/x.visible = d_cell == 1
-	$points/l_down/x.visible = ld_cell == 1
+	
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	var on_pipe = (t_type(c_cell) == 2  or t_type(l_cell) == 2) and tile_pos.y <= position.y
 	on_the_ladder = on_ladder or on_pipe
