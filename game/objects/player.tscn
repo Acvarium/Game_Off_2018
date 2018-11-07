@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id=7]
 
 custom_solver_bias = 0.0
-extents = Vector2( 13.6145, 13.6084 )
+extents = Vector2( 24, 13.6084 )
 
 [sub_resource type="Animation" id=2]
 
@@ -180,11 +180,9 @@ blend_times = [  ]
 
 [node name="rays" type="Node2D" parent="." index="3"]
 
-editor/display_folded = true
-
 [node name="down" type="RayCast2D" parent="rays" index="0"]
 
-position = Vector2( -6, 27 )
+position = Vector2( -12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
@@ -193,7 +191,7 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="down2" type="RayCast2D" parent="rays" index="1"]
 
-position = Vector2( 6, 27 )
+position = Vector2( 12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )

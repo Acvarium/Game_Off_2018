@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/empty_cell.gd" type="Script" id=1]
 [ext_resource path="res://textures/sheet.png" type="Texture" id=2]
@@ -33,6 +33,42 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 1, 0.063539 ), Vector2( 1, 1 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("StaticBody2D:collision_mask")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 524288 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("StaticBody2D:collision_layer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 524288 ]
+}
 
 [sub_resource type="Animation" id=2]
 
@@ -63,13 +99,54 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1, 0.063539 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("StaticBody2D:collision_layer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 524288 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("StaticBody2D:collision_mask")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 524288 ]
+}
 
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 31, 31 )
 
-[node name="empty_cell" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 31, 1 )
+
+[node name="empty_cell" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
@@ -123,6 +200,22 @@ process_mode = 1
 wait_time = 0.02
 one_shot = true
 autostart = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="5"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+
+position = Vector2( 0, -31 )
+shape = SubResource( 4 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
