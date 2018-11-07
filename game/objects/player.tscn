@@ -1,0 +1,346 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/player.gd" type="Script" id=1]
+[ext_resource path="res://textures/hero.png" type="Texture" id=2]
+[ext_resource path="res://textures/4x.png" type="Texture" id=3]
+[ext_resource path="res://sounds/blaster.ogg" type="AudioStream" id=4]
+
+[sub_resource type="RectangleShape2D" id=7]
+
+custom_solver_bias = 0.0
+extents = Vector2( 13.6145, 13.6084 )
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "fall"
+length = 0.3
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 22 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+
+length = 0.4
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+
+length = 0.4
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+
+length = 0.2
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 20 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( -0.5, 0.5 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=6]
+
+custom_solver_bias = 0.0
+radius = 13.4459
+height = 25.2704
+
+[node name="player" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform", "collision" ]
+__meta__ = {
+"_edit_group_": true
+}
+main_player = true
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+scale = Vector2( -0.5, 0.5 )
+texture = ExtResource( 2 )
+vframes = 3
+hframes = 8
+frame = 20
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( 0, -10 )
+shape = SubResource( 7 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="anim" type="AnimationPlayer" parent="." index="2"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/fall = SubResource( 2 )
+anims/left = SubResource( 3 )
+anims/right = SubResource( 4 )
+anims/up = SubResource( 5 )
+blend_times = [  ]
+
+[node name="rays" type="Node2D" parent="." index="3"]
+
+editor/display_folded = true
+
+[node name="down" type="RayCast2D" parent="rays" index="0"]
+
+position = Vector2( -6, 27 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 20 )
+collision_mask = 1
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="down2" type="RayCast2D" parent="rays" index="1"]
+
+position = Vector2( 6, 27 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 20 )
+collision_mask = 1
+
+[node name="right" type="RayCast2D" parent="rays" index="2"]
+
+position = Vector2( 18, 14 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 20, 0 )
+collision_mask = 1
+
+[node name="right2" type="RayCast2D" parent="rays" index="3"]
+
+position = Vector2( 18, -6 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 20, 0 )
+collision_mask = 1
+
+[node name="left" type="RayCast2D" parent="rays" index="4"]
+
+position = Vector2( -18, 14 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( -20, 0 )
+collision_mask = 1
+
+[node name="left2" type="RayCast2D" parent="rays" index="5"]
+
+position = Vector2( -18, -5 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( -20, 0 )
+collision_mask = 1
+
+[node name="up" type="RayCast2D" parent="rays" index="6"]
+
+position = Vector2( -8, -13 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, -20 )
+collision_mask = 1
+
+[node name="up2" type="RayCast2D" parent="rays" index="7"]
+
+position = Vector2( 7, -13 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, -20 )
+collision_mask = 1
+
+[node name="points" type="Node2D" parent="." index="4"]
+
+editor/display_folded = true
+
+[node name="left" type="Position2D" parent="points" index="0"]
+
+position = Vector2( -20, 0 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="x" type="Sprite" parent="points/left" index="0"]
+
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="center" type="Position2D" parent="points" index="1"]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="x" type="Sprite" parent="points/center" index="0"]
+
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="down" type="Position2D" parent="points" index="2"]
+
+position = Vector2( 0, 28 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="x" type="Sprite" parent="points/down" index="0"]
+
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="l_down" type="Position2D" parent="points" index="3"]
+
+position = Vector2( -20, 28 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="x" type="Sprite" parent="points/l_down" index="0"]
+
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="cooldown" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 1.5
+one_shot = true
+autostart = false
+
+[node name="sounds" type="Node2D" parent="." index="6"]
+
+editor/display_folded = true
+
+[node name="blaster" type="AudioStreamPlayer2D" parent="sounds" index="0"]
+
+stream = ExtResource( 4 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="Area" type="Area2D" parent="." index="7" groups=[
+"player",
+]]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+collision_mask = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area" index="0"]
+
+position = Vector2( 0, 5 )
+shape = SubResource( 6 )
+
+[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
+
+

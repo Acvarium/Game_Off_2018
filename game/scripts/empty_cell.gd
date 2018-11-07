@@ -4,6 +4,7 @@ var cell = -1
 var main_node
 var unfinished = true
 var close_back = false
+var player_inside = null
 
 var cells = [
 "ground",
@@ -45,14 +46,32 @@ func _on_Timer_timeout():
 	$anim.play("close")
 	$Sprite.modulate  = Color(1,1,1,1)
 
+func close_out():
+	if player_inside != null:
+		player_inside.die()
+		$prop_player_timeout.start()
+		return
+	main_node.replace_cell(cell_pos, cell)
+	queue_free()
+
 func _on_anim_animation_finished(anim_name):
 	if anim_name == "open":
 		if close_back:
-			main_node.replace_cell(cell_pos, cell)
-			queue_free()
+			close_out()
 		$Sprite.modulate  = Color(0,0,0,0)
 		unfinished = false
 		
 	elif anim_name == "close":
-		main_node.replace_cell(cell_pos, cell)
-		queue_free()
+		close_out()
+
+func _on_Area2D_area_entered(area):
+	if area.is_in_group("player"):
+		player_inside = area.get_parent()
+		print(area.get_parent().name)
+
+func _on_Area2D_area_exited(area):
+	player_inside = null
+
+func _on_prop_player_timeout_timeout():
+	main_node.replace_cell(cell_pos, cell)
+	queue_free()

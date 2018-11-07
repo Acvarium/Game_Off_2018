@@ -1,146 +1,14 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=2]
-[ext_resource path="res://scripts/player.gd" type="Script" id=3]
-[ext_resource path="res://textures/hero.png" type="Texture" id=4]
-[ext_resource path="res://textures/4x.png" type="Texture" id=5]
-[ext_resource path="res://sounds/blaster.ogg" type="AudioStream" id=6]
-
-[sub_resource type="CapsuleShape2D" id=1]
-
-custom_solver_bias = 0.0
-radius = 13.7249
-height = 21.4248
-
-[sub_resource type="Animation" id=2]
-
-resource_name = "fall"
-length = 0.3
-loop = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 22 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0.5, 0.5 ) ]
-}
-
-[sub_resource type="Animation" id=3]
-
-length = 0.4
-loop = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 8, 9, 10, 11 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0.5, 0.5 ) ]
-}
-
-[sub_resource type="Animation" id=4]
-
-length = 0.4
-loop = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 12, 13, 14, 15 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0.5, 0.5 ) ]
-}
-
-[sub_resource type="Animation" id=5]
-
-length = 0.2
-loop = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 20 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:scale")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0.5, 0.5 ), Vector2( -0.5, 0.5 ) ]
-}
+[ext_resource path="res://objects/player.tscn" type="PackedScene" id=3]
 
 [node name="main" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
 [node name="level" type="Node2D" parent="." index="0"]
-
-editor/display_folded = true
 
 [node name="level" type="TileMap" parent="level" index="0"]
 
@@ -160,120 +28,15 @@ collision_layer = 1
 collision_mask = 1
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( 65539, 2, 0, 131075, 1, 0, 196611, 1, 0, 196612, 3, 0, 196613, 4, 0, 262147, 1, 0, 262149, 5, 0, 262162, 2, 0, 327683, 1, 0, 327685, 5, 0, 327692, 2, 0, 327696, 2, 0, 327698, 1, 0, 393219, 1, 0, 393221, 3, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 4, 0, 393228, 1, 0, 393232, 1, 0, 393233, 5, 0, 393234, 1, 0, 458755, 1, 0, 458760, 11, 0, 458761, 10, 0, 458762, 10, 0, 458763, 536870923, 0, 458764, 1, 0, 458768, 1, 0, 458770, 1, 0, 524291, 1, 0, 524293, 10, 0, 524294, 10, 0, 524295, 10, 0, 524300, 1, 0, 524304, 1, 0, 524305, 2, 0, 524306, 1, 0, 589827, 1, 0, 589828, 10, 0, 589829, 10, 0, 589836, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 655363, 1, 0, 655372, 1, 0, 655376, 1073741826, 0, 655377, 1, 0, 655378, 1073741826, 0, 655380, 9, 0, 720899, 1, 0, 720901, 3, 0, 720902, 0, 0, 720903, 0, 0, 720904, 0, 0, 720905, 4, 0, 720908, 3, 0, 720909, 0, 0, 720910, 0, 0, 720911, 0, 0, 720912, 4, 0, 720913, 1, 0, 720914, 3, 0, 720915, 0, 0, 720916, 4, 0, 786435, 1, 0, 786449, 1, 0, 851971, 1, 0, 851980, 2, 0, 851985, 1, 0, 917507, 1, 0, 917514, 5, 0, 917516, 1, 0, 917517, 7, 0, 917518, 6, 0, 917519, 6, 0, 917520, 6, 0, 917521, 8, 0, 917524, 9, 0, 983043, 1, 0, 983049, 5, 0, 983052, 1, 0, 983058, 3, 0, 983059, 0, 0, 983060, 4, 0, 1048579, 3, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 4, 0, 1048588, 1, 0, 1048596, 9, 0, 1114122, 9, 0, 1114124, 1, 0, 1114125, 9, 0, 1114126, 6, 0, 1114127, 6, 0, 1114128, 6, 0, 1114129, 6, 0, 1114130, 6, 0, 1114131, 6, 0, 1114132, 8, 0, 1179658, 7, 0, 1179659, 6, 0, 1179660, 6, 0, 1179661, 8, 0 )
+tile_data = PoolIntArray( 65539, 2, 0, 131075, 1, 0, 196611, 1, 0, 196612, 3, 0, 196613, 4, 0, 262147, 1, 0, 262149, 5, 0, 262162, 2, 0, 327683, 1, 0, 327685, 5, 0, 327692, 2, 0, 327696, 2, 0, 327698, 1, 0, 393219, 1, 0, 393221, 3, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 4, 0, 393228, 1, 0, 393232, 1, 0, 393233, 5, 0, 393234, 1, 0, 458755, 1, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 1, 0, 458768, 1, 0, 458770, 1, 0, 524291, 1, 0, 524293, 10, 0, 524294, 10, 0, 524295, 10, 0, 524300, 1, 0, 524304, 1, 0, 524305, 2, 0, 524306, 1, 0, 589827, 1, 0, 589828, 10, 0, 589829, 10, 0, 589836, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 655363, 1, 0, 655372, 1, 0, 655376, 1073741826, 0, 655377, 1, 0, 655378, 1073741826, 0, 655380, 9, 0, 720899, 1, 0, 720901, 3, 0, 720902, 0, 0, 720903, 0, 0, 720904, 0, 0, 720905, 4, 0, 720908, 3, 0, 720909, 0, 0, 720910, 0, 0, 720911, 0, 0, 720912, 4, 0, 720913, 1, 0, 720914, 3, 0, 720915, 0, 0, 720916, 4, 0, 786435, 1, 0, 786449, 1, 0, 851971, 1, 0, 851980, 2, 0, 851985, 1, 0, 917507, 1, 0, 917514, 5, 0, 917516, 1, 0, 917517, 7, 0, 917518, 6, 0, 917519, 6, 0, 917520, 6, 0, 917521, 8, 0, 917524, 9, 0, 983043, 1, 0, 983049, 5, 0, 983052, 1, 0, 983058, 3, 0, 983059, 0, 0, 983060, 4, 0, 1048579, 3, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 4, 0, 1048588, 1, 0, 1048596, 9, 0, 1114122, 9, 0, 1114124, 1, 0, 1114125, 9, 0, 1114126, 6, 0, 1114127, 6, 0, 1114128, 6, 0, 1114129, 6, 0, 1114130, 6, 0, 1114131, 6, 0, 1114132, 8, 0, 1179658, 7, 0, 1179659, 6, 0, 1179660, 6, 0, 1179661, 8, 0 )
 _sections_unfolded = [ "Cell" ]
 
-[node name="player" type="KinematicBody2D" parent="." index="1"]
+[node name="player" parent="." index="1" instance=ExtResource( 3 )]
 
-editor/display_folded = true
-position = Vector2( 544, 352 )
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-collision/safe_margin = 0.08
-script = ExtResource( 3 )
-_sections_unfolded = [ "Transform", "collision" ]
-__meta__ = {
-"_edit_group_": true
-}
+position = Vector2( 480, 280 )
+main_player = true
 
-[node name="Sprite" type="Sprite" parent="player" index="0"]
-
-scale = Vector2( -0.5, 0.5 )
-texture = ExtResource( 4 )
-vframes = 3
-hframes = 8
-frame = 20
-_sections_unfolded = [ "Animation", "Transform" ]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player" index="1"]
-
-visible = false
-position = Vector2( 0, 5 )
-shape = SubResource( 1 )
-
-[node name="anim" type="AnimationPlayer" parent="player" index="2"]
-
-root_node = NodePath("..")
-autoplay = ""
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
-anims/fall = SubResource( 2 )
-anims/left = SubResource( 3 )
-anims/right = SubResource( 4 )
-anims/up = SubResource( 5 )
-blend_times = [  ]
-
-[node name="rays" type="Node2D" parent="player" index="3"]
-
-editor/display_folded = true
-
-[node name="down" type="RayCast2D" parent="player/rays" index="0"]
-
-position = Vector2( -6, 27 )
-enabled = true
-exclude_parent = true
-cast_to = Vector2( 0, 20 )
-collision_mask = 1
-
-[node name="down2" type="RayCast2D" parent="player/rays" index="1"]
-
-position = Vector2( 6, 27 )
-enabled = true
-exclude_parent = true
-cast_to = Vector2( 0, 20 )
-collision_mask = 1
-
-[node name="right" type="RayCast2D" parent="player/rays" index="2"]
-
-position = Vector2( 18, 14 )
-enabled = true
-exclude_parent = true
-cast_to = Vector2( 20, 0 )
-collision_mask = 1
-
-[node name="right2" type="RayCast2D" parent="player/rays" index="3"]
-
-position = Vector2( 18, -6 )
-enabled = true
-exclude_parent = true
-cast_to = Vector2( 20, 0 )
-collision_mask = 1
-
-[node name="left" type="RayCast2D" parent="player/rays" index="4"]
-
-position = Vector2( -18, 14 )
-enabled = true
-exclude_parent = true
-cast_to = Vector2( -20, 0 )
-collision_mask = 1
-
-[node name="left2" type="RayCast2D" parent="player/rays" index="5"]
-
-position = Vector2( -18, -5 )
-enabled = true
-exclude_parent = true
-cast_to = Vector2( -20, 0 )
-collision_mask = 1
-
-[node name="up" type="RayCast2D" parent="player/rays" index="6"]
-
-position = Vector2( -8, -13 )
-enabled = true
-exclude_parent = true
-cast_to = Vector2( 0, -20 )
-collision_mask = 1
-
-[node name="up2" type="RayCast2D" parent="player/rays" index="7"]
-
-position = Vector2( 7, -13 )
-enabled = true
-exclude_parent = true
-cast_to = Vector2( 0, -20 )
-collision_mask = 1
-
-[node name="Camera2D" type="Camera2D" parent="player" index="4"]
+[node name="Camera2D2" type="Camera2D" parent="player" index="8"]
 
 anchor_mode = 1
 rotating = false
@@ -299,78 +62,38 @@ editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
 
-[node name="points" type="Node2D" parent="player" index="5"]
+[node name="player2" parent="." index="2" instance=ExtResource( 3 )]
 
-editor/display_folded = true
+position = Vector2( 730, 280 )
+main_player = false
 
-[node name="left" type="Position2D" parent="player/points" index="0"]
+[node name="Camera2D2" type="Camera2D" parent="player2" index="8"]
 
-position = Vector2( -20, 0 )
-_sections_unfolded = [ "Transform" ]
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.4
+drag_margin_top = 0.4
+drag_margin_right = 0.4
+drag_margin_bottom = 0.4
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
 
-[node name="x" type="Sprite" parent="player/points/left" index="0"]
-
-visible = false
-modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 5 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="center" type="Position2D" parent="player/points" index="1"]
-
-_sections_unfolded = [ "Transform" ]
-
-[node name="x" type="Sprite" parent="player/points/center" index="0"]
-
-visible = false
-modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 5 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="down" type="Position2D" parent="player/points" index="2"]
-
-position = Vector2( 0, 28 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="x" type="Sprite" parent="player/points/down" index="0"]
-
-visible = false
-modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 5 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="l_down" type="Position2D" parent="player/points" index="3"]
-
-position = Vector2( -20, 28 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="x" type="Sprite" parent="player/points/l_down" index="0"]
-
-visible = false
-modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 5 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="cooldown" type="Timer" parent="player" index="6"]
-
-process_mode = 1
-wait_time = 1.5
-one_shot = true
-autostart = false
-
-[node name="sounds" type="Node2D" parent="player" index="7"]
-
-[node name="blaster" type="AudioStreamPlayer2D" parent="player/sounds" index="0"]
-
-stream = ExtResource( 6 )
-volume_db = 0.0
-pitch_scale = 1.0
-autoplay = false
-max_distance = 2000.0
-attenuation = 1.0
-bus = "Master"
-area_mask = 1
-
-[node name="ui" type="CanvasLayer" parent="." index="2"]
+[node name="ui" type="CanvasLayer" parent="." index="3"]
 
 editor/display_folded = true
 layer = 1
@@ -457,7 +180,5 @@ text = "4"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-
-[connection signal="timeout" from="player/cooldown" to="player" method="_on_cooldown_timeout"]
 
 

@@ -1,3 +1,4 @@
+tool
 extends KinematicBody2D
 
 var target_pos = Vector2()
@@ -12,13 +13,19 @@ enum ENTITY_TYPES {UP, DOWN, LEFT, RIGHT}
 var cooldown = true
 var current_hole = null
 
+export var main_player = true
+
 var direction = Vector2()
 var currentDir = Vector2(0,-1)
 var b_press = false
 var a_press = false
+var spawn_pos = Vector2()
 
 func _ready():
 	main_node = get_node("/root/main")
+	for r in $rays.get_children():
+		r.add_exception(self)
+	spawn_pos = global_position
 	$rays/up.add_exception(self)
 	$rays/down.add_exception(self)
 	$rays/left.add_exception(self)
@@ -60,19 +67,19 @@ func _physics_process(delta):
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
 	on_the_ladder = on_ladder or on_pipe
-	if Input.is_action_just_released("B"):
+	if Input.is_action_just_released("B") and main_player:
 		b_press = false
 		if current_hole != null:
 			current_hole.play_back()
 		current_hole = null
-	if Input.is_action_just_released("A"):
+	if Input.is_action_just_released("A") and main_player:
 		a_press = false
 		if current_hole != null:
 			current_hole.play_back()
 		current_hole = null
 
 	if abs(direction.y) == 0:
-		if Input.is_action_pressed("B"):
+		if Input.is_action_pressed("B") and main_player:
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x -= 1
 			cell_to_empty.y += 1
@@ -86,7 +93,7 @@ func _physics_process(delta):
 				current_hole = main_node.add_empty_cell(cell_to_empty)
 				$Sprite.frame = 17
 		
-		elif Input.is_action_pressed("A"):
+		elif Input.is_action_pressed("A") and main_player:
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x += 1
 			cell_to_empty.y += 1
@@ -219,6 +226,9 @@ func t_type(cell):
 	if cell_name.left(1) == 'p':
 		return 2
 	return -1
+
+func die():
+	global_position = spawn_pos
 
 func obstacle(dir):
 	if dir == UP:
