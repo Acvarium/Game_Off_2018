@@ -5,10 +5,10 @@
 [ext_resource path="res://textures/4x.png" type="Texture" id=3]
 [ext_resource path="res://sounds/blaster.ogg" type="AudioStream" id=4]
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 24, 13.6084 )
+extents = Vector2( 26, 13.6084 )
 
 [sub_resource type="Animation" id=2]
 
@@ -137,7 +137,7 @@ custom_solver_bias = 0.0
 radius = 13.4459
 height = 25.2704
 
-[node name="player" type="KinematicBody2D"]
+[node name="player" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -162,7 +162,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
 position = Vector2( 0, -10 )
-shape = SubResource( 7 )
+shape = SubResource( 1 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="anim" type="AnimationPlayer" parent="." index="2"]
@@ -196,6 +196,7 @@ enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
 collision_mask = 1
+_sections_unfolded = [ "Transform" ]
 
 [node name="right" type="RayCast2D" parent="rays" index="2"]
 
