@@ -4,7 +4,7 @@
 [ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=2]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=3]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
@@ -33,9 +33,10 @@ _sections_unfolded = [ "Cell" ]
 
 [node name="player" parent="." index="1" instance=ExtResource( 3 )]
 
+editor/display_folded = true
 position = Vector2( 480, 220 )
 
-[node name="Camera2D2" type="Camera2D" parent="player" index="8"]
+[node name="Camera2D" type="Camera2D" parent="player" index="8"]
 
 anchor_mode = 1
 rotating = false
@@ -66,35 +67,8 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
 position = Vector2( 730, 220 )
 main_player = false
 
-[node name="Camera2D2" type="Camera2D" parent="player2" index="8"]
-
-anchor_mode = 1
-rotating = false
-current = true
-zoom = Vector2( 1, 1 )
-limit_left = -10000000
-limit_top = -10000000
-limit_right = 10000000
-limit_bottom = 10000000
-limit_smoothed = false
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = false
-smoothing_speed = 5.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.4
-drag_margin_top = 0.4
-drag_margin_right = 0.4
-drag_margin_bottom = 0.4
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
-_sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
-
 [node name="ui" type="CanvasLayer" parent="." index="3"]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0

@@ -27,7 +27,6 @@ func world_to_map(pos):
 func world_to_tile(pos):
 	var cell_pos = world_to_tile_pos(pos)
 	var tile = tilemap.get_cell(cell_pos.x, cell_pos.y)
-	$ui/last_dir.text = str(tile) + " " + str(cell_pos) 
 	return tile
 
 func world_to_tile_pos(pos):
@@ -58,14 +57,12 @@ func replace_cell(cell_pos, cell):
 	tilemap.set_cell(cell_pos.x, cell_pos.y, cell)
 
 func to_64(pos):
-	$ui/dtext3.text = str(world_to_map(pos)) + " " + str(pos)
 	pos = pos + Vector2(tile_cell_size/4, tile_cell_size/4)
 	var cell_pos = Vector2(int(pos.x / tile_cell_size), int(pos.y / tile_cell_size))
 	pos = tilemap.map_to_world(cell_pos)
 	pos.x += 32
 	pos.y += 32
 	var grid_pos = world_to_map(pos)
-	$ui/dtext4.text = str(grid_pos) + " " + str(pos)
 	return pos
 
 func is_cell_vacant(player):

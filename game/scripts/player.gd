@@ -1,4 +1,3 @@
-tool
 extends KinematicBody2D
 
 var target_pos = Vector2()
@@ -23,6 +22,7 @@ var spawn_pos = Vector2()
 
 func _ready():
 	main_node = get_node("/root/main")
+	print(main_node.name)
 	for r in $rays.get_children():
 		r.add_exception(self)
 	spawn_pos = global_position
@@ -39,10 +39,10 @@ func _physics_process(delta):
 	
 	var pointUnder = position
 	pointUnder.y += 28
-	main_node.to_64(position)
-	var t = main_node.get_node("ui/dir")
-	var tt = "UP " + str(obstacle(UP)) + " DOWN " + str(obstacle(DOWN))
-	t.text = tt
+#	main_node.to_64(position)
+#	var t = main_node.get_node("ui/dir")
+#	var tt = "UP " + str(obstacle(UP)) + " DOWN " + str(obstacle(DOWN))
+#	t.text = tt
 	direction = Vector2()
 	
 	var tile_pos = main_node.to_64(position)
