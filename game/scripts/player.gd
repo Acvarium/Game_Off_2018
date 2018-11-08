@@ -37,6 +37,8 @@ func _ready():
 	$rays/down.add_exception(self)
 	$rays/left.add_exception(self)
 	$rays/right.add_exception(self)
+	if bot_class > 0:
+		$colSwitch.play("bot")
 
 func _physics_process(delta):
 	$rays/up.force_raycast_update()
@@ -99,6 +101,11 @@ func _physics_process(delta):
 				
 			else:
 				path.remove(0)
+			$arrows/up.visible = up_key
+			$arrows/down.visible = down_key
+			$arrows/left.visible = left_key
+			$arrows/right.visible = right_key
+			
 	
 	var debug_type = 2
 	$points/center/x.visible = c_cell_t ==  debug_type
@@ -311,3 +318,7 @@ func _on_cooldown_timeout():
 func _on_nav_update_timeout():
 	if nav != null and bot_class > 0:
 		update_path()
+
+func _on_Area_body_entered(body):
+	if body.is_in_group("level"):
+		die()
