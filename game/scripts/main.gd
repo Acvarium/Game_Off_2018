@@ -6,7 +6,7 @@ var world = []
 var offset = Vector2(32,32)
 var empty_cell_obj = load("res://objects/empty_cell.tscn")
 var tilemap = null
-
+var mob = null
 
 func _ready():
 	offset = Vector2(0,0)
@@ -15,6 +15,11 @@ func _ready():
 		world.append([])
 		for y in range(world_size):
 			world[x].append(null)
+	mob = $mob
+	mob.goal = $player.position
+	mob.nav = $level/nav
+	mob.goal_obj = $player
+	
 
 func map_to_world(cell):
 	var pos = Vector2(cell.x * cell_size + offset.x, cell.y * cell_size + offset.y)
@@ -103,3 +108,7 @@ func update_player_pos(player):
 	var target_pos = map_to_world(new_grid_pos) 
 	return target_pos
 	return true
+	
+func _process(delta):
+	pass
+#	mob.set_goal($player.position)
