@@ -68,9 +68,12 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("player"):
 		player_inside = area.get_parent()
 		print(area.get_parent().name)
+		player_inside.in_the_trap = true
 
 func _on_Area2D_area_exited(area):
+	player_inside.in_the_trap = false
 	player_inside = null
+	
 
 func _on_prop_player_timeout_timeout():
 	main_node.replace_cell(cell_pos, cell)

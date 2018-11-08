@@ -16,6 +16,10 @@ var nav = null
 var goal = Vector2()
 var goal_obj = null
 var path = []
+var gold_slot = 0
+var to_drop_gold = false
+var allowed_to_pickup = true
+var in_the_trap = false
 
 export var bot_class = 0
 export var main_player = true
@@ -29,7 +33,7 @@ var spawn_pos = Vector2()
 
 func _ready():
 	main_node = get_node("/root/main")
-	print(main_node.name)
+	randomize()
 	for r in $rays.get_children():
 		r.add_exception(self)
 	spawn_pos = global_position
@@ -45,7 +49,6 @@ func _physics_process(delta):
 	$rays/down.force_raycast_update()
 	$rays/left.force_raycast_update()
 	$rays/right.force_raycast_update()
-	
 	var pointUnder = position
 	pointUnder.y += 28
 	direction = Vector2()
@@ -97,7 +100,7 @@ func _physics_process(delta):
 					up_key = true
 					ss += "up    "
 				
-				print(str(goal) + " " + str(path.size()) + " " + ss)
+#				print(str(goal) + " " + str(path.size()) + " " + ss)
 				
 			else:
 				path.remove(0)
@@ -108,16 +111,37 @@ func _physics_process(delta):
 			
 	
 	var debug_type = 2
-	$points/center/x.visible = c_cell_t ==  debug_type
-	$points/left/x.visible = l_cell_t ==  debug_type
+	$gold.visible = gold_slot > 0
+	$points/center/x.visible = allowed_to_pickup
+	$points/left/x.visible = to_drop_gold
+	
+	
+#	$points/center/x.visible = c_cell_t ==  debug_type
+#	$points/left/x.visible = l_cell_t ==  debug_type
 	$points/down/x.visible = d_cell_t ==  debug_type
 	$points/l_down/x.visible = ld_cell_t ==  debug_type
 	
-	if tile_pos.x <= position.x and tile_pos.y <= position.y and c_cell_t == 3:
-		main_node.play_sound("coin")
-		gold += 1
-		main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
-	
+	if tile_pos.x <= position.x and tile_pos.y <= position.y:
+		if c_cell_t == 3:
+			if bot_class == 0:
+				main_node.play_sound("coin")
+				gold += 1
+				main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
+			elif gold_slot == 0 and allowed_to_pickup:
+				to_drop_gold = false
+				gold_slot = 1
+				$bot_drop_timer.wait_time = randf() * 20 + 8
+				$bot_drop_timer.start()
+				main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
+		if bot_class > 0:
+			print(in_the_trap)
+		if bot_class > 0 and gold_slot > 0 and to_drop_gold and c_cell == -1 and !in_the_trap:
+			allowed_to_pickup = false
+			gold_slot = 0
+			$bot_pickup_timer.wait_time = randf() * 15 + 8
+			$bot_pickup_timer.start()
+			main_node.replace_cell(main_node.world_to_tile_pos(position),13)
+			
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
 	on_the_ladder = on_ladder or on_pipe
@@ -310,7 +334,8 @@ func update_path():
 		
 	path = nav.get_simple_path(position, goal, false)
 	if path.size() == 0:
-		print(path.size())
+		pass
+#		print(path.size())
 
 func _on_cooldown_timeout():
 	cooldown = true
@@ -318,7 +343,14 @@ func _on_cooldown_timeout():
 func _on_nav_update_timeout():
 	if nav != null and bot_class > 0:
 		update_path()
+		
 
 func _on_Area_body_entered(body):
 	if body.is_in_group("level"):
 		die()
+
+func _on_bot_pickup_timer_timeout():
+	allowed_to_pickup = true
+
+func _on_bot_drop_timer_timeout():
+	to_drop_gold = true
