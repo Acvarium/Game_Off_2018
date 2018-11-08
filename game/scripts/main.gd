@@ -7,6 +7,7 @@ var offset = Vector2(32,32)
 var empty_cell_obj = load("res://objects/empty_cell.tscn")
 var tilemap = null
 
+
 func _ready():
 	offset = Vector2(0,0)
 	tilemap = $level/level
@@ -64,6 +65,10 @@ func to_64(pos):
 	pos.y += 32
 	var grid_pos = world_to_map(pos)
 	return pos
+
+func play_sound(_name):
+	if $sounds.has_node(_name):
+		$sounds.get_node(_name).play()
 
 func is_cell_vacant(player):
 	var direction = player.direction

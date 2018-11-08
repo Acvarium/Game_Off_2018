@@ -11,6 +11,7 @@ var velocity = Vector2()
 enum ENTITY_TYPES {UP, DOWN, LEFT, RIGHT}
 var cooldown = true
 var current_hole = null
+var gold = 0
 
 export var main_player = true
 
@@ -39,10 +40,6 @@ func _physics_process(delta):
 	
 	var pointUnder = position
 	pointUnder.y += 28
-#	main_node.to_64(position)
-#	var t = main_node.get_node("ui/dir")
-#	var tt = "UP " + str(obstacle(UP)) + " DOWN " + str(obstacle(DOWN))
-#	t.text = tt
 	direction = Vector2()
 	
 	var tile_pos = main_node.to_64(position)
@@ -63,6 +60,11 @@ func _physics_process(delta):
 	$points/left/x.visible = l_cell_t ==  debug_type
 	$points/down/x.visible = d_cell_t ==  debug_type
 	$points/l_down/x.visible = ld_cell_t ==  debug_type
+	
+	if tile_pos.x <= position.x and tile_pos.y <= position.y and c_cell_t == 3:
+		main_node.play_sound("coin")
+		gold += 1
+		main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
 	
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
@@ -225,6 +227,8 @@ func t_type(cell):
 		return 1
 	if cell_name.left(1) == 'p':
 		return 2
+	if cell_name == "gold":
+		return 3
 	return -1
 
 func die():

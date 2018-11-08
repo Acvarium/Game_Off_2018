@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=5 format=2]
+[gd_resource type="TileSet" load_steps=6 format=2]
 
 [ext_resource path="res://textures/sheet.png" type="Texture" id=1]
 [ext_resource path="res://textures/pipe.png" type="Texture" id=2]
-[ext_resource path="res://textures/ladder_top.png" type="Texture" id=3]
+[ext_resource path="res://textures/gold.png" type="Texture" id=3]
+[ext_resource path="res://textures/ladder_top.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -35,7 +36,7 @@ extents = Vector2( 32, 32 )
 1/navigation_offset = Vector2( 32, 32 )
 1/shapes = [  ]
 2/name = "ladder_top"
-2/texture = ExtResource( 3 )
+2/texture = ExtResource( 4 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 0, 64, 64 )
@@ -168,4 +169,13 @@ extents = Vector2( 32, 32 )
 12/occluder_offset = Vector2( 32, 32 )
 12/navigation_offset = Vector2( 32, 32 )
 12/shapes = [  ]
+13/name = "gold"
+13/texture = ExtResource( 3 )
+13/tex_offset = Vector2( 0, 0 )
+13/modulate = Color( 1, 1, 1, 1 )
+13/region = Rect2( 0, 0, 64, 64 )
+13/is_autotile = false
+13/occluder_offset = Vector2( 32, 32 )
+13/navigation_offset = Vector2( 32, 32 )
+13/shapes = [  ]
 
