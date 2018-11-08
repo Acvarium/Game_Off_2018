@@ -15,11 +15,11 @@ func _ready():
 		world.append([])
 		for y in range(world_size):
 			world[x].append(null)
-	mob = $mob
+	mob = $bot1
 	mob.goal = $player.position
 	mob.nav = $level/nav
 	mob.goal_obj = $player
-	
+	mob.update_path()
 
 func map_to_world(cell):
 	var pos = Vector2(cell.x * cell_size + offset.x, cell.y * cell_size + offset.y)

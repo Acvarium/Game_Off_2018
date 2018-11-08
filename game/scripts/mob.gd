@@ -18,6 +18,8 @@ func set_goal(new_goal):
 	update_path()
 
 func update_path():
+	if nav == null:
+		return
 	if goal_obj != null:
 		goal = goal_obj.position
 	path = nav.get_simple_path(position, goal, false)
