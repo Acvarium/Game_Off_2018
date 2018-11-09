@@ -66,16 +66,12 @@ func _physics_process(delta):
 	var ld_cell_t = t_type(ld_cell)
 	var d_cell_t = t_type(d_cell)
 	
-	var b_key = false
-	var a_key = false
 	var left_key = false
 	var right_key = false
 	var up_key = false
 	var down_key = false
 	
 	if bot_class == 0:
-		b_key = Input.is_action_pressed("B")
-		a_key = Input.is_action_pressed("A")
 		left_key = Input.is_action_pressed("ui_left")
 		right_key = Input.is_action_pressed("ui_right")
 		up_key = Input.is_action_pressed("ui_up")
@@ -134,7 +130,8 @@ func _physics_process(delta):
 				$bot_drop_timer.start()
 				main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
 		if bot_class > 0:
-			print(in_the_trap)
+			pass
+#			print(in_the_trap)
 		if bot_class > 0 and gold_slot > 0 and in_the_trap:
 			gold_slot = 0
 			var drop_pos = main_node.world_to_tile_pos(position)
@@ -150,14 +147,16 @@ func _physics_process(delta):
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
 	on_the_ladder = on_ladder or on_pipe
+	
 	if Input.is_action_just_released("B") and main_player:
 		b_press = false
 		if current_hole != null:
 			current_hole.play_back()
 		current_hole = null
-	if Input.is_action_just_released("A")  and main_player:
+	if Input.is_action_just_released("A") and main_player:
 		a_press = false
 		if current_hole != null:
+			print(current_hole.name)
 			current_hole.play_back()
 		current_hole = null
 
@@ -187,7 +186,7 @@ func _physics_process(delta):
 			elif can_be_holed(cell_to_empty) and !a_press:
 				a_press = true
 				$sounds/blaster.play()
-				main_node.add_empty_cell(cell_to_empty)
+				current_hole = main_node.add_empty_cell(cell_to_empty)
 				$Sprite.frame = 19
 	
 
@@ -223,12 +222,12 @@ func _physics_process(delta):
 			if !is_moving:
 				currentDir = Vector2(0,1)
 		
-	elif left_key and (obstacle(DOWN) or on_the_ladder):
+	elif left_key and (obstacle(DOWN) or on_the_ladder) and (bot_class == 0 or !in_the_trap):
 		if !obstacle(LEFT):
 			direction.x = -1
 		if !is_moving:
 			currentDir = Vector2(-1,0)
-	elif right_key and (obstacle(DOWN) or on_the_ladder):
+	elif right_key and (obstacle(DOWN) or on_the_ladder) and (bot_class == 0 or !in_the_trap):
 		if !obstacle(RIGHT):
 			direction.x = 1
 		if !is_moving:

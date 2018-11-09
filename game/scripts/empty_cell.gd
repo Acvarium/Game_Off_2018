@@ -20,7 +20,6 @@ func _ready():
 
 func set_cell(_cell):
 	cell = _cell
-	print(cell)
 	var cell_name = main_node.get_tile_name(cell)
 	var cell_frame = get_frame_for_cell(cell_name)
 	if cell_frame != 1:
@@ -71,8 +70,9 @@ func _on_Area2D_area_entered(area):
 		player_inside.in_the_trap = true
 
 func _on_Area2D_area_exited(area):
-	player_inside.in_the_trap = false
-	player_inside = null
+	if player_inside != null:
+		player_inside.in_the_trap = false
+		player_inside = null
 	
 
 func _on_prop_player_timeout_timeout():
