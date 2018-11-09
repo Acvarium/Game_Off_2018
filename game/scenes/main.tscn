@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://tiles/navTiles.tres" type="TileSet" id=2]
@@ -6,16 +6,17 @@
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://fonts/mono.tres" type="DynamicFont" id=5]
 [ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=6]
-[ext_resource path="res://textures/4x.png" type="Texture" id=7]
-[ext_resource path="res://scripts/mob.gd" type="Script" id=8]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
+pause_mode = 2
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Pause", "Transform" ]
 
 [node name="level" type="Node2D" parent="." index="0"]
 
+pause_mode = 1
+editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="nav" type="Navigation2D" parent="level" index="0"]
@@ -69,6 +70,7 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 [node name="player" parent="." index="1" instance=ExtResource( 4 )]
 
+pause_mode = 1
 editor/display_folded = true
 position = Vector2( 480, 220 )
 
@@ -100,18 +102,22 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
 
 [node name="bot1" parent="." index="2" instance=ExtResource( 4 )]
 
+pause_mode = 1
 position = Vector2( 1248, 608 )
 bot_class = 1
 main_player = false
 
 [node name="bot2" parent="." index="3" instance=ExtResource( 4 )]
 
+pause_mode = 1
 position = Vector2( 608, 608 )
 bot_class = 1
 main_player = false
 
 [node name="ui" type="CanvasLayer" parent="." index="4"]
 
+pause_mode = 1
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -212,6 +218,7 @@ max_lines_visible = -1
 
 [node name="sounds" type="Node2D" parent="." index="5"]
 
+pause_mode = 1
 editor/display_folded = true
 
 [node name="coin" type="AudioStreamPlayer" parent="sounds" index="0"]
@@ -222,23 +229,5 @@ pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
-
-[node name="mob" type="Sprite" parent="." index="6"]
-
-position = Vector2( 923.449, 670.989 )
-rotation = 0.785398
-scale = Vector2( 3.81584, 3.81584 )
-texture = ExtResource( 7 )
-script = ExtResource( 8 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="Timer" type="Timer" parent="mob" index="0"]
-
-process_mode = 1
-wait_time = 5.0
-one_shot = false
-autostart = true
-
-[connection signal="timeout" from="mob/Timer" to="mob" method="_on_Timer_timeout"]
 
 

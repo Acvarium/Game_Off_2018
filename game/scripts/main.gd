@@ -7,6 +7,7 @@ var offset = Vector2(32,32)
 var empty_cell_obj = load("res://objects/empty_cell.tscn")
 var tilemap = null
 var dCount = 0
+var on_pause = false
 
 func _ready():
 	var mobs = [$bot1, $bot2]
@@ -21,7 +22,11 @@ func _ready():
 		mob.nav = $level/nav
 		mob.goal_obj = $player
 		mob.update_path()
-
+func _input(event):
+	if Input.is_action_just_pressed("pause"):
+		on_pause = !on_pause
+		get_tree().paused = on_pause
+	
 func map_to_world(cell):
 	var pos = Vector2(cell.x * cell_size + offset.x, cell.y * cell_size + offset.y)
 	return pos
@@ -122,10 +127,10 @@ func print_world():
 			if world[y][x] != null:
 				l += "[color=green][[/color]+[color=green]][/color]"
 			else:
-				l += "[ ]"
+				l += " . "
 		ss += l + "\n"
 	$ui/grid.bbcode_text = ss
 			
-	
 func _process(delta):
-	print_world()
+	if $ui/grid.visible and !on_pause:
+		print_world()
