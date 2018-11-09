@@ -135,6 +135,11 @@ func _physics_process(delta):
 				main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
 		if bot_class > 0:
 			print(in_the_trap)
+		if bot_class > 0 and gold_slot > 0 and in_the_trap:
+			gold_slot = 0
+			var drop_pos = main_node.world_to_tile_pos(position)
+			main_node.replace_cell(drop_pos, 13)
+			
 		if bot_class > 0 and gold_slot > 0 and to_drop_gold and c_cell == -1 and !in_the_trap:
 			allowed_to_pickup = false
 			gold_slot = 0
@@ -293,7 +298,7 @@ func can_be_holed(cell_pos):
 		up_cell_pos.y -= 1
 		var up_cell = main_node.get_cell(up_cell_pos)
 		var up_cell_name = main_node.get_tile_name(up_cell)
-		if up_cell == -1 or up_cell_name == "ladder_top" or  up_cell_name == "gold":
+		if up_cell == -1 or up_cell_name == "ladder_top":
 			return true
 	return false
 
