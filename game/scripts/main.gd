@@ -1,12 +1,12 @@
 extends Node2D
 var cell_size = 32
 var tile_cell_size = 64
-var world_size = 128
+var world_size = 48
 var world = []
 var offset = Vector2(32,32)
 var empty_cell_obj = load("res://objects/empty_cell.tscn")
 var tilemap = null
-#var mob = null
+var dCount = 0
 
 func _ready():
 	var mobs = [$bot1, $bot2]
@@ -100,16 +100,32 @@ func remove_player(player):
 					world[x][y] = null
 
 func update_player_pos(player):
+	if player.name == "player":
+		print(dCount)
+		dCount += 1
 	remove_player(player)
 	var grid_pos = world_to_map(player.position)
 	var new_grid_pos = grid_pos + player.direction
 	for x in range(2):
 		for y in range(2):
+			
 			world[new_grid_pos.x + x - 1][new_grid_pos.y + y - 1] = weakref(player)
 	var target_pos = map_to_world(new_grid_pos) 
 	return target_pos
 	return true
 	
+func print_world():
+	var ss = ""
+	for x in range(world_size):
+		var l = ""
+		for y in range(world_size):
+			if world[y][x] != null:
+				l += "[color=green][[/color]+[color=green]][/color]"
+			else:
+				l += "[ ]"
+		ss += l + "\n"
+	$ui/grid.bbcode_text = ss
+			
+	
 func _process(delta):
-	pass
-#	mob.set_goal($player.position)
+	print_world()

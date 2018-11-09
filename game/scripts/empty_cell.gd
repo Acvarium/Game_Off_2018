@@ -46,11 +46,15 @@ func _on_Timer_timeout():
 	$Sprite.modulate  = Color(1,1,1,1)
 
 func close_out():
+#	if player_inside != null:
+#		player_inside.die()
+#		$prop_player_timeout.start()
+#		return
+	main_node.replace_cell(cell_pos, cell)
 	if player_inside != null:
 		player_inside.die()
-		$prop_player_timeout.start()
-		return
-	main_node.replace_cell(cell_pos, cell)
+		player_inside.in_the_trap = false
+		player_inside = null
 	queue_free()
 
 func _on_anim_animation_finished(anim_name):

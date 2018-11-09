@@ -118,10 +118,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 1, 524288 ]
+"values": [ 1, 1, 524288 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("StaticBody2D:collision_mask")
@@ -130,10 +130,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 1, 524288 ]
+"values": [ 1, 1, 524288 ]
 }
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -152,7 +152,7 @@ custom_solver_bias = 0.0
 a = Vector2( -32, 32 )
 b = Vector2( 32, 32 )
 
-[node name="empty_cell" type="Node2D"]
+[node name="empty_cell" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
@@ -203,13 +203,12 @@ shape = SubResource( 3 )
 [node name="prop_player_timeout" type="Timer" parent="." index="4"]
 
 process_mode = 1
-wait_time = 0.02
+wait_time = 0.01
 one_shot = true
 autostart = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="5"]
 
-editor/display_folded = true
 input_pickable = false
 collision_layer = 1
 collision_mask = 1

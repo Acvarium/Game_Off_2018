@@ -305,8 +305,6 @@ blend_times = [  ]
 
 [node name="rays" type="Node2D" parent="." index="4"]
 
-editor/display_folded = true
-
 [node name="down" type="RayCast2D" parent="rays" index="0"]
 
 position = Vector2( -12, 27 )

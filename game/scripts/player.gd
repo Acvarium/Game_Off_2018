@@ -312,7 +312,15 @@ func t_type(cell):
 	return -1
 
 func die():
+	main_node.remove_player(self)
+	target_pos = Vector2()
+	target_direction = Vector2()
+	direction = Vector2()
+	is_moving = false
 	global_position = spawn_pos
+	
+	if bot_class > 0:
+		update_path()
 
 func obstacle(dir):
 	if dir == UP:
@@ -348,7 +356,6 @@ func _on_nav_update_timeout():
 	if nav != null and bot_class > 0:
 		update_path()
 		
-
 func _on_Area_body_entered(body):
 	if body.is_in_group("level"):
 		die()
