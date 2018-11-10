@@ -1,29 +1,38 @@
 extends Node2D
 var cell_size = 32
 var tile_cell_size = 64
-var world_size = 48
+var world_size = 128
 var world = []
 var offset = Vector2(32,32)
 var empty_cell_obj = load("res://objects/empty_cell.tscn")
-var eraser_obj = load("res://objects/eraser.tscn")
-
+var global
 var tilemap = null
 var dCount = 0
 var on_pause = false
 var players = []
+var level = null
 
 func add_player(player):
 	players.append(weakref(player))
 
 
 func _ready():
+	level = $level
+	global = get_node("/root/global")
+	if global.level != -1:
+		$level.queue_free()
+		var level_file = load("res://levels/" + global.levels[global.level] + ".tscn")
+		var new_level = level_file.instance()
+		add_child(new_level)
+		new_level.name = "level"
+		level = new_level
 	offset = Vector2(0,0)
-	tilemap = $level/level
+	tilemap = level.get_node("level")
 	for x in range(world_size):
 		world.append([])
 		for y in range(world_size):
 			world[x].append(null)
-	for mob in $level/bots.get_children():
+	for mob in level.get_node("bots").get_children():
 		mob.goal = $level/player.position
 		mob.nav = $level/nav
 		mob.goal_obj = $level/player
@@ -57,7 +66,7 @@ func tile_to_world_pos(cell_pos):
 
 func add_empty_cell(cell_pos):
 	var empty_cell = empty_cell_obj.instance()
-	$level.add_child(empty_cell)
+	level.add_child(empty_cell)
 	empty_cell.set_cell(tilemap.get_cell(cell_pos.x, cell_pos.y))
 	empty_cell.cell_pos = cell_pos
 	empty_cell.position = tilemap.map_to_world(cell_pos) + Vector2(32,32)

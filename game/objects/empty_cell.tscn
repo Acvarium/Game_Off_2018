@@ -152,7 +152,7 @@ custom_solver_bias = 0.0
 a = Vector2( -32, 32 )
 b = Vector2( 32, 32 )
 
-[node name="empty_cell" type="Node2D" index="0"]
+[node name="empty_cell" type="Node2D"]
 
 script = ExtResource( 1 )
 
@@ -243,6 +243,7 @@ shape = SubResource( 5 )
 
 [node name="Label" type="Label" parent="." index="7"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
