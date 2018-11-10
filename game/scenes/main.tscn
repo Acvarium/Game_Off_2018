@@ -7,7 +7,7 @@
 [ext_resource path="res://fonts/mono.tres" type="DynamicFont" id=5]
 [ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=6]
 
-[node name="main" type="Node2D" index="0"]
+[node name="main" type="Node2D"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -79,7 +79,7 @@ main_player = false
 [node name="bot2" parent="level/bots" index="1" instance=ExtResource( 4 )]
 
 pause_mode = 1
-position = Vector2( 608, 608 )
+position = Vector2( 544, 864 )
 bot_class = 1
 main_player = false
 

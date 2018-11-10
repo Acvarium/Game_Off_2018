@@ -16,8 +16,11 @@ var cells = [
 var frames = [4, 3, 5, 6]
 
 func _process(delta):
-	if player_inside != null and $Label.visible:
-		$Label.text	 = player_inside.name
+	if $Label.visible:
+		if player_inside != null:
+			$Label.text	 = player_inside.name
+		else:
+			$Label.text = ""
 
 func _ready():
 	main_node = get_node("/root/main")
@@ -50,10 +53,11 @@ func _on_Timer_timeout():
 	$Sprite.modulate  = Color(1,1,1,1)
 
 func close_out():
+	main_node.kill_in_cell(cell_pos)
 	main_node.replace_cell(cell_pos, cell)
 	if player_inside != null:
-		player_inside.die()
 		player_inside.set_in_trap(false)
+		player_inside.die()
 		player_inside = null
 	queue_free()
 
@@ -63,14 +67,13 @@ func _on_anim_animation_finished(anim_name):
 			close_out()
 		$Sprite.modulate  = Color(0,0,0,0)
 		unfinished = false
-		
 	elif anim_name == "close":
 		close_out()
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("player"):
 		player_inside = area.get_parent()
-		print("in trap " + area.get_parent().name)
+#		print("in trap " + area.get_parent().name)
 		player_inside.set_in_trap(true)
 
 func _on_Area2D_area_exited(area):

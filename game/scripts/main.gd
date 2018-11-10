@@ -5,9 +5,16 @@ var world_size = 48
 var world = []
 var offset = Vector2(32,32)
 var empty_cell_obj = load("res://objects/empty_cell.tscn")
+var eraser_obj = load("res://objects/eraser.tscn")
+
 var tilemap = null
 var dCount = 0
 var on_pause = false
+var players = []
+
+func add_player(player):
+	players.append(weakref(player))
+
 
 func _ready():
 	offset = Vector2(0,0)
@@ -56,6 +63,16 @@ func add_empty_cell(cell_pos):
 	empty_cell.position = tilemap.map_to_world(cell_pos) + Vector2(32,32)
 	replace_cell(cell_pos, -1)
 	return empty_cell
+
+func kill_in_cell(cell_pos):
+	print("kill cell = " + str(cell_pos))
+	for p in players:
+		if p.get_ref() != null:
+			var p_cell_pos32 = world_to_tile_pos(p.get_ref().position - Vector2(32,0))
+			
+			print(p_cell_pos32)
+			if p_cell_pos32 == cell_pos or p.get_ref().current_tile_pos == cell_pos:
+				p.get_ref().die()
 
 func get_cell(cell_pos):
 	return tilemap.get_cell(cell_pos.x, cell_pos.y)

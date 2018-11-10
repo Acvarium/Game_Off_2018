@@ -30,9 +30,10 @@ var currentDir = Vector2(0,-1)
 var b_press = false
 var a_press = false
 var spawn_pos = Vector2()
-var last_trap_tile = Vector2()
+export var last_trap_tile = Vector2()
 var to_remove_last_trap_tile = false
 var last_trap_cell = 999
+var current_tile_pos = Vector2()
 
 func _ready():
 	main_node = get_node("/root/main")
@@ -48,10 +49,12 @@ func _ready():
 		$colSwitch.play("bot")
 	else:
 		$colSwitch.play("player")
+	
+	main_node.add_player(self)
 		
 
 func _physics_process(delta):
-	var current_tile_pos = main_node.world_to_tile_pos(position)
+	current_tile_pos = main_node.world_to_tile_pos(position)
 	var current_tile_pos_minus32 = main_node.world_to_tile_pos(position - Vector2(32,0))
 	if $coo.visible:
 		var sss = str(current_tile_pos) + "\n"
@@ -116,15 +119,15 @@ func _physics_process(delta):
 					up_key = true
 					ss += "up    "
 				
-#				print(str(goal) + " " + str(path.size()) + " " + ss)
-				
 			else:
 				path.remove(0)
 		$arrows/up.visible = up_key
 		$arrows/down.visible = down_key
 		$arrows/left.visible = left_key
 		$arrows/right.visible = right_key
-
+		
+		if !in_the_trap or last_trap_tile.y != (current_tile_pos.y-1):
+			allowe_to_crawl_up = false
 
 		if in_the_trap and allowe_to_crawl_up:
 			left_key = false
@@ -346,8 +349,8 @@ func set_in_trap(value):
 		last_trap_tile = main_node.world_to_tile_pos(position) 
 		if bot_class > 0:
 			$timers/bot_get_out_timer.start()
-	else:
-		allowe_to_crawl_up = false
+#	else:
+#		allowe_to_crawl_up = false
 
 func die():
 	in_the_trap = false
@@ -404,6 +407,7 @@ func _on_nav_update_timeout():
 		update_path()
 		
 func _on_Area_body_entered(body):
+	print("name " + name + " body " + body.name)
 	if body.is_in_group("level"):
 		die()
 
