@@ -15,7 +15,6 @@ var level = null
 func add_player(player):
 	players.append(weakref(player))
 
-
 func _ready():
 	level = $level
 	global = get_node("/root/global")
@@ -110,6 +109,8 @@ func play_sound(_name):
 		$sounds.get_node(_name).play()
 
 func is_cell_vacant(player):
+	if player.bot_class == 0:
+		return true
 	var direction = player.direction
 	var grid_pos = world_to_map(player.position) + direction
 	for x in range(2):

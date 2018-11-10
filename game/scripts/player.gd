@@ -51,7 +51,6 @@ func _ready():
 		$colSwitch.play("player")
 	
 	main_node.add_player(self)
-		
 
 func _physics_process(delta):
 	current_tile_pos = main_node.world_to_tile_pos(position)
@@ -349,10 +348,16 @@ func set_in_trap(value):
 		last_trap_tile = main_node.world_to_tile_pos(position) 
 		if bot_class > 0:
 			$timers/bot_get_out_timer.start()
+			$colSwitch.play("in_trap")
+	else:
+		if bot_class > 0:
+			$colSwitch.play("bot")
 #	else:
 #		allowe_to_crawl_up = false
 
 func die():
+	if bot_class > 0:
+		$colSwitch.play("bot")
 	in_the_trap = false
 	last_trap_tile = Vector2()
 	$timers/bot_get_out_timer.stop()
