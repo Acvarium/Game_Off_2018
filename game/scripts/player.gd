@@ -32,6 +32,7 @@ var a_press = false
 var spawn_pos = Vector2()
 var last_trap_tile = Vector2()
 var to_remove_last_trap_tile = false
+var last_trap_cell = 999
 
 func _ready():
 	main_node = get_node("/root/main")
@@ -48,9 +49,15 @@ func _ready():
 
 func _physics_process(delta):
 	var current_tile_pos = main_node.world_to_tile_pos(position)
-	if to_remove_last_trap_tile and !( current_tile_pos == last_trap_tile or (current_tile_pos + Vector2(0,-1)) == last_trap_tile ):
-		to_remove_last_trap_tile = false
-		last_trap_tile = Vector2()
+	if to_remove_last_trap_tile:
+		var ltp = main_node.get_cell(last_trap_tile + Vector2(0,1))
+		var new_hole = last_trap_cell == -1 and ltp != -1
+			
+		if new_hole or !(current_tile_pos == last_trap_tile or (current_tile_pos + Vector2(0,-1)) == last_trap_tile):
+			to_remove_last_trap_tile = false
+			last_trap_tile = Vector2()
+			
+		last_trap_cell = ltp
 
 	$rays/up.force_raycast_update()
 	$rays/down.force_raycast_update()
