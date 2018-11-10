@@ -18,7 +18,7 @@ var goal_obj = null
 var path = []
 var gold_slot = 0
 var to_drop_gold = false
-var allowed_to_pickup = false
+var allowed_to_pickup = true
 var in_the_trap = false
 
 export var bot_class = 0
