@@ -46,14 +46,10 @@ func _on_Timer_timeout():
 	$Sprite.modulate  = Color(1,1,1,1)
 
 func close_out():
-#	if player_inside != null:
-#		player_inside.die()
-#		$prop_player_timeout.start()
-#		return
 	main_node.replace_cell(cell_pos, cell)
 	if player_inside != null:
 		player_inside.die()
-		player_inside.in_the_trap = false
+		player_inside.set_in_trap(false)
 		player_inside = null
 	queue_free()
 
@@ -71,11 +67,11 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("player"):
 		player_inside = area.get_parent()
 		print(area.get_parent().name)
-		player_inside.in_the_trap = true
+		player_inside.set_in_trap(true)
 
 func _on_Area2D_area_exited(area):
 	if player_inside != null:
-		player_inside.in_the_trap = false
+		player_inside.set_in_trap(false)
 		player_inside = null
 	
 

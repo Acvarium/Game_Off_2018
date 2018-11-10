@@ -106,7 +106,7 @@ func remove_player(player):
 
 func update_player_pos(player):
 	if player.name == "player":
-		print(dCount)
+#		print(dCount)
 		dCount += 1
 	remove_player(player)
 	var grid_pos = world_to_map(player.position)

@@ -18,18 +18,20 @@ var goal_obj = null
 var path = []
 var gold_slot = 0
 var to_drop_gold = false
-var allowed_to_pickup = true
+var allowed_to_pickup = false
 var in_the_trap = false
 
 export var bot_class = 0
 export var main_player = true
 
+var allowe_to_crawl_up = false
 var direction = Vector2()
 var currentDir = Vector2(0,-1)
 var b_press = false
 var a_press = false
 var spawn_pos = Vector2()
-
+var last_trap_tile = Vector2()
+var to_remove_last_trap_tile = false
 
 func _ready():
 	main_node = get_node("/root/main")
@@ -45,6 +47,11 @@ func _ready():
 		$colSwitch.play("bot")
 
 func _physics_process(delta):
+	var current_tile_pos = main_node.world_to_tile_pos(position)
+	if to_remove_last_trap_tile and !( current_tile_pos == last_trap_tile or (current_tile_pos + Vector2(0,-1)) == last_trap_tile ):
+		to_remove_last_trap_tile = false
+		last_trap_tile = Vector2()
+
 	$rays/up.force_raycast_update()
 	$rays/down.force_raycast_update()
 	$rays/left.force_raycast_update()
@@ -100,19 +107,25 @@ func _physics_process(delta):
 				
 			else:
 				path.remove(0)
-			$arrows/up.visible = up_key
-			$arrows/down.visible = down_key
-			$arrows/left.visible = left_key
-			$arrows/right.visible = right_key
-			
-	
+		$arrows/up.visible = up_key
+		$arrows/down.visible = down_key
+		$arrows/left.visible = left_key
+		$arrows/right.visible = right_key
+
+
+		if in_the_trap and allowe_to_crawl_up:
+			left_key = false
+			right_key = false
+			down_key = false
+			up_key = true
+
 	var debug_type = 2
 	$gold.visible = gold_slot > 0
 	$points/center/x.visible = allowed_to_pickup
 	$points/left/x.visible = to_drop_gold
 	
 	
-#	$points/center/x.visible = c_cell_t ==  debug_type
+	$points/center/x.visible =  allowe_to_crawl_up
 #	$points/left/x.visible = l_cell_t ==  debug_type
 	$points/down/x.visible = d_cell_t ==  debug_type
 	$points/l_down/x.visible = ld_cell_t ==  debug_type
@@ -126,8 +139,8 @@ func _physics_process(delta):
 			elif gold_slot == 0 and allowed_to_pickup:
 				to_drop_gold = false
 				gold_slot = 1
-				$bot_drop_timer.wait_time = randf() * 20 + 8
-				$bot_drop_timer.start()
+				$timers/bot_drop_timer.wait_time = randf() * 20 + 8
+				$timers/bot_drop_timer.start()
 				main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
 		if bot_class > 0:
 			pass
@@ -140,13 +153,15 @@ func _physics_process(delta):
 		if bot_class > 0 and gold_slot > 0 and to_drop_gold and c_cell == -1 and !in_the_trap:
 			allowed_to_pickup = false
 			gold_slot = 0
-			$bot_pickup_timer.wait_time = randf() * 15 + 8
-			$bot_pickup_timer.start()
+			$timers/bot_pickup_timer.wait_time = randf() * 15 + 8
+			$timers/bot_pickup_timer.start()
 			main_node.replace_cell(main_node.world_to_tile_pos(position),13)
 			
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
 	on_the_ladder = on_ladder or on_pipe
+	if allowe_to_crawl_up and in_the_trap:
+		on_the_ladder = true
 	
 	if Input.is_action_just_released("B") and main_player:
 		b_press = false
@@ -156,7 +171,6 @@ func _physics_process(delta):
 	if Input.is_action_just_released("A") and main_player:
 		a_press = false
 		if current_hole != null:
-			print(current_hole.name)
 			current_hole.play_back()
 		current_hole = null
 
@@ -188,10 +202,12 @@ func _physics_process(delta):
 				$sounds/blaster.play()
 				current_hole = main_node.add_empty_cell(cell_to_empty)
 				$Sprite.frame = 19
-	
 
 	var can_move_up = (up_key and (c_cell_t == 1 or l_cell_t == 1))
 	var can_move_down = down_key
+		
+	if in_the_trap and allowe_to_crawl_up:
+		can_move_up = true
 	
 	if can_move_up or can_move_down:
 		if tile_pos.x > position.x:
@@ -211,7 +227,7 @@ func _physics_process(delta):
 				direction.x = -1
 				if !is_moving:
 					currentDir = Vector2(-1,0)
-		if up_key and c_cell == 1:
+		if up_key and (c_cell == 1 or allowe_to_crawl_up):
 			if !obstacle(UP):
 				direction.y = -1
 				if !is_moving:
@@ -311,7 +327,20 @@ func t_type(cell):
 		return 3
 	return -1
 
+func set_in_trap(value):
+	in_the_trap = value
+	if value:
+		last_trap_tile = main_node.world_to_tile_pos(position) 
+		$timers/bot_get_out_timer.start()
+	else:
+		allowe_to_crawl_up = false
+
 func die():
+	in_the_trap = false
+	last_trap_tile = Vector2()
+	$timers/bot_get_out_timer.stop()
+	to_remove_last_trap_tile = false
+	allowe_to_crawl_up = false
 	main_node.remove_player(self)
 	target_pos = Vector2()
 	target_direction = Vector2()
@@ -326,6 +355,10 @@ func obstacle(dir):
 	if dir == UP:
 		return $rays/up.is_colliding() or $rays/up2.is_colliding() 
 	elif dir == DOWN:
+		if last_trap_tile != Vector2():
+			if main_node.world_to_tile_pos(position) == last_trap_tile:
+				to_remove_last_trap_tile = true
+				return true
 		return $rays/down.is_colliding() or $rays/down2.is_colliding() 
 	elif dir == LEFT:
 		return $rays/left.is_colliding() or $rays/left2.is_colliding()
@@ -365,3 +398,7 @@ func _on_bot_pickup_timer_timeout():
 
 func _on_bot_drop_timer_timeout():
 	to_drop_gold = true
+
+func _on_bot_get_out_timer_timeout():
+	print(name + " Allowe")
+	allowe_to_crawl_up = true

@@ -305,6 +305,8 @@ blend_times = [  ]
 
 [node name="rays" type="Node2D" parent="." index="4"]
 
+editor/display_folded = true
+
 [node name="down" type="RayCast2D" parent="rays" index="0"]
 
 position = Vector2( -12, 27 )
@@ -373,6 +375,8 @@ collision_mask = 1
 
 [node name="points" type="Node2D" parent="." index="5"]
 
+editor/display_folded = true
+
 [node name="left" type="Position2D" parent="points" index="0"]
 
 position = Vector2( -20, 0 )
@@ -420,14 +424,7 @@ modulate = Color( 0.898438, 1, 0, 1 )
 texture = ExtResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="cooldown" type="Timer" parent="." index="6"]
-
-process_mode = 1
-wait_time = 1.5
-one_shot = true
-autostart = false
-
-[node name="sounds" type="Node2D" parent="." index="7"]
+[node name="sounds" type="Node2D" parent="." index="6"]
 
 editor/display_folded = true
 
@@ -442,7 +439,7 @@ attenuation = 1.0
 bus = "Master"
 area_mask = 1
 
-[node name="Area" type="Area2D" parent="." index="8" groups=[
+[node name="Area" type="Area2D" parent="." index="7" groups=[
 "player",
 ]]
 
@@ -463,14 +460,14 @@ _sections_unfolded = [ "Collision" ]
 position = Vector2( 0, 5 )
 shape = SubResource( 6 )
 
-[node name="nav_update" type="Timer" parent="." index="9"]
+[node name="nav_update" type="Timer" parent="." index="8"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = true
 
-[node name="colSwitch" type="AnimationPlayer" parent="." index="10"]
+[node name="colSwitch" type="AnimationPlayer" parent="." index="9"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -480,7 +477,7 @@ playback_speed = 1.0
 anims/bot = SubResource( 7 )
 blend_times = [  ]
 
-[node name="arrows" type="Node2D" parent="." index="11"]
+[node name="arrows" type="Node2D" parent="." index="10"]
 
 editor/display_folded = true
 scale = Vector2( 0.5, 0.5 )
@@ -513,28 +510,37 @@ rotation = 4.71239
 texture = ExtResource( 6 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="bot_pickup_timer" type="Timer" parent="." index="12"]
+[node name="timers" type="Node2D" parent="." index="11"]
+
+[node name="bot_pickup_timer" type="Timer" parent="timers" index="0"]
 
 process_mode = 1
 wait_time = 5.0
 one_shot = true
 autostart = false
 
-[node name="bot_drop_timer" type="Timer" parent="." index="13"]
+[node name="bot_drop_timer" type="Timer" parent="timers" index="1"]
 
 process_mode = 1
 wait_time = 10.0
 one_shot = true
 autostart = false
 
-[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
+[node name="bot_get_out_timer" type="Timer" parent="timers" index="2"]
+
+process_mode = 1
+wait_time = 5.0
+one_shot = true
+autostart = false
 
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 
 [connection signal="timeout" from="nav_update" to="." method="_on_nav_update_timeout"]
 
-[connection signal="timeout" from="bot_pickup_timer" to="." method="_on_bot_pickup_timer_timeout"]
+[connection signal="timeout" from="timers/bot_pickup_timer" to="." method="_on_bot_pickup_timer_timeout"]
 
-[connection signal="timeout" from="bot_drop_timer" to="." method="_on_bot_drop_timer_timeout"]
+[connection signal="timeout" from="timers/bot_drop_timer" to="." method="_on_bot_drop_timer_timeout"]
+
+[connection signal="timeout" from="timers/bot_get_out_timer" to="." method="_on_bot_get_out_timer_timeout"]
 
 
