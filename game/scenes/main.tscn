@@ -69,6 +69,8 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 [node name="bots" type="Node2D" parent="level" index="2"]
 
+editor/display_folded = true
+
 [node name="bot2" parent="level/bots" index="0" instance=ExtResource( 4 )]
 
 pause_mode = 1
@@ -83,12 +85,13 @@ position = Vector2( 1248, 608 )
 bot_class = 1
 main_player = false
 
-[node name="player" parent="." index="1" instance=ExtResource( 4 )]
+[node name="player" parent="level" index="3" instance=ExtResource( 4 )]
 
 pause_mode = 1
+editor/display_folded = true
 position = Vector2( 480, 220 )
 
-[node name="Camera2D" type="Camera2D" parent="player" index="8"]
+[node name="Camera2D" type="Camera2D" parent="level/player" index="8"]
 
 anchor_mode = 1
 rotating = false
@@ -114,7 +117,7 @@ editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
 
-[node name="ui" type="CanvasLayer" parent="." index="2"]
+[node name="ui" type="CanvasLayer" parent="." index="1"]
 
 pause_mode = 1
 editor/display_folded = true
@@ -216,7 +219,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="sounds" type="Node2D" parent="." index="3"]
+[node name="sounds" type="Node2D" parent="." index="2"]
 
 pause_mode = 1
 editor/display_folded = true

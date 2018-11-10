@@ -18,9 +18,9 @@ func _ready():
 		for y in range(world_size):
 			world[x].append(null)
 	for mob in $level/bots.get_children():
-		mob.goal = $player.position
+		mob.goal = $level/player.position
 		mob.nav = $level/nav
-		mob.goal_obj = $player
+		mob.goal_obj = $level/player
 		mob.update_path()
 func _input(event):
 	if Input.is_action_just_pressed("pause"):

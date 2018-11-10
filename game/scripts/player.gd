@@ -331,7 +331,8 @@ func set_in_trap(value):
 	in_the_trap = value
 	if value:
 		last_trap_tile = main_node.world_to_tile_pos(position) 
-		$timers/bot_get_out_timer.start()
+		if bot_class > 0:
+			$timers/bot_get_out_timer.start()
 	else:
 		allowe_to_crawl_up = false
 
