@@ -15,6 +15,10 @@ var cells = [
 
 var frames = [4, 3, 5, 6]
 
+func _process(delta):
+	if player_inside != null and $Label.visible:
+		$Label.text	 = player_inside.name
+
 func _ready():
 	main_node = get_node("/root/main")
 
@@ -66,7 +70,7 @@ func _on_anim_animation_finished(anim_name):
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("player"):
 		player_inside = area.get_parent()
-		print(area.get_parent().name)
+		print("in trap " + area.get_parent().name)
 		player_inside.set_in_trap(true)
 
 func _on_Area2D_area_exited(area):

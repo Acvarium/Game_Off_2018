@@ -46,19 +46,25 @@ func _ready():
 	$rays/right.add_exception(self)
 	if bot_class > 0:
 		$colSwitch.play("bot")
+	else:
+		$colSwitch.play("player")
+		
 
 func _physics_process(delta):
 	var current_tile_pos = main_node.world_to_tile_pos(position)
+	var current_tile_pos_minus32 = main_node.world_to_tile_pos(position - Vector2(32,0))
+	if $coo.visible:
+		var sss = str(current_tile_pos) + "\n"
+		sss += str(current_tile_pos_minus32)
+		$coo.text = sss
 	if to_remove_last_trap_tile:
 		var ltp = main_node.get_cell(last_trap_tile + Vector2(0,1))
 		var new_hole = last_trap_cell == -1 and ltp != -1
-			
-		if new_hole or !(current_tile_pos == last_trap_tile or (current_tile_pos + Vector2(0,-1)) == last_trap_tile):
+		if new_hole or !(current_tile_pos == last_trap_tile or (current_tile_pos + Vector2(0,-1)) == last_trap_tile or current_tile_pos_minus32 == last_trap_tile):
 			to_remove_last_trap_tile = false
 			last_trap_tile = Vector2()
 			
 		last_trap_cell = ltp
-
 	$rays/up.force_raycast_update()
 	$rays/down.force_raycast_update()
 	$rays/left.force_raycast_update()
@@ -355,7 +361,6 @@ func die():
 	direction = Vector2()
 	is_moving = false
 	global_position = spawn_pos
-	
 	if bot_class > 0:
 		update_path()
 
@@ -364,7 +369,8 @@ func obstacle(dir):
 		return $rays/up.is_colliding() or $rays/up2.is_colliding() 
 	elif dir == DOWN:
 		if last_trap_tile != Vector2():
-			if main_node.world_to_tile_pos(position) == last_trap_tile:
+			var current_tile_pos_minus32 = main_node.world_to_tile_pos(position - Vector2(32,0))
+			if main_node.world_to_tile_pos(position) == last_trap_tile or current_tile_pos_minus32 == last_trap_tile:
 				to_remove_last_trap_tile = true
 				return true
 		return $rays/down.is_colliding() or $rays/down2.is_colliding() 
@@ -408,5 +414,14 @@ func _on_bot_drop_timer_timeout():
 	to_drop_gold = true
 
 func _on_bot_get_out_timer_timeout():
-	print(name + " Allowe")
 	allowe_to_crawl_up = true
+
+
+func _on_Area_area_entered(area):
+	if bot_class == 0:
+		if area.is_in_group("player"):
+			if area.get_parent().bot_class > 0:
+				die()
+
+func _on_Area_area_exited(area):
+	pass # replace with function body
