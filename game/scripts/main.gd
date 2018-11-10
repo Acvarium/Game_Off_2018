@@ -95,13 +95,11 @@ func get_tile_name(cell):
 func replace_cell(cell_pos, cell):
 	tilemap.set_cell(cell_pos.x, cell_pos.y, cell)
 
+# Перерахунок позиції в цілочисленні значення з кроком в 64
 func to_64(pos):
 	pos = pos + Vector2(tile_cell_size/4, tile_cell_size/4)
 	var cell_pos = Vector2(int(pos.x / tile_cell_size), int(pos.y / tile_cell_size))
-	pos = tilemap.map_to_world(cell_pos)
-	pos.x += 32
-	pos.y += 32
-	var grid_pos = world_to_map(pos)
+	pos = tilemap.map_to_world(cell_pos) + Vector2(32,32)
 	return pos
 
 func play_sound(_name):

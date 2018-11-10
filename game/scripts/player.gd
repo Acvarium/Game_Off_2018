@@ -18,8 +18,8 @@ var goal_obj = null
 var path = []
 var gold_slot = 0
 var to_drop_gold = false
-var allowed_to_pickup = true
 var in_the_trap = false
+var allowed_to_pickup = true
 
 export var bot_class = 0
 export var main_player = true
@@ -38,107 +38,122 @@ var current_tile_pos = Vector2()
 func _ready():
 	main_node = get_node("/root/main")
 	randomize()
+	# Налаштування променів ігнорувати власника
 	for r in $rays.get_children():
 		r.add_exception(self)
+	# Визначення позиції появи в місці, де персонаж розташований на початку гри
 	spawn_pos = global_position
-	$rays/up.add_exception(self)
-	$rays/down.add_exception(self)
-	$rays/left.add_exception(self)
-	$rays/right.add_exception(self)
 	if bot_class > 0:
 		$colSwitch.play("bot")
 	else:
 		$colSwitch.play("player")
-	
+	# Додати даного персонажа до списку персонажів на рівні
 	main_node.add_player(self)
 
 func _physics_process(delta):
-	current_tile_pos = main_node.world_to_tile_pos(position)
-	var current_tile_pos_minus32 = main_node.world_to_tile_pos(position - Vector2(32,0))
-	if $coo.visible:
-		var sss = str(current_tile_pos) + "\n"
-		sss += str(current_tile_pos_minus32)
-		$coo.text = sss
-	if to_remove_last_trap_tile:
-		var ltp = main_node.get_cell(last_trap_tile + Vector2(0,1))
-		var new_hole = last_trap_cell == -1 and ltp != -1
-		if new_hole or !(current_tile_pos == last_trap_tile or (current_tile_pos + Vector2(0,-1)) == last_trap_tile or current_tile_pos_minus32 == last_trap_tile):
-			to_remove_last_trap_tile = false
-			last_trap_tile = Vector2()
-			
-		last_trap_cell = ltp
-	$rays/up.force_raycast_update()
-	$rays/down.force_raycast_update()
-	$rays/left.force_raycast_update()
-	$rays/right.force_raycast_update()
-	var pointUnder = position
-	pointUnder.y += 28
-	direction = Vector2()
+	# Визначення поточної позиції в системі координат тайлів
 	
+	direction = Vector2()
 	var tile_pos = main_node.to_64(position)
 	var l_tile_pos = main_node.to_64($points/left.global_position)
 	
+	# Встановлення значень тайлів по 4 ключовим точкам
 	var c_cell = main_node.world_to_tile(position)
 	var l_cell = main_node.world_to_tile($points/left.global_position)
 	var ld_cell = main_node.world_to_tile($points/l_down.global_position)
-	var d_cell = main_node.world_to_tile(pointUnder)
-	
+	var d_cell = main_node.world_to_tile(position + Vector2(0, 32))
+	# Встановлення значень типів тайлів по 4 ключовим точкам,
+	# що дозволяє визначати реакцію персонажа на управління
 	var c_cell_t = t_type(c_cell)
 	var l_cell_t = t_type(l_cell)
 	var ld_cell_t = t_type(ld_cell)
 	var d_cell_t = t_type(d_cell)
-	
+	# створення змінних зля бреженнення команд управління
 	var left_key = false
 	var right_key = false
 	var up_key = false
 	var down_key = false
 	
+	var can_move_up = !obstacle(UP) and (c_cell_t == 1 or l_cell_t == 1)
+	var can_move_down = !obstacle(DOWN)
+	
+	current_tile_pos = main_node.world_to_tile_pos(position)
+	# Визначення поточної позиції в тайловій системі зі зміщенням вправо на пів тайла
+	var current_tile_pos_minus32 = main_node.world_to_tile_pos(position - Vector2(32,0))
+	# Якщо видимий текстовий елемент, вивести допоміжну інформацію
+	if $coo.visible:
+		var sss = str(current_tile_pos) + "\n"
+		sss += str(current_tile_pos_minus32)
+		$coo.text = sss
+	# Якщо персонаж знаходиться в пастці, і йому дозволено вибратись з неї, та очистити позицію поточної пастки з пам'яті
+	# ця ситуація передбачає на короткий час можливість рухатись понад відкритою пасткою
+	if to_remove_last_trap_tile:
+		# значення тайла в комінці з пасткою
+		var ltp = main_node.get_cell(last_trap_tile + Vector2(0,1))
+		# Якщо пастку відкрито в тім самім місці вдруге, а персонаж не зміщувався з неї, він повинен провалитись повторно
+		var new_hole = last_trap_cell == -1 and ltp != -1
+		# Якщо персонаж вийшов за межі дозволеного простору, після того, як вибрався з пастки, особливий статус анулюється
+		if new_hole or !(current_tile_pos == last_trap_tile or (current_tile_pos + Vector2(0,-1)) == last_trap_tile or current_tile_pos_minus32 == last_trap_tile):
+			to_remove_last_trap_tile = false
+			last_trap_tile = Vector2()
+		# збереження стану комірки з пасткою, для перевірки, чи не було створено нову пастку в тому ж місці
+		last_trap_cell = ltp
+	# Примусове оновлення стану променів
+	for r in $rays.get_children():
+		r.force_raycast_update()
+	# Очищення вектора напрямку руху
+	
+	# Якщо це не бот, записати в змінні управління стан натиснення клавіш
 	if bot_class == 0:
 		left_key = Input.is_action_pressed("ui_left")
 		right_key = Input.is_action_pressed("ui_right")
 		up_key = Input.is_action_pressed("ui_up")
 		down_key = Input.is_action_pressed("ui_down")
-		
+	
+	# А от якщо це бот...
 	elif bot_class > 0 and nav != null:
 		if path.size() > 0:
 			var d = position.distance_to(path[0])
 			var d_vec = position - path[0]
 			if d > 32:
 				var ss = ""
-				if d_vec.x > 0:
+				if d_vec.x > 0 and !obstacle(LEFT):
 					left_key = true
 					ss += "left  "
-				elif d_vec.x < 0:
+				elif d_vec.x < 0 and !obstacle(RIGHT):
 					right_key = true
 					ss += "right "
-				elif d_vec.y < 0:
+				elif d_vec.y < 0 and !obstacle(DOWN):
 					down_key = true
 					ss += "down  "
-				if d_vec.y > 0:
+				if d_vec.y > 0 and can_move_up:
 					up_key = true
 					ss += "up    "
 				
 			else:
 				path.remove(0)
+		# відображення стрілок, що допомагають дізнатись про напрямок, куди намагається рухатись бот
 		$arrows/up.visible = up_key
 		$arrows/down.visible = down_key
 		$arrows/left.visible = left_key
 		$arrows/right.visible = right_key
 		
+		# Якщо не в пастці, заборонити повзти вгору
 		if !in_the_trap or last_trap_tile.y != (current_tile_pos.y-1):
 			allowe_to_crawl_up = false
-
+		# Якщо в пастці та дозволено повзти вгору, тоді повзи
 		if in_the_trap and allowe_to_crawl_up:
 			left_key = false
 			right_key = false
 			down_key = false
 			up_key = true
 
+	
+# Додадковий інформаційний вивід, що дозволяє відлагоджувати гру
 	var debug_type = 2
 	$gold.visible = gold_slot > 0
 	$points/center/x.visible = allowed_to_pickup
 	$points/left/x.visible = to_drop_gold
-	
 	
 	$points/center/x.visible =  allowe_to_crawl_up
 #	$points/left/x.visible = l_cell_t ==  debug_type
@@ -171,18 +186,22 @@ func _physics_process(delta):
 			$timers/bot_pickup_timer.wait_time = randf() * 15 + 8
 			$timers/bot_pickup_timer.start()
 			main_node.replace_cell(main_node.world_to_tile_pos(position),13)
-			
+	# визначення, чи знаходиться персонаж на драбині
 	var on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
+	# А чи може на трубі
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
 	on_the_ladder = on_ladder or on_pipe
+	# Якщо в пастці та дозволено повзти вгору, вести себе наче на драбині
 	if allowe_to_crawl_up and in_the_trap:
 		on_the_ladder = true
 	
+	# Якщо відпущено ліву клавішу буріння
 	if Input.is_action_just_released("B") and main_player:
 		b_press = false
 		if current_hole != null:
 			current_hole.play_back()
 		current_hole = null
+	# Якщо відпущено праву клавішу буріння
 	if Input.is_action_just_released("A") and main_player:
 		a_press = false
 		if current_hole != null:
@@ -218,9 +237,9 @@ func _physics_process(delta):
 				current_hole = main_node.add_empty_cell(cell_to_empty)
 				$Sprite.frame = 19
 
-	var can_move_up = (up_key and (c_cell_t == 1 or l_cell_t == 1))
-	var can_move_down = down_key
-		
+	can_move_up = (up_key and (c_cell_t == 1 or l_cell_t == 1))
+	can_move_down = down_key
+	
 	if in_the_trap and allowe_to_crawl_up:
 		can_move_up = true
 	
