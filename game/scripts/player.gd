@@ -105,7 +105,7 @@ func _physics_process(delta):
 	for r in $rays.get_children():
 		r.force_raycast_update()
 	# Очищення вектора напрямку руху
-	var is_on_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
+	on_the_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
 	# Якщо це не бот, записати в змінні управління стан натиснення клавіш
 	if bot_class == 0:
 		left_key = Input.is_action_pressed("ui_left")
@@ -196,7 +196,7 @@ func _physics_process(delta):
 	# визначення, чи знаходиться персонаж на драбині
 	# А чи може на трубі
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
-	on_the_ladder = is_on_ladder or on_pipe
+	on_the_ladder = on_the_ladder or on_pipe
 	# Якщо в пастці та дозволено повзти вгору, вести себе наче на драбині
 	
 	if allowe_to_crawl_up and in_the_trap:

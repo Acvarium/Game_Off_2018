@@ -7,7 +7,7 @@
 [ext_resource path="res://fonts/mono.tres" type="DynamicFont" id=5]
 [ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=6]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
 pause_mode = 2
 script = ExtResource( 1 )
