@@ -10,7 +10,9 @@ var max_speed = 350
 var velocity = Vector2()
 enum ENTITY_TYPES {UP, DOWN, LEFT, RIGHT}
 var cooldown = true
-var current_hole = null
+var current_hole_L = null
+var current_hole_R = null
+
 var gold = 0
 var nav = null
 var nav_from_above = null
@@ -42,7 +44,6 @@ var bot_go_random = true
 var stand_time = 0
 
 func _ready():
-	$coo.text = name
 	main_node = get_node("/root/main")
 	randomize()
 	# Налаштування променів ігнорувати власника
@@ -145,10 +146,10 @@ func _physics_process(delta):
 				path.remove(0)
 			
 		# відображення стрілок, що допомагають дізнатись про напрямок, куди намагається рухатись бот
-		$arrows/up.visible = up_key
-		$arrows/down.visible = down_key
-		$arrows/left.visible = left_key
-		$arrows/right.visible = right_key
+#		$arrows/up.visible = up_key
+#		$arrows/down.visible = down_key
+#		$arrows/left.visible = left_key
+#		$arrows/right.visible = right_key
 		
 		# Якщо не в пастці, заборонити повзти вгору
 		if !in_the_trap or last_trap_tile.y != (current_tile_pos.y-1):
@@ -209,15 +210,15 @@ func _physics_process(delta):
 	# Якщо відпущено ліву клавішу буріння
 	if Input.is_action_just_released("B") and main_player:
 		b_press = false
-		if current_hole != null:
-			current_hole.play_back()
-		current_hole = null
+		if current_hole_L != null:
+			current_hole_L.play_back()
+		current_hole_L = null
 	# Якщо відпущено праву клавішу буріння
 	if Input.is_action_just_released("A") and main_player:
 		a_press = false
-		if current_hole != null:
-			current_hole.play_back()
-		current_hole = null
+		if current_hole_R != null:
+			current_hole_R.play_back()
+		current_hole_R = null
 
 	if abs(direction.y) == 0:
 		if Input.is_action_pressed("B") and main_player:
@@ -231,7 +232,7 @@ func _physics_process(delta):
 			elif can_be_holed(cell_to_empty) and !b_press:
 				b_press = true
 				$sounds/blaster.play()
-				current_hole = main_node.add_empty_cell(cell_to_empty)
+				current_hole_L = main_node.add_empty_cell(cell_to_empty)
 				$Sprite.frame = 17
 		
 		elif Input.is_action_pressed("A")  and main_player:
@@ -245,7 +246,7 @@ func _physics_process(delta):
 			elif can_be_holed(cell_to_empty) and !a_press:
 				a_press = true
 				$sounds/blaster.play()
-				current_hole = main_node.add_empty_cell(cell_to_empty)
+				current_hole_R = main_node.add_empty_cell(cell_to_empty)
 				$Sprite.frame = 19
 
 	can_move_up = (up_key and (c_cell_t == 1 or l_cell_t == 1))
