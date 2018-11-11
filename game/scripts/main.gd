@@ -34,6 +34,7 @@ func _ready():
 	for mob in level.get_node("bots").get_children():
 		mob.goal = $level/player.position
 		mob.nav = $level/nav
+		mob.nav_from_above = $level/nav_fa
 		mob.goal_obj = $level/player
 		mob.update_path()
 func _input(event):

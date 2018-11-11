@@ -13,6 +13,7 @@ var cooldown = true
 var current_hole = null
 var gold = 0
 var nav = null
+var nav_from_above = null
 var goal = Vector2()
 var goal_obj = null
 var path = []
@@ -54,6 +55,9 @@ func _ready():
 
 func _physics_process(delta):
 	# Визначення поточної позиції в системі координат тайлів
+	var ss = ""
+#	ss = str(position.y - goal.y)
+#	$coo.text = ss
 	$jump_ray.force_raycast_update()
 
 	direction = Vector2()
@@ -116,7 +120,7 @@ func _physics_process(delta):
 			var d = position.distance_to(path[0])
 			var d_vec = position - path[0]
 			if d > 32:
-				var ss = ""
+				ss = ""
 				if d_vec.y < 0 and !obstacle(DOWN) and on_the_ladder:
 					down_key = true
 					ss += "down  "
@@ -429,12 +433,15 @@ func set_goal(new_goal):
 	update_path()
 
 func update_path():
+	var c_nav = nav
 	if goal_obj != null:
 		goal = goal_obj.position
-	if path.size() > 0:
-		if bot_go_random and randi()%path.size() > 12:
-			goal = Vector2(randf() * 2000, randf() * 1000)
-	path = nav.get_simple_path(position, goal, false)
+	if (position.y - goal.y) < -96 and nav_from_above != null:
+		c_nav = nav_from_above
+#	if path.size() > 0:
+#		if bot_go_random and randi()%path.size() > 12:
+#			goal = Vector2(randf() * 2000, randf() * 1000)
+	path = c_nav.get_simple_path(position, goal, false)
 	if path.size() == 0:
 		pass
 #		print(path.size())
