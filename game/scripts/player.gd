@@ -54,7 +54,8 @@ func _ready():
 
 func _physics_process(delta):
 	# Визначення поточної позиції в системі координат тайлів
-	
+	$jump_ray.force_raycast_update()
+
 	direction = Vector2()
 	var tile_pos = main_node.to_64(position)
 	var l_tile_pos = main_node.to_64($points/left.global_position)
@@ -78,16 +79,13 @@ func _physics_process(delta):
 	
 	var can_move_up = !obstacle(UP) and (c_cell_t == 1 or l_cell_t == 1)
 	var can_move_down = !obstacle(DOWN)
+	on_the_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
+	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
 	
 	current_tile_pos = main_node.world_to_tile_pos(position)
 	# Визначення поточної позиції в тайловій системі зі зміщенням вправо на пів тайла
 	var current_tile_pos_minus32 = main_node.world_to_tile_pos(position - Vector2(32,0))
-	# Якщо видимий текстовий елемент, вивести допоміжну інформацію
-	if $coo.visible:
-		if bot_class > 0:
-			var sss = str(path.size())
-#			$coo.text = sss
-		
+
 	# Якщо персонаж знаходиться в пастці, і йому дозволено вибратись з неї, та очистити позицію поточної пастки з пам'яті
 	# ця ситуація передбачає на короткий час можливість рухатись понад відкритою пасткою
 	if to_remove_last_trap_tile:
@@ -104,8 +102,7 @@ func _physics_process(delta):
 	# Примусове оновлення стану променів
 	for r in $rays.get_children():
 		r.force_raycast_update()
-	# Очищення вектора напрямку руху
-	on_the_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
+	
 	# Якщо це не бот, записати в змінні управління стан натиснення клавіш
 	if bot_class == 0:
 		left_key = Input.is_action_pressed("ui_left")
@@ -138,7 +135,16 @@ func _physics_process(delta):
 				
 			else:
 				path.remove(0)
-		
+
+		var fall_distance = position.distance_to($jump_ray.get_collision_point())
+		var y_diff = position.y - goal.y
+		var dd = Vector2(0, 1).dot((goal - position).normalized())
+		var fallDif = fall_distance - (abs(y_diff) + 32)
+		if on_pipe and fallDif < 32 and dd > 0.15 and !obstacle(DOWN):
+			down_key = true
+			left_key = false
+			right_key = false
+			up_key = false
 		# відображення стрілок, що допомагають дізнатись про напрямок, куди намагається рухатись бот
 		$arrows/up.visible = up_key
 		$arrows/down.visible = down_key
@@ -195,7 +201,7 @@ func _physics_process(delta):
 			main_node.replace_cell(main_node.world_to_tile_pos(position),13)
 	# визначення, чи знаходиться персонаж на драбині
 	# А чи може на трубі
-	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
+	
 	on_the_ladder = on_the_ladder or on_pipe
 	# Якщо в пастці та дозволено повзти вгору, вести себе наче на драбині
 	
@@ -345,7 +351,6 @@ func _physics_process(delta):
 		else:
 			if abs(velocity.x) < 3 and !(t_type(c_cell) == 2 or t_type(l_cell) == 2):
 				$Sprite.frame = 6
-				
 
 func can_be_holed(cell_pos):
 	var _cell = main_node.get_cell(cell_pos) 
@@ -379,8 +384,6 @@ func set_in_trap(value):
 	else:
 		if bot_class > 0:
 			$colSwitch.play("bot")
-#	else:
-#		allowe_to_crawl_up = false
 
 func die():
 	if bot_class > 0:
@@ -426,7 +429,7 @@ func update_path():
 	if goal_obj != null:
 		goal = goal_obj.position
 	if path.size() > 0:
-		if bot_go_random and randi()%path.size() > 6:
+		if bot_go_random and randi()%path.size() > 12:
 			goal = Vector2(randf() * 2000, randf() * 1000)
 	path = nav.get_simple_path(position, goal, false)
 	if path.size() == 0:

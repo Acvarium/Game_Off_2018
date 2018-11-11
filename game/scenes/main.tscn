@@ -67,8 +67,6 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 [node name="bots" type="Node2D" parent="level" index="2"]
 
-editor/display_folded = true
-
 [node name="bot1" parent="level/bots" index="0" instance=ExtResource( 4 )]
 
 pause_mode = 1
