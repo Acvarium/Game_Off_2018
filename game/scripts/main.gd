@@ -202,7 +202,16 @@ func calculate_map_bounds(_tilemap):
 	$main_camera.limit_top = top_left.y
 	$main_camera.limit_bottom = bottom_right.y 
 	print("gold " + str(gold_on_level))
+
+func busted():
+	$main_camera.zoom_in(0.6)
+	play_sound("busted")
+	get_tree().paused = true
 	
 func _process(delta):
 	if $ui/grid.visible and !on_pause:
 		print_world()
+
+func _on_busted_finished():
+	get_tree().reload_current_scene()
+	get_tree().paused = false

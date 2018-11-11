@@ -10,6 +10,12 @@ func _ready():
 	view_field = global.screen_size * zoom
 	print(view_field)
 
+func zoom_in(value):
+	zoom = Vector2(value,value)
+	if target != null:
+		position = target.position
+	
+
 func _physics_process(delta):
 	if target != null:
 		position = target.position

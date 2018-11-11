@@ -395,19 +395,21 @@ func set_in_trap(value):
 func die():
 	if bot_class > 0:
 		$colSwitch.play("bot")
-	in_the_trap = false
-	last_trap_tile = Vector2()
-	$timers/bot_get_out_timer.stop()
-	to_remove_last_trap_tile = false
-	allowe_to_crawl_up = false
-	main_node.remove_player(self)
-	target_pos = Vector2()
-	target_direction = Vector2()
-	direction = Vector2()
-	is_moving = false
-	global_position = spawn_pos
-	if bot_class > 0:
-		update_path()
+	else:
+		main_node.busted()
+#	in_the_trap = false
+#	last_trap_tile = Vector2()
+#	$timers/bot_get_out_timer.stop()
+#	to_remove_last_trap_tile = false
+#	allowe_to_crawl_up = false
+#	main_node.remove_player(self)
+#	target_pos = Vector2()
+#	target_direction = Vector2()
+#	direction = Vector2()
+#	is_moving = false
+#	global_position = spawn_pos
+#	if bot_class > 0:
+#		update_path()
 
 func obstacle(dir):
 	if dir == UP:

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/busted.ogg-c92ffa9ca2d31fef50c89c999486f13b.oggstr"
+
+[deps]
+
+source_file="res://sounds/busted.ogg"
+dest_files=[ "res://.import/busted.ogg-c92ffa9ca2d31fef50c89c999486f13b.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
