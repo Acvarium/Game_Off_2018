@@ -42,6 +42,7 @@ var bot_go_random = true
 var stand_time = 0
 
 func _ready():
+	$coo.text = name
 	main_node = get_node("/root/main")
 	randomize()
 	# Налаштування променів ігнорувати власника
@@ -183,6 +184,8 @@ func _physics_process(delta):
 				$timers/bot_drop_timer.wait_time = randf() * 20 + 8
 				$timers/bot_drop_timer.start()
 				main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
+		elif c_cell_t == 4:
+			main_node.exit()
 		if bot_class > 0 and gold_slot > 0 and in_the_trap:
 			gold_slot = 0
 			var drop_pos = main_node.world_to_tile_pos(position)
@@ -379,6 +382,8 @@ func t_type(cell):
 		return 2
 	if cell_name == "gold":
 		return 3
+	if cell_name == "exit":
+		return 4
 	return -1
 
 func set_in_trap(value):
@@ -395,21 +400,21 @@ func set_in_trap(value):
 func die():
 	if bot_class > 0:
 		$colSwitch.play("bot")
+		in_the_trap = false
+		last_trap_tile = Vector2()
+		$timers/bot_get_out_timer.stop()
+		to_remove_last_trap_tile = false
+		allowe_to_crawl_up = false
+		main_node.remove_player(self)
+		target_pos = Vector2()
+		target_direction = Vector2()
+		direction = Vector2()
+		is_moving = false
+		global_position = spawn_pos
+		if bot_class > 0:
+			update_path()
 	else:
 		main_node.busted()
-#	in_the_trap = false
-#	last_trap_tile = Vector2()
-#	$timers/bot_get_out_timer.stop()
-#	to_remove_last_trap_tile = false
-#	allowe_to_crawl_up = false
-#	main_node.remove_player(self)
-#	target_pos = Vector2()
-#	target_direction = Vector2()
-#	direction = Vector2()
-#	is_moving = false
-#	global_position = spawn_pos
-#	if bot_class > 0:
-#		update_path()
 
 func obstacle(dir):
 	if dir == UP:
@@ -463,9 +468,9 @@ func random_goal():
 
 func _on_nav_update_timeout():
 	follow_player = true
-	if path.size() > 0:
-		if randi()%path.size() > 5:
-			random_goal()
+#	if path.size() > 0:
+#		if randi()%path.size() > 5:
+#			random_goal()
 #	print(main_node.map_size)
 	if nav != null and bot_class > 0:
 		update_path()

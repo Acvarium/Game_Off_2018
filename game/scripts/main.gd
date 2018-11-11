@@ -64,6 +64,7 @@ func map_to_world(cell):
 	return pos
 
 func final():
+	play_sound("v0")
 	for c in fin_map.get_used_cells():
 		tilemap.set_cell(c.x, c.y, fin_map.get_cell(c.x, c.y))
 		
@@ -101,6 +102,7 @@ func kill_in_cell(cell_pos):
 		if p.get_ref() != null:
 			var p_cell_pos32 = world_to_tile_pos(p.get_ref().position - Vector2(32,0))
 			if p_cell_pos32 == cell_pos or p.get_ref().current_tile_pos == cell_pos:
+				print(p.get_ref().name)
 				p.get_ref().die()
 
 func get_cell(cell_pos):
@@ -213,6 +215,11 @@ func calculate_map_bounds(_tilemap):
 	$main_camera.limit_bottom = bottom_right.y 
 	print("gold " + str(gold_on_level))
 
+
+func exit():
+	get_tree().paused = true
+	play_sound("v1")
+
 func busted():
 	$main_camera.zoom_in(0.6)
 	play_sound("busted")
@@ -223,5 +230,9 @@ func _process(delta):
 		print_world()
 
 func _on_busted_finished():
+	get_tree().reload_current_scene()
+	get_tree().paused = false
+
+func _on_v1_finished():
 	get_tree().reload_current_scene()
 	get_tree().paused = false
