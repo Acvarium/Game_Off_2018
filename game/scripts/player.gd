@@ -139,18 +139,6 @@ func _physics_process(delta):
 				
 			else:
 				path.remove(0)
-
-		var fall_distance = position.distance_to($jump_ray.get_collision_point())
-		var y_diff = position.y - goal.y
-		var dd = Vector2(0, 1).dot((goal - position).normalized())
-		var fallDif = fall_distance - (abs(y_diff) + 32)
-		if on_pipe and fallDif < 32 and dd > 0.15 and !obstacle(DOWN):
-			down_key = true
-			left_key = false
-			right_key = false
-			up_key = false
-			$nav_update.wait_time = 0.01
-			$nav_update.start()
 			
 		# відображення стрілок, що допомагають дізнатись про напрямок, куди намагається рухатись бот
 		$arrows/up.visible = up_key
@@ -167,19 +155,18 @@ func _physics_process(delta):
 			right_key = false
 			down_key = false
 			up_key = true
-
 	
 # Додадковий інформаційний вивід, що дозволяє відлагоджувати гру
 	var debug_type = 2
 	$gold.visible = gold_slot > 0
-	$points/center/x.visible = allowed_to_pickup
-	$points/left/x.visible = to_drop_gold
-	
-	$points/center/x.visible =  allowe_to_crawl_up
+#	$points/center/x.visible = allowed_to_pickup
+#	$points/left/x.visible = to_drop_gold
+#
+#	$points/center/x.visible =  allowe_to_crawl_up
 #	$points/left/x.visible = l_cell_t ==  debug_type
-	$points/down/x.visible = d_cell_t ==  debug_type
-	$points/l_down/x.visible = bot_go_random
-	
+#	$points/down/x.visible = d_cell_t ==  debug_type
+#	$points/l_down/x.visible = bot_go_random
+#
 	if tile_pos.x <= position.x and tile_pos.y <= position.y:
 		if c_cell_t == 3:
 			if bot_class == 0:
