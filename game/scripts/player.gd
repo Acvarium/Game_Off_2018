@@ -179,9 +179,6 @@ func _physics_process(delta):
 				$timers/bot_drop_timer.wait_time = randf() * 20 + 8
 				$timers/bot_drop_timer.start()
 				main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
-		if bot_class > 0:
-			pass
-#			print(in_the_trap)
 		if bot_class > 0 and gold_slot > 0 and in_the_trap:
 			gold_slot = 0
 			var drop_pos = main_node.world_to_tile_pos(position)
@@ -429,9 +426,6 @@ func update_path():
 #		if bot_go_random and randi()%path.size() > 12:
 #			goal = Vector2(randf() * 2000, randf() * 1000)
 	path = c_nav.get_simple_path(position, goal, false)
-	if path.size() == 0:
-		pass
-#		print(path.size())
 
 func _on_cooldown_timeout():
 	cooldown = true
@@ -443,7 +437,6 @@ func _on_nav_update_timeout():
 		$nav_update.start()
 		
 func _on_Area_body_entered(body):
-	print("name " + name + " body " + body.name)
 	if body.is_in_group("level"):
 		die()
 

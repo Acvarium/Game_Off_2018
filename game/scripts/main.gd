@@ -11,9 +11,13 @@ var dCount = 0
 var on_pause = false
 var players = []
 var level = null
+var top_left = Vector2()
+var bottom_right = Vector2()
 
 func add_player(player):
 	players.append(weakref(player))
+	if player.bot_class == 0:
+		$main_camera.set_target(player)
 
 func _ready():
 	level = $level
@@ -25,6 +29,7 @@ func _ready():
 		add_child(new_level)
 		new_level.name = "level"
 		level = new_level
+	calculate_map_bounds(level.get_node("level"))
 	offset = Vector2(0,0)
 	tilemap = level.get_node("level")
 	for x in range(world_size):
@@ -74,12 +79,9 @@ func add_empty_cell(cell_pos):
 	return empty_cell
 
 func kill_in_cell(cell_pos):
-	print("kill cell = " + str(cell_pos))
 	for p in players:
 		if p.get_ref() != null:
 			var p_cell_pos32 = world_to_tile_pos(p.get_ref().position - Vector2(32,0))
-			
-			print(p_cell_pos32)
 			if p_cell_pos32 == cell_pos or p.get_ref().current_tile_pos == cell_pos:
 				p.get_ref().die()
 
@@ -156,6 +158,32 @@ func print_world():
 		ss += l + "\n"
 	$ui/grid.bbcode_text = ss
 			
+func calculate_map_bounds(_tilemap):
+	var used_cells = _tilemap.get_used_cells()
+	top_left.x = INF
+	top_left.y = INF
+	
+	for pos in used_cells:
+		if pos.x < top_left.x:
+			top_left.x = pos.x
+		elif pos.x > bottom_right.x:
+			bottom_right.x = pos.x
+		if pos.y < top_left.y:
+			top_left.y = pos.y
+		elif pos.y > bottom_right.y:
+			bottom_right.y = pos.y
+	var map_size = bottom_right - top_left - Vector2(3,3)
+	print("Map size = " + str(map_size * 64))
+	bottom_right = (bottom_right + Vector2(1,1)) * 64
+	top_left *= 64
+	print("TL = " + str(top_left))
+	print("BR = " + str(bottom_right))
+	$main_camera.limit_left = top_left.x 
+	$main_camera.limit_right = bottom_right.x 
+	$main_camera.limit_top = top_left.y
+	$main_camera.limit_bottom = bottom_right.y 
+	
+	
 func _process(delta):
 	if $ui/grid.visible and !on_pause:
 		print_world()

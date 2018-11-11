@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
-[ext_resource path="res://tiles/navTiles.tres" type="TileSet" id=2]
-[ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=3]
-[ext_resource path="res://objects/player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://fonts/mono.tres" type="DynamicFont" id=5]
-[ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=6]
+[ext_resource path="res://scripts/main_camera.gd" type="Script" id=2]
+[ext_resource path="res://tiles/navTiles.tres" type="TileSet" id=3]
+[ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=4]
+[ext_resource path="res://objects/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://fonts/mono.tres" type="DynamicFont" id=6]
+[ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=7]
 
 [node name="main" type="Node2D" index="0"]
 
@@ -13,18 +14,53 @@ pause_mode = 2
 script = ExtResource( 1 )
 _sections_unfolded = [ "Pause", "Transform" ]
 
-[node name="level" type="Node2D" parent="." index="0"]
+[node name="main_camera" type="Camera2D" parent="." index="0"]
+
+position = Vector2( 1152, 660 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1.2, 1.2 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.4
+drag_margin_top = 0.4
+drag_margin_right = 0.4
+drag_margin_bottom = 0.4
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+script = ExtResource( 2 )
+_sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing", "Transform" ]
+
+[node name="level" type="Node2D" parent="." index="1"]
 
 pause_mode = 1
+editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="nav" type="Navigation2D" parent="level" index="0"]
+
+editor/display_folded = true
 
 [node name="navMap" type="TileMap" parent="level/nav" index="0"]
 
 modulate = Color( 1, 1, 1, 0.425412 )
 mode = 0
-tile_set = ExtResource( 2 )
+tile_set = ExtResource( 3 )
 cell_size = Vector2( 64, 64 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -50,7 +86,7 @@ editor/display_folded = true
 
 modulate = Color( 1, 1, 1, 0.425412 )
 mode = 0
-tile_set = ExtResource( 2 )
+tile_set = ExtResource( 3 )
 cell_size = Vector2( 64, 64 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -73,7 +109,7 @@ _sections_unfolded = [ "Cell", "Visibility" ]
 ]]
 
 mode = 0
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 4 )
 cell_size = Vector2( 64, 64 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -95,60 +131,33 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 editor/display_folded = true
 
-[node name="bot1" parent="level/bots" index="0" instance=ExtResource( 4 )]
+[node name="bot1" parent="level/bots" index="0" instance=ExtResource( 5 )]
 
 pause_mode = 1
 position = Vector2( 1184, 288 )
 bot_class = 1
 main_player = false
 
-[node name="bot3" parent="level/bots" index="1" instance=ExtResource( 4 )]
+[node name="bot3" parent="level/bots" index="1" instance=ExtResource( 5 )]
 
 pause_mode = 1
 position = Vector2( 1888, 288 )
 bot_class = 1
 main_player = false
 
-[node name="bot2" parent="level/bots" index="2" instance=ExtResource( 4 )]
+[node name="bot2" parent="level/bots" index="2" instance=ExtResource( 5 )]
 
 pause_mode = 1
 position = Vector2( 480, 288 )
 bot_class = 1
 main_player = false
 
-[node name="player" parent="level" index="4" instance=ExtResource( 4 )]
+[node name="player" parent="level" index="4" instance=ExtResource( 5 )]
 
 pause_mode = 1
-editor/display_folded = true
 position = Vector2( 1184, 1024 )
 
-[node name="Camera2D" type="Camera2D" parent="level/player" index="8"]
-
-anchor_mode = 1
-rotating = false
-current = true
-zoom = Vector2( 1.5, 1.5 )
-limit_left = -10000000
-limit_top = -10000000
-limit_right = 10000000
-limit_bottom = 10000000
-limit_smoothed = false
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = false
-smoothing_speed = 5.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.4
-drag_margin_top = 0.4
-drag_margin_right = 0.4
-drag_margin_bottom = 0.4
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
-_sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
-
-[node name="ui" type="CanvasLayer" parent="." index="1"]
+[node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
 layer = 1
@@ -164,16 +173,16 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 832.0
-margin_bottom = 552.0
+margin_right = 1088.0
+margin_bottom = 672.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/mono_font = ExtResource( 5 )
-custom_fonts/normal_font = ExtResource( 5 )
+custom_fonts/mono_font = ExtResource( 6 )
+custom_fonts/normal_font = ExtResource( 6 )
 bbcode_enabled = true
 bbcode_text = "111"
 visible_characters = -1
@@ -250,13 +259,18 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="sounds" type="Node2D" parent="." index="2"]
+[node name="sounds" type="Node2D" parent="." index="3"]
 
 pause_mode = 1
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="coin" type="AudioStreamPlayer" parent="sounds" index="0"]
 
-stream = ExtResource( 6 )
+stream = ExtResource( 7 )
 volume_db = -40.0
 pitch_scale = 1.0
 autoplay = false
