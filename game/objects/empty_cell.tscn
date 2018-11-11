@@ -152,9 +152,10 @@ custom_solver_bias = 0.0
 a = Vector2( -32, 32 )
 b = Vector2( 32, 32 )
 
-[node name="empty_cell" type="Node2D"]
+[node name="empty_cell" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
@@ -167,7 +168,7 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="Timer" type="Timer" parent="." index="1"]
 
 process_mode = 1
-wait_time = 10.0
+wait_time = 7.0
 one_shot = true
 autostart = true
 

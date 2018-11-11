@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://textures/hero.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://textures/4x.png" type="Texture" id=4]
 [ext_resource path="res://sounds/blaster.ogg" type="AudioStream" id=5]
 [ext_resource path="res://textures/arrow.png" type="Texture" id=6]
-[ext_resource path="res://fonts/mono.tres" type="DynamicFont" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -134,7 +133,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( -0.5, 0.5 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=6]
 
 custom_solver_bias = 0.0
 extents = Vector2( 23.9017, 25.233 )
@@ -278,7 +277,7 @@ tracks/10/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=8]
 
 resource_name = "in_trap"
 length = 0.3
@@ -417,7 +416,7 @@ tracks/10/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=9]
 
 resource_name = "player"
 length = 0.3
@@ -541,7 +540,7 @@ tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 1 ]
+"values": [ 2 ]
 }
 tracks/10/type = "value"
 tracks/10/path = NodePath(".:collision_mask")
@@ -553,14 +552,28 @@ tracks/10/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 1 ]
+"values": [ 2 ]
 }
 
-[node name="player" type="KinematicBody2D" index="0"]
+[sub_resource type="DynamicFontData" id=10]
+
+hinting = 2
+font_path = "res://fonts/LiberationMono-Regular.ttf"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="DynamicFont" id=11]
+
+size = 32
+use_mipmaps = false
+use_filter = false
+font_data = SubResource( 10 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[node name="player" type="KinematicBody2D"]
 
 input_pickable = false
-collision_layer = 1
-collision_mask = 1
+collision_layer = 2
+collision_mask = 2
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
@@ -723,9 +736,9 @@ _sections_unfolded = [ "Transform" ]
 [node name="x" type="Sprite" parent="points/l_down" index="0"]
 
 visible = false
-modulate = Color( 0.898438, 1, 0, 1 )
+modulate = Color( 0.804688, 0, 1, 1 )
 texture = ExtResource( 4 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="sounds" type="Node2D" parent="." index="6"]
 
@@ -761,7 +774,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area" index="0"]
 
 position = Vector2( 0, 5 )
-shape = SubResource( 9 )
+shape = SubResource( 6 )
 
 [node name="nav_update" type="Timer" parent="." index="8"]
 
@@ -778,8 +791,8 @@ playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
 anims/bot = SubResource( 7 )
-anims/in_trap = SubResource( 10 )
-anims/player = SubResource( 11 )
+anims/in_trap = SubResource( 8 )
+anims/player = SubResource( 9 )
 blend_times = [  ]
 
 [node name="arrows" type="Node2D" parent="." index="10"]
@@ -817,8 +830,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="timers" type="Node2D" parent="." index="11"]
 
-editor/display_folded = true
-
 [node name="bot_pickup_timer" type="Timer" parent="timers" index="0"]
 
 process_mode = 1
@@ -836,13 +847,19 @@ autostart = false
 [node name="bot_get_out_timer" type="Timer" parent="timers" index="2"]
 
 process_mode = 1
-wait_time = 4.0
+wait_time = 3.5
 one_shot = true
 autostart = false
 
+[node name="random_dir_timer" type="Timer" parent="timers" index="3"]
+
+process_mode = 1
+wait_time = 10.0
+one_shot = true
+autostart = true
+
 [node name="coo" type="Label" parent="." index="12"]
 
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -857,8 +874,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 7 )
-text = "11"
+custom_fonts/font = SubResource( 11 )
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
@@ -878,5 +894,7 @@ _sections_unfolded = [ "Grow Direction", "Margin", "custom_fonts" ]
 [connection signal="timeout" from="timers/bot_drop_timer" to="." method="_on_bot_drop_timer_timeout"]
 
 [connection signal="timeout" from="timers/bot_get_out_timer" to="." method="_on_bot_get_out_timer_timeout"]
+
+[connection signal="timeout" from="timers/random_dir_timer" to="." method="_on_random_dir_timer_timeout"]
 
 
