@@ -145,6 +145,9 @@ func _physics_process(delta):
 			left_key = false
 			right_key = false
 			up_key = false
+			$nav_update.wait_time = 0.01
+			$nav_update.start()
+			
 		# відображення стрілок, що допомагають дізнатись про напрямок, куди намагається рухатись бот
 		$arrows/up.visible = up_key
 		$arrows/down.visible = down_key
@@ -442,6 +445,8 @@ func _on_cooldown_timeout():
 func _on_nav_update_timeout():
 	if nav != null and bot_class > 0:
 		update_path()
+		$nav_update.wait_time = randf() * 0.5 + 0.5
+		$nav_update.start()
 		
 func _on_Area_body_entered(body):
 	print("name " + name + " body " + body.name)

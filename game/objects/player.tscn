@@ -569,7 +569,7 @@ use_filter = false
 font_data = SubResource( 10 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="player" type="KinematicBody2D"]
+[node name="player" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 2
@@ -829,8 +829,6 @@ texture = ExtResource( 6 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="timers" type="Node2D" parent="." index="11"]
-
-editor/display_folded = true
 
 [node name="bot_pickup_timer" type="Timer" parent="timers" index="0"]
 
