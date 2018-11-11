@@ -16,6 +16,7 @@ var bottom_right = Vector2()
 var map_size = Vector2()
 var gold_on_level = 0
 var gold_found = 0
+var fin_map = null
 
 func add_player(player):
 	players.append(weakref(player))
@@ -24,6 +25,8 @@ func add_player(player):
 
 func update_gold_count(value):
 	gold_found += value
+	if gold_found == gold_on_level:
+		final()
 	$ui/goldCount.text = str(gold_on_level) + "/" + str(gold_found)
 
 func _ready():
@@ -38,6 +41,7 @@ func _ready():
 		level = new_level
 	offset = Vector2(0,0)
 	tilemap = level.get_node("level")
+	fin_map = level.get_node("fin")
 	calculate_map_bounds(level.get_node("level"))
 	update_gold_count(0)
 	for x in range(world_size):
@@ -58,6 +62,12 @@ func _input(event):
 func map_to_world(cell):
 	var pos = Vector2(cell.x * cell_size + offset.x, cell.y * cell_size + offset.y)
 	return pos
+
+func final():
+	for c in fin_map.get_used_cells():
+		tilemap.set_cell(c.x, c.y, fin_map.get_cell(c.x, c.y))
+		
+	pass
 
 func world_to_map(pos):
 	pos = pos + Vector2(cell_size/4, cell_size/4)
