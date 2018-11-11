@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/main_camera.gd" type="Script" id=2]
@@ -6,9 +6,25 @@
 [ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=4]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://fonts/mono.tres" type="DynamicFont" id=6]
-[ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=7]
+[ext_resource path="res://textures/b.png" type="Texture" id=7]
+[ext_resource path="res://textures/gold.png" type="Texture" id=8]
+[ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=9]
 
-[node name="main" type="Node2D"]
+[sub_resource type="DynamicFontData" id=1]
+
+hinting = 2
+font_path = "res://fonts/LiberationMono-Regular.ttf"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="DynamicFont" id=2]
+
+size = 32
+use_mipmaps = false
+use_filter = false
+font_data = SubResource( 1 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[node name="main" type="Node2D" index="0"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -159,7 +175,6 @@ position = Vector2( 1184, 1024 )
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -259,6 +274,44 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="goldCount" type="Label" parent="ui" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 41.0
+margin_top = 15.0
+margin_right = 129.0
+margin_bottom = 52.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 2 )
+text = "10/11"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="b" type="Sprite" parent="ui" index="5"]
+
+modulate = Color( 1, 1, 1, 0.292824 )
+position = Vector2( 62.2122, 25.3718 )
+scale = Vector2( 2.68016, 0.847618 )
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="gold" type="Sprite" parent="ui" index="6"]
+
+position = Vector2( 23.3869, 23.047 )
+scale = Vector2( 0.68605, 0.68605 )
+texture = ExtResource( 8 )
+
 [node name="sounds" type="Node2D" parent="." index="3"]
 
 pause_mode = 1
@@ -270,7 +323,7 @@ __meta__ = {
 
 [node name="coin" type="AudioStreamPlayer" parent="sounds" index="0"]
 
-stream = ExtResource( 7 )
+stream = ExtResource( 9 )
 volume_db = -40.0
 pitch_scale = 1.0
 autoplay = false

@@ -14,11 +14,17 @@ var level = null
 var top_left = Vector2()
 var bottom_right = Vector2()
 var map_size = Vector2()
+var gold_on_level = 0
+var gold_found = 0
 
 func add_player(player):
 	players.append(weakref(player))
 	if player.bot_class == 0:
 		$main_camera.set_target(player)
+
+func update_gold_count(value):
+	gold_found += value
+	$ui/goldCount.text = str(gold_on_level) + "/" + str(gold_found)
 
 func _ready():
 	level = $level
@@ -30,9 +36,10 @@ func _ready():
 		add_child(new_level)
 		new_level.name = "level"
 		level = new_level
-	calculate_map_bounds(level.get_node("level"))
 	offset = Vector2(0,0)
 	tilemap = level.get_node("level")
+	calculate_map_bounds(level.get_node("level"))
+	update_gold_count(0)
 	for x in range(world_size):
 		world.append([])
 		for y in range(world_size):
@@ -174,6 +181,9 @@ func calculate_map_bounds(_tilemap):
 	top_left.y = INF
 	
 	for pos in used_cells:
+		var tn = get_tile_name(_tilemap.get_cell(pos.x, pos.y))
+		if tn == "gold":
+			gold_on_level += 1
 		if pos.x < top_left.x:
 			top_left.x = pos.x
 		elif pos.x > bottom_right.x:
@@ -191,7 +201,7 @@ func calculate_map_bounds(_tilemap):
 	$main_camera.limit_right = bottom_right.x 
 	$main_camera.limit_top = top_left.y
 	$main_camera.limit_bottom = bottom_right.y 
-	
+	print("gold " + str(gold_on_level))
 	
 func _process(delta):
 	if $ui/grid.visible and !on_pause:

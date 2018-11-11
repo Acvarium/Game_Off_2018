@@ -175,6 +175,7 @@ func _physics_process(delta):
 			if bot_class == 0:
 				main_node.play_sound("coin")
 				gold += 1
+				main_node.update_gold_count(1)
 				main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
 			elif gold_slot == 0 and allowed_to_pickup:
 				to_drop_gold = false

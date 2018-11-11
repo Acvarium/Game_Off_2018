@@ -573,6 +573,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 "character",
 ]]
 
+editor/display_folded = true
 input_pickable = false
 collision_layer = 4
 collision_mask = 4
@@ -623,6 +624,8 @@ anims/up = SubResource( 5 )
 blend_times = [  ]
 
 [node name="rays" type="Node2D" parent="." index="4"]
+
+editor/display_folded = true
 
 [node name="down" type="RayCast2D" parent="rays" index="0"]
 
