@@ -13,6 +13,7 @@ var players = []
 var level = null
 var top_left = Vector2()
 var bottom_right = Vector2()
+var map_size = Vector2()
 
 func add_player(player):
 	players.append(weakref(player))
@@ -110,6 +111,7 @@ func play_sound(_name):
 		$sounds.get_node(_name).play()
 
 func is_cell_vacant(player):
+	var is_vacant = true
 	if player.bot_class == 0:
 		return true
 	var direction = player.direction
@@ -117,13 +119,21 @@ func is_cell_vacant(player):
 	for x in range(2):
 		for y in range(2):
 			if (grid_pos.x + x - 1) < 0 or (grid_pos.x + x - 1) >= world.size():
-				return false
+				is_vacant = false
 			if (grid_pos.y + y - 1) < 0 or (grid_pos.y + y - 1) >= world[0].size():
-				return false
+				is_vacant = false
 			var cell = world[grid_pos.x + x - 1][grid_pos.y + y - 1]
 			if cell != null:
 				if cell.get_ref() != player:
-					return false
+					is_vacant = false
+	if !is_vacant:
+#		print(player.name)
+#		var rand_pos = Vector2()
+#		rand_pos.x = randf() * map_size.x + top_left.x
+#		rand_pos.y = randf() * map_size.y + bottom_right.y
+#		player.goal = rand_pos
+#		player.follow_player = false
+		return false
 	return true
 
 func remove_player(player):
@@ -172,10 +182,9 @@ func calculate_map_bounds(_tilemap):
 			top_left.y = pos.y
 		elif pos.y > bottom_right.y:
 			bottom_right.y = pos.y
-	var map_size = bottom_right - top_left - Vector2(3,3)
-	print("Map size = " + str(map_size * 64))
 	bottom_right = (bottom_right + Vector2(1,1)) * 64
 	top_left *= 64
+	map_size = bottom_right - top_left 
 	print("TL = " + str(top_left))
 	print("BR = " + str(bottom_right))
 	$main_camera.limit_left = top_left.x 

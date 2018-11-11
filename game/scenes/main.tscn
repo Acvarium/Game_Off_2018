@@ -8,7 +8,7 @@
 [ext_resource path="res://fonts/mono.tres" type="DynamicFont" id=6]
 [ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=7]
 
-[node name="main" type="Node2D" index="0"]
+[node name="main" type="Node2D"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -45,7 +45,6 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing", "Transform
 [node name="level" type="Node2D" parent="." index="1"]
 
 pause_mode = 1
-editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 __meta__ = {
 "_edit_group_": true,
@@ -160,6 +159,7 @@ position = Vector2( 1184, 1024 )
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0

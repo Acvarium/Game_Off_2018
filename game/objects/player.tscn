@@ -569,11 +569,13 @@ use_filter = false
 font_data = SubResource( 10 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="player" type="KinematicBody2D" index="0"]
+[node name="player" type="KinematicBody2D" index="0" groups=[
+"character",
+]]
 
 input_pickable = false
-collision_layer = 2
-collision_mask = 2
+collision_layer = 4
+collision_mask = 4
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
@@ -586,6 +588,7 @@ last_trap_tile = Vector2( 0, 0 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
+self_modulate = Color( 1, 0.171875, 0.171875, 1 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 vframes = 3
@@ -621,15 +624,13 @@ blend_times = [  ]
 
 [node name="rays" type="Node2D" parent="." index="4"]
 
-editor/display_folded = true
-
 [node name="down" type="RayCast2D" parent="rays" index="0"]
 
 position = Vector2( -12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 1
+collision_mask = 5
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="down2" type="RayCast2D" parent="rays" index="1"]
@@ -638,7 +639,7 @@ position = Vector2( 12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 1
+collision_mask = 5
 _sections_unfolded = [ "Transform" ]
 
 [node name="right" type="RayCast2D" parent="rays" index="2"]
@@ -647,7 +648,7 @@ position = Vector2( 18, 14 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 20, 0 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="right2" type="RayCast2D" parent="rays" index="3"]
 
@@ -655,7 +656,7 @@ position = Vector2( 18, -6 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 20, 0 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="left" type="RayCast2D" parent="rays" index="4"]
 
@@ -663,7 +664,7 @@ position = Vector2( -18, 14 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( -20, 0 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="left2" type="RayCast2D" parent="rays" index="5"]
 
@@ -671,7 +672,7 @@ position = Vector2( -18, -5 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( -20, 0 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="up" type="RayCast2D" parent="rays" index="6"]
 
@@ -679,7 +680,7 @@ position = Vector2( -8, -13 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, -20 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="up2" type="RayCast2D" parent="rays" index="7"]
 
@@ -687,7 +688,7 @@ position = Vector2( 7, -13 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, -20 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="points" type="Node2D" parent="." index="5"]
 
@@ -882,14 +883,6 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Grow Direction", "Margin", "custom_fonts" ]
-
-[node name="jump_ray" type="RayCast2D" parent="." index="13"]
-
-enabled = false
-exclude_parent = true
-cast_to = Vector2( 0, 600 )
-collision_mask = 1
-_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [connection signal="area_entered" from="Area" to="." method="_on_Area_area_entered"]
 

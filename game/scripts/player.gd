@@ -21,6 +21,8 @@ var gold_slot = 0
 var to_drop_gold = false
 var in_the_trap = false
 var allowed_to_pickup = true
+var follow_player = true
+var last_pos = Vector2()
 
 export var bot_class = 0
 export var main_player = true
@@ -37,6 +39,7 @@ var last_trap_cell = 999
 var current_tile_pos = Vector2()
 var bot_random_dir = UP
 var bot_go_random = true
+var stand_time = 0
 
 func _ready():
 	main_node = get_node("/root/main")
@@ -54,11 +57,11 @@ func _ready():
 	main_node.add_player(self)
 
 func _physics_process(delta):
+	
 	# Визначення поточної позиції в системі координат тайлів
 	var ss = ""
 #	ss = str(position.y - goal.y)
 #	$coo.text = ss
-	$jump_ray.force_raycast_update()
 
 	direction = Vector2()
 	var tile_pos = main_node.to_64(position)
@@ -265,6 +268,7 @@ func _physics_process(delta):
 				direction.x = -1
 				if !is_moving:
 					currentDir = Vector2(-1,0)
+		obstacle(DOWN)
 		if up_key and (c_cell == 1 or allowe_to_crawl_up):
 			if !obstacle(UP):
 				direction.y = -1
@@ -290,9 +294,7 @@ func _physics_process(delta):
 		direction.y = 1
 		if !is_moving:
 			currentDir = Vector2(0,1)
-#	else:
-#		if $anim.is_playing():
-#			$anim.stop()
+
 	if !is_moving and direction != Vector2():
 		target_direction = direction
 		if main_node.is_cell_vacant(self):
@@ -311,6 +313,7 @@ func _physics_process(delta):
 			velocity.y = distance_to_target.y * target_direction.y
 			is_moving = false
 		move_and_collide(velocity)
+
 	if direction.y == 1:
 		if on_the_ladder:
 			if $anim.current_animation != "up":
@@ -342,6 +345,18 @@ func _physics_process(delta):
 		else:
 			if abs(velocity.x) < 3 and !(t_type(c_cell) == 2 or t_type(l_cell) == 2):
 				$Sprite.frame = 6
+#	if last_pos == position and bot_class > 0:
+#		if (OS.get_ticks_msec() - stand_time) > 100:
+#			print(name)
+#			random_goal()
+#	else:
+#		stand_time = OS.get_ticks_msec()
+#	last_pos = position
+
+
+
+
+
 
 func can_be_holed(cell_pos):
 	var _cell = main_node.get_cell(cell_pos) 
@@ -404,6 +419,12 @@ func obstacle(dir):
 				return true
 		return $rays/down.is_colliding() or $rays/down2.is_colliding() 
 	elif dir == LEFT:
+		if $rays/left2.is_colliding():
+			var col_obj = $rays/left2.get_collider()
+			if col_obj.is_in_group("character"):
+				if col_obj.bot_class > 0:
+					pass
+		$rays/left.get_collider()
 		return $rays/left.is_colliding() or $rays/left2.is_colliding()
 	elif dir == RIGHT:
 		return $rays/right.is_colliding() or $rays/right2.is_colliding()
@@ -418,19 +439,31 @@ func set_goal(new_goal):
 
 func update_path():
 	var c_nav = nav
-	if goal_obj != null:
+	if follow_player and goal_obj != null:
 		goal = goal_obj.position
 	if (position.y - goal.y) < -96 and nav_from_above != null:
 		c_nav = nav_from_above
-#	if path.size() > 0:
-#		if bot_go_random and randi()%path.size() > 12:
-#			goal = Vector2(randf() * 2000, randf() * 1000)
-	path = c_nav.get_simple_path(position, goal, false)
+	if c_nav != null:
+		path = c_nav.get_simple_path(position, goal, false)
 
 func _on_cooldown_timeout():
 	cooldown = true
 
+func random_goal():
+	follow_player = false
+	var rand_pos = Vector2()
+	rand_pos.x = randf() * main_node.map_size.x + main_node.top_left.x
+	rand_pos.y = randf() * main_node.map_size.y + main_node.top_left.y	
+	goal = rand_pos
+	if nav != null and bot_class > 0:
+		update_path()
+
 func _on_nav_update_timeout():
+	follow_player = true
+	if path.size() > 0:
+		if randi()%path.size() > 5:
+			random_goal()
+#	print(main_node.map_size)
 	if nav != null and bot_class > 0:
 		update_path()
 		$nav_update.wait_time = randf() * 0.5 + 0.5
