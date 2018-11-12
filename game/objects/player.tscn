@@ -570,7 +570,7 @@ use_filter = false
 font_data = SubResource( 10 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="player" type="KinematicBody2D" groups=[
+[node name="player" type="KinematicBody2D" index="0" groups=[
 "character",
 ]]
 

@@ -29,6 +29,8 @@ var last_pos = Vector2()
 export var bot_class = 0
 export var main_player = true
 
+var on_the_floor = false
+
 var allowe_to_crawl_up = false
 var direction = Vector2()
 var currentDir = Vector2(0,-1)
@@ -63,7 +65,8 @@ func _ready():
 	main_node.add_player(self)
 
 func _physics_process(delta):
-	
+
+
 	# Визначення поточної позиції в системі координат тайлів
 	var ss = ""
 #	ss = str(position.y - goal.y)
@@ -228,7 +231,7 @@ func _physics_process(delta):
 		current_hole_R = null
 
 	if abs(direction.y) == 0:
-		if Input.is_action_pressed("B") and main_player:
+		if Input.is_action_pressed("B") and main_player and (obstacle(DOWN) or on_the_ladder or on_pipe):
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x -= 1
 			cell_to_empty.y += 1
@@ -245,7 +248,7 @@ func _physics_process(delta):
 				$sounds/miss.play()
 				bb_press = true
 			
-		if Input.is_action_pressed("A")  and main_player:
+		if Input.is_action_pressed("A")  and main_player and (obstacle(DOWN) or on_the_ladder or on_pipe):
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x += 1
 			cell_to_empty.y += 1
