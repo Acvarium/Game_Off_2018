@@ -4,7 +4,7 @@
 [ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=2]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=3]
 
-[node name="level" type="Node2D" index="0"]
+[node name="level" type="Node2D"]
 
 [node name="nav" type="Navigation2D" parent="." index="0"]
 

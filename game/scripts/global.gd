@@ -2,7 +2,7 @@ extends Node
 var current_scene = null
 var level = -1
 var players_lifes = [4,4,4,4]
-var levels = ["level1"]
+var levels = ["level1","level2"]
 var screen_size = Vector2(1280, 720)
 
 func _ready():
@@ -14,6 +14,12 @@ func next_level():
 	if level > levels.size() - 1:
 		level = -1
 #	goto_scene("res://scenes/main.tscn")
+
+
+func set_level(value):
+	level = value
+	if level > levels.size() - 1:
+		level = -1
 
 func goto_scene(path):
 	call_deferred("_deferred_goto_scene",path)
