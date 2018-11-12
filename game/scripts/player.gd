@@ -34,6 +34,10 @@ var direction = Vector2()
 var currentDir = Vector2(0,-1)
 var b_press = false
 var a_press = false
+
+var bb_press = false
+var aa_press = false
+
 var spawn_pos = Vector2()
 export var last_trap_tile = Vector2()
 var to_remove_last_trap_tile = false
@@ -210,12 +214,15 @@ func _physics_process(delta):
 	# Якщо відпущено ліву клавішу буріння
 	if Input.is_action_just_released("B") and main_player:
 		b_press = false
+		bb_press = false
+		
 		if current_hole_L != null:
 			current_hole_L.play_back()
 		current_hole_L = null
 	# Якщо відпущено праву клавішу буріння
 	if Input.is_action_just_released("A") and main_player:
 		a_press = false
+		aa_press = false
 		if current_hole_R != null:
 			current_hole_R.play_back()
 		current_hole_R = null
@@ -234,8 +241,11 @@ func _physics_process(delta):
 				$sounds/blaster.play()
 				current_hole_L = main_node.add_empty_cell(cell_to_empty)
 				$Sprite.frame = 17
-		
-		elif Input.is_action_pressed("A")  and main_player:
+			elif !bb_press:
+				$sounds/miss.play()
+				bb_press = true
+			
+		if Input.is_action_pressed("A")  and main_player:
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x += 1
 			cell_to_empty.y += 1
@@ -248,7 +258,10 @@ func _physics_process(delta):
 				$sounds/blaster.play()
 				current_hole_R = main_node.add_empty_cell(cell_to_empty)
 				$Sprite.frame = 19
-
+			elif !aa_press:
+				$sounds/miss.play()
+				aa_press = true
+			
 	can_move_up = (up_key and (c_cell_t == 1 or l_cell_t == 1))
 	can_move_down = down_key
 	
