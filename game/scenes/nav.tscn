@@ -3,18 +3,18 @@
 [ext_resource path="res://textures/w.png" type="Texture" id=1]
 [ext_resource path="res://textures/b.png" type="Texture" id=2]
 
-[sub_resource type="NavigationPolygon" id=2]
+[sub_resource type="NavigationPolygon" id=1]
 
 vertices = PoolVector2Array( 32, -32, 32, 32, -32, 32, -32, -32 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 outlines = [ PoolVector2Array( -32, -32, -32, 32, 32, 32, 32, -32 ) ]
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="NavigationPolygon" id=1]
+[sub_resource type="NavigationPolygon" id=2]
 
-vertices = PoolVector2Array( 30, -32, 30, 32, -30, 32, -30, -32 )
+vertices = PoolVector2Array( 32, -32, 32, 30, -32, 30, -32, -32 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
-outlines = [ PoolVector2Array( -30, -32, -30, 32, 30, 32, 30, -32 ) ]
+outlines = [ PoolVector2Array( -32, -32, -32, 30, 32, 30, 32, -32 ) ]
 _sections_unfolded = [ "Resource" ]
 
 [node name="nav" type="Node2D"]
@@ -32,7 +32,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="b" index="0"]
 
-navpoly = SubResource( 2 )
+navpoly = SubResource( 1 )
 enabled = true
 
 [node name="b2" type="Sprite" parent="." index="2"]
@@ -44,7 +44,7 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="b2" index="0"]
 
-navpoly = SubResource( 1 )
+navpoly = SubResource( 2 )
 enabled = true
 
 

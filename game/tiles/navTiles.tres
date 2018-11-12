@@ -12,9 +12,9 @@ _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="NavigationPolygon" id=2]
 
-vertices = PoolVector2Array( 30, -32, 30, 32, -30, 32, -30, -32 )
+vertices = PoolVector2Array( 32, -32, 32, 30, -32, 30, -32, -32 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
-outlines = [ PoolVector2Array( -30, -32, -30, 32, 30, 32, 30, -32 ) ]
+outlines = [ PoolVector2Array( -32, -32, -32, 30, 32, 30, 32, -32 ) ]
 _sections_unfolded = [ "Resource" ]
 
 [resource]

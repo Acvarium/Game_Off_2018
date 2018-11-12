@@ -48,6 +48,8 @@ func _ready():
 		world.append([])
 		for y in range(world_size):
 			world[x].append(null)
+	if level.has_method("_rebuild"):
+		level._rebuild(1)
 	for mob in level.get_node("bots").get_children():
 		mob.goal = level.get_node("player").position
 		mob.nav = level.get_node("nav")
@@ -106,7 +108,6 @@ func kill_in_cell(cell_pos):
 		if p.get_ref() != null:
 			var p_cell_pos32 = world_to_tile_pos(p.get_ref().position - Vector2(32,0))
 			if p_cell_pos32 == cell_pos or p.get_ref().current_tile_pos == cell_pos:
-				print(p.get_ref().name)
 				p.get_ref().die()
 
 func get_cell(cell_pos):
@@ -211,13 +212,10 @@ func calculate_map_bounds(_tilemap):
 	bottom_right = (bottom_right + Vector2(1,1)) * 64
 	top_left *= 64
 	map_size = bottom_right - top_left 
-	print("TL = " + str(top_left))
-	print("BR = " + str(bottom_right))
 	$main_camera.limit_left = top_left.x 
 	$main_camera.limit_right = bottom_right.x 
 	$main_camera.limit_top = top_left.y
 	$main_camera.limit_bottom = bottom_right.y 
-	print("gold " + str(gold_on_level))
 
 func exit():
 	get_tree().paused = true

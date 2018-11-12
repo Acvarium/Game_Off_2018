@@ -1,17 +1,18 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/main_camera.gd" type="Script" id=2]
-[ext_resource path="res://tiles/navTiles.tres" type="TileSet" id=3]
-[ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=4]
-[ext_resource path="res://objects/player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://fonts/mono.tres" type="DynamicFont" id=6]
-[ext_resource path="res://textures/b.png" type="Texture" id=7]
-[ext_resource path="res://textures/gold.png" type="Texture" id=8]
-[ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=9]
-[ext_resource path="res://sounds/busted.ogg" type="AudioStream" id=10]
-[ext_resource path="res://sounds/v0.ogg" type="AudioStream" id=11]
-[ext_resource path="res://sounds/v1.ogg" type="AudioStream" id=12]
+[ext_resource path="res://scripts/auto_nav_map.gd" type="Script" id=3]
+[ext_resource path="res://tiles/navTiles.tres" type="TileSet" id=4]
+[ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=5]
+[ext_resource path="res://objects/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://fonts/mono.tres" type="DynamicFont" id=7]
+[ext_resource path="res://textures/b.png" type="Texture" id=8]
+[ext_resource path="res://textures/gold.png" type="Texture" id=9]
+[ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=10]
+[ext_resource path="res://sounds/busted.ogg" type="AudioStream" id=11]
+[ext_resource path="res://sounds/v0.ogg" type="AudioStream" id=12]
+[ext_resource path="res://sounds/v1.ogg" type="AudioStream" id=13]
 
 [sub_resource type="DynamicFontData" id=1]
 
@@ -65,21 +66,22 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Pause", "Smoothing", "
 [node name="level" type="Node2D" parent="." index="1"]
 
 pause_mode = 1
+script = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
+to_retuild = false
+build = 0
 
 [node name="nav" type="Navigation2D" parent="level" index="0"]
-
-editor/display_folded = true
 
 [node name="navMap" type="TileMap" parent="level/nav" index="0"]
 
 modulate = Color( 1, 1, 1, 0.0939216 )
 mode = 0
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 4 )
 cell_size = Vector2( 64, 64 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -105,7 +107,7 @@ editor/display_folded = true
 
 modulate = Color( 1, 1, 1, 0.165725 )
 mode = 0
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 4 )
 cell_size = Vector2( 64, 64 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -120,7 +122,7 @@ collision_layer = 1
 collision_mask = 1
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 1, 0, 327690, 1, 0, 327691, 1, 0, 327692, 1, 0, 327693, 1, 0, 327694, 1, 0, 327695, 1, 0, 327696, 1, 0, 327697, 1, 0, 327698, 1, 0, 327699, 1, 0, 393227, 1, 0, 393235, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 458768, 1, 0, 458769, 1, 0, 458770, 1, 0, 458771, 1, 0, 458772, 1, 0, 458773, 1, 0, 458774, 1, 0, 458775, 1, 0, 458776, 1, 0, 458777, 1, 0, 458778, 1, 0, 458779, 1, 0, 458780, 1, 0, 458781, 1, 0, 458782, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524316, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 589846, 1, 0, 589847, 1, 0, 589848, 1, 0, 589849, 1, 0, 589850, 1, 0, 589851, 1, 0, 589852, 1, 0, 589853, 1, 0, 589854, 1, 0, 655366, 1, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655383, 1, 0, 720901, 1, 0, 720902, 1, 0, 720903, 1, 0, 720904, 1, 0, 720905, 1, 0, 720906, 1, 0, 720907, 1, 0, 720908, 1, 0, 720909, 1, 0, 720910, 1, 0, 720911, 1, 0, 720912, 1, 0, 720913, 1, 0, 720914, 1, 0, 720915, 1, 0, 720916, 1, 0, 720917, 1, 0, 720918, 1, 0, 720919, 1, 0, 720920, 1, 0, 786445, 1, 0, 786455, 1, 0, 786456, 1, 0, 851980, 1, 0, 851981, 1, 0, 851982, 1, 0, 851990, 1, 0, 851991, 1, 0, 851992, 1, 0, 917511, 1, 0, 917512, 1, 0, 917513, 1, 0, 917514, 1, 0, 917515, 1, 0, 917516, 1, 0, 917517, 1, 0, 917518, 1, 0, 917519, 1, 0, 917520, 1, 0, 917521, 1, 0, 917522, 1, 0, 917523, 1, 0, 917524, 1, 0, 917525, 1, 0, 917526, 1, 0, 917527, 1, 0, 917528, 1, 0, 917529, 1, 0, 917530, 1, 0, 917531, 1, 0, 917532, 1, 0, 917533, 1, 0, 917534, 1, 0, 983047, 1, 0, 983048, 1, 0, 983055, 1, 0, 983056, 1, 0, 983057, 1, 0, 983058, 1, 0, 983059, 1, 0, 983060, 1, 0, 983061, 1, 0, 983062, 1, 0, 983070, 1, 0, 1048581, 1, 0, 1048582, 1, 0, 1048583, 1, 0, 1048584, 1, 0, 1048585, 1, 0, 1048586, 1, 0, 1048587, 1, 0, 1048588, 1, 0, 1048589, 1, 0, 1048590, 1, 0, 1048591, 1, 0, 1048592, 1, 0, 1048593, 1, 0, 1048594, 1, 0, 1048595, 1, 0, 1048596, 1, 0, 1048597, 1, 0, 1048598, 1, 0, 1048599, 1, 0, 1048600, 1, 0, 1048601, 1, 0, 1048602, 1, 0, 1048603, 1, 0, 1048604, 1, 0, 1048605, 1, 0, 1048606, 1, 0 )
+tile_data = PoolIntArray( 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 1, 0, 327690, 1, 0, 327691, 1, 0, 327692, 1, 0, 327693, 1, 0, 327694, 1, 0, 327695, 1, 0, 327696, 1, 0, 327697, 1, 0, 327698, 1, 0, 327699, 1, 0, 393227, 1, 0, 393235, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 458768, 1, 0, 458769, 1, 0, 458770, 1, 0, 458771, 1, 0, 458772, 1, 0, 458773, 1, 0, 458774, 1, 0, 458775, 1, 0, 458776, 1, 0, 458777, 1, 0, 458778, 1, 0, 458779, 1, 0, 458780, 1, 0, 458781, 1, 0, 458782, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524316, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 589846, 1, 0, 589847, 1, 0, 589848, 1, 0, 589849, 1, 0, 589850, 1, 0, 589851, 1, 0, 589852, 1, 0, 589853, 1, 0, 589854, 1, 0, 655366, 1, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655383, 1, 0, 720901, 1, 0, 720902, 1, 0, 720903, 1, 0, 720904, 1, 0, 720905, 1, 0, 720906, 1, 0, 720907, 1, 0, 720908, 1, 0, 720909, 1, 0, 720910, 1, 0, 720911, 1, 0, 720912, 1, 0, 720913, 1, 0, 720914, 1, 0, 720915, 1, 0, 720916, 1, 0, 720917, 1, 0, 720918, 1, 0, 720919, 1, 0, 786445, 1, 0, 786455, 1, 0, 851981, 1, 0, 851991, 1, 0, 917512, 1, 0, 917513, 1, 0, 917514, 1, 0, 917515, 1, 0, 917516, 1, 0, 917517, 1, 0, 917518, 1, 0, 917519, 1, 0, 917520, 1, 0, 917521, 1, 0, 917522, 1, 0, 917523, 1, 0, 917524, 1, 0, 917525, 1, 0, 917526, 1, 0, 917527, 1, 0, 917528, 1, 0, 917529, 1, 0, 917530, 1, 0, 917531, 1, 0, 917532, 1, 0, 917533, 1, 0, 917534, 1, 0, 983048, 1, 0, 983055, 1, 0, 983056, 1, 0, 983057, 1, 0, 983058, 1, 0, 983059, 1, 0, 983060, 1, 0, 983061, 1, 0, 983062, 1, 0, 983070, 1, 0, 1048581, 1, 0, 1048582, 1, 0, 1048583, 1, 0, 1048584, 1, 0, 1048585, 1, 0, 1048586, 1, 0, 1048587, 1, 0, 1048588, 1, 0, 1048589, 1, 0, 1048590, 1, 0, 1048591, 1, 0, 1048592, 1, 0, 1048593, 1, 0, 1048594, 1, 0, 1048595, 1, 0, 1048596, 1, 0, 1048597, 1, 0, 1048598, 1, 0, 1048599, 1, 0, 1048600, 1, 0, 1048601, 1, 0, 1048602, 1, 0, 1048603, 1, 0, 1048604, 1, 0, 1048605, 1, 0, 1048606, 1, 0 )
 _sections_unfolded = [ "Cell", "Visibility" ]
 
 [node name="level" type="TileMap" parent="level" index="2" groups=[
@@ -128,7 +130,7 @@ _sections_unfolded = [ "Cell", "Visibility" ]
 ]]
 
 mode = 0
-tile_set = ExtResource( 4 )
+tile_set = ExtResource( 5 )
 cell_size = Vector2( 64, 64 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -152,7 +154,7 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 visible = false
 mode = 0
-tile_set = ExtResource( 4 )
+tile_set = ExtResource( 5 )
 cell_size = Vector2( 64, 64 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -170,7 +172,7 @@ format = 1
 tile_data = PoolIntArray( 131083, 14, 0, 196619, 1, 0, 262155, 1, 0, 327691, 1, 0 )
 _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
-[node name="player" parent="level" index="4" instance=ExtResource( 5 )]
+[node name="player" parent="level" index="4" instance=ExtResource( 6 )]
 
 pause_mode = 1
 position = Vector2( 1184, 1024 )
@@ -179,21 +181,21 @@ position = Vector2( 1184, 1024 )
 
 editor/display_folded = true
 
-[node name="bot1" parent="level/bots" index="0" instance=ExtResource( 5 )]
+[node name="bot1" parent="level/bots" index="0" instance=ExtResource( 6 )]
 
 pause_mode = 1
 position = Vector2( 1248, 288 )
 bot_class = 1
 main_player = false
 
-[node name="bot3" parent="level/bots" index="1" instance=ExtResource( 5 )]
+[node name="bot3" parent="level/bots" index="1" instance=ExtResource( 6 )]
 
 pause_mode = 1
 position = Vector2( 1888, 288 )
 bot_class = 1
 main_player = false
 
-[node name="bot2" parent="level/bots" index="2" instance=ExtResource( 5 )]
+[node name="bot2" parent="level/bots" index="2" instance=ExtResource( 6 )]
 
 pause_mode = 1
 position = Vector2( 480, 288 )
@@ -226,8 +228,8 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/mono_font = ExtResource( 6 )
-custom_fonts/normal_font = ExtResource( 6 )
+custom_fonts/mono_font = ExtResource( 7 )
+custom_fonts/normal_font = ExtResource( 7 )
 bbcode_enabled = true
 bbcode_text = "111"
 visible_characters = -1
@@ -338,7 +340,7 @@ pause_mode = 2
 modulate = Color( 1, 1, 1, 0.292824 )
 position = Vector2( 62.2122, 25.3718 )
 scale = Vector2( 2.68016, 0.847618 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="gold" type="Sprite" parent="ui" index="6"]
@@ -346,11 +348,12 @@ _sections_unfolded = [ "Visibility" ]
 pause_mode = 2
 position = Vector2( 23.3869, 23.047 )
 scale = Vector2( 0.68605, 0.68605 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="sounds" type="Node2D" parent="." index="3"]
 
 pause_mode = 2
+editor/display_folded = true
 _sections_unfolded = [ "Pause" ]
 __meta__ = {
 "_edit_group_": true,
@@ -359,7 +362,7 @@ __meta__ = {
 
 [node name="coin" type="AudioStreamPlayer" parent="sounds" index="0"]
 
-stream = ExtResource( 9 )
+stream = ExtResource( 10 )
 volume_db = -10.0
 pitch_scale = 1.0
 autoplay = false
@@ -368,7 +371,7 @@ bus = "Master"
 
 [node name="busted" type="AudioStreamPlayer" parent="sounds" index="1"]
 
-stream = ExtResource( 10 )
+stream = ExtResource( 11 )
 volume_db = -15.0
 pitch_scale = 1.0
 autoplay = false
@@ -377,7 +380,7 @@ bus = "Master"
 
 [node name="v0" type="AudioStreamPlayer" parent="sounds" index="2"]
 
-stream = ExtResource( 11 )
+stream = ExtResource( 12 )
 volume_db = -15.0
 pitch_scale = 1.0
 autoplay = false
@@ -386,7 +389,7 @@ bus = "Master"
 
 [node name="v1" type="AudioStreamPlayer" parent="sounds" index="3"]
 
-stream = ExtResource( 12 )
+stream = ExtResource( 13 )
 volume_db = -15.0
 pitch_scale = 1.0
 autoplay = false

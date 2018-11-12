@@ -8,7 +8,6 @@ func _ready():
 	main_node = get_node("/root/main")
 	global = get_node("/root/global")
 	view_field = global.screen_size * zoom
-	print(view_field)
 
 func zoom_in(value):
 	zoom = Vector2(value,value)
