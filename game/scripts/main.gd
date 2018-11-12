@@ -236,5 +236,5 @@ func _on_busted_finished():
 	get_tree().paused = false
 
 func _on_v1_finished():
-	get_tree().reload_current_scene()
+	global.next_level()
 	get_tree().paused = false
