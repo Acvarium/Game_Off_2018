@@ -54,6 +54,8 @@ func _ready():
 		mob.nav_from_above = level.get_node("nav_fa")
 		mob.goal_obj = level.get_node("player")
 		mob.update_path()
+	if level.has_node("fin"):
+		level.get_node("fin").visible = false
 		
 	
 func _input(event):
