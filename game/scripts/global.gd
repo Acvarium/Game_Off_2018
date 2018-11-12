@@ -13,7 +13,7 @@ func next_level():
 	level += 1
 	if level > levels.size() - 1:
 		level = -1
-	goto_scene("res://scenes/main.tscn")
+#	goto_scene("res://scenes/main.tscn")
 
 func goto_scene(path):
 	call_deferred("_deferred_goto_scene",path)

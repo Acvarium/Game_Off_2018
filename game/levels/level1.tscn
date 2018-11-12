@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://tiles/navTiles.tres" type="TileSet" id=1]
 [ext_resource path="res://tiles/tiles0.tres" type="TileSet" id=2]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/player.gd" type="Script" id=4]
 
 [node name="level" type="Node2D" index="0"]
 
@@ -86,7 +85,6 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 "level",
 ]]
 
-visible = false
 mode = 0
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 64, 64 )
@@ -103,87 +101,37 @@ collision_layer = 1027
 collision_mask = 1027
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( 131083, 14, 0, 131104, 14, 0, 196619, 1, 0, 196640, 1, 0, 262155, 1, 0, 262176, 1, 0, 327691, 1, 0 )
+tile_data = PoolIntArray( 131104, 14, 0, 196640, 1, 0, 262176, 1, 0 )
 _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
-[node name="player" type="KinematicBody2D" parent="." index="4" groups=[
-"character",
-] instance=ExtResource( 3 )]
+[node name="player" parent="." index="4" instance=ExtResource( 3 )]
 
 pause_mode = 1
 position = Vector2( 1568, 1024 )
-input_pickable = false
-collision_layer = 4
-collision_mask = 4
-collision/safe_margin = 0.08
-script = ExtResource( 4 )
-_sections_unfolded = [ "Collision", "Transform", "collision" ]
-__meta__ = {
-"_edit_group_": true
-}
-bot_class = 0
-main_player = true
-last_trap_tile = Vector2( 0, 0 )
 
 [node name="bots" type="Node2D" parent="." index="5"]
 
 editor/display_folded = true
 
-[node name="bot1" type="KinematicBody2D" parent="bots" index="0" groups=[
-"character",
-] instance=ExtResource( 3 )]
+[node name="bot1" parent="bots" index="0" instance=ExtResource( 3 )]
 
 pause_mode = 1
 position = Vector2( 1248, 288 )
-input_pickable = false
-collision_layer = 4
-collision_mask = 4
-collision/safe_margin = 0.08
-script = ExtResource( 4 )
-_sections_unfolded = [ "Collision", "Transform", "collision" ]
-__meta__ = {
-"_edit_group_": true
-}
 bot_class = 1
 main_player = false
-last_trap_tile = Vector2( 0, 0 )
 
-[node name="bot3" type="KinematicBody2D" parent="bots" index="1" groups=[
-"character",
-] instance=ExtResource( 3 )]
+[node name="bot3" parent="bots" index="1" instance=ExtResource( 3 )]
 
 pause_mode = 1
 position = Vector2( 1888, 352 )
-input_pickable = false
-collision_layer = 4
-collision_mask = 4
-collision/safe_margin = 0.08
-script = ExtResource( 4 )
-_sections_unfolded = [ "Collision", "Transform", "collision" ]
-__meta__ = {
-"_edit_group_": true
-}
 bot_class = 1
 main_player = false
-last_trap_tile = Vector2( 0, 0 )
 
-[node name="bot2" type="KinematicBody2D" parent="bots" index="2" groups=[
-"character",
-] instance=ExtResource( 3 )]
+[node name="bot2" parent="bots" index="2" instance=ExtResource( 3 )]
 
 pause_mode = 1
 position = Vector2( 480, 288 )
-input_pickable = false
-collision_layer = 4
-collision_mask = 4
-collision/safe_margin = 0.08
-script = ExtResource( 4 )
-_sections_unfolded = [ "Collision", "Transform", "collision" ]
-__meta__ = {
-"_edit_group_": true
-}
 bot_class = 1
 main_player = false
-last_trap_tile = Vector2( 0, 0 )
 
 

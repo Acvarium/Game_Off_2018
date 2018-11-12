@@ -217,7 +217,6 @@ func calculate_map_bounds(_tilemap):
 	$main_camera.limit_bottom = bottom_right.y 
 	print("gold " + str(gold_on_level))
 
-
 func exit():
 	get_tree().paused = true
 	play_sound("v1")
@@ -237,4 +236,5 @@ func _on_busted_finished():
 
 func _on_v1_finished():
 	global.next_level()
+	get_tree().reload_current_scene()
 	get_tree().paused = false
