@@ -63,4 +63,13 @@ margin_bottom = 512.0
 _sections_unfolded = [ "Transform", "Z Index" ]
 level = 3
 
+[node name="select_level6" parent="." index="5" instance=ExtResource( 2 )]
+
+anchor_left = 0.5
+anchor_right = 0.5
+margin_top = 608.0
+margin_bottom = 608.0
+_sections_unfolded = [ "Transform", "Z Index" ]
+level = 4
+
 

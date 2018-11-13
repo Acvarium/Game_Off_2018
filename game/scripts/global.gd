@@ -2,7 +2,7 @@ extends Node
 var current_scene = null
 var level = -1
 var players_lifes = [4,4,4,4]
-var levels = ["level1","level2","level3","level4"]
+var levels = ["level1","level2","level3","level4","level5"]
 var screen_size = Vector2(1280, 720)
 
 func _ready():
