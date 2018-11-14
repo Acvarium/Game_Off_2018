@@ -6,7 +6,7 @@ var is_moving = false
 var on_the_ladder = false
 var main_node
 var speed = 0
-var max_speed = 350
+var max_speed = 300
 var velocity = Vector2()
 enum ENTITY_TYPES {UP, DOWN, LEFT, RIGHT}
 var cooldown = true
