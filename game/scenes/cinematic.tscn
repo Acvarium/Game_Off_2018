@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://textures/b.png" type="Texture" id=1]
 [ext_resource path="res://textures/cin/so.png" type="Texture" id=2]
@@ -14,6 +14,9 @@
 [ext_resource path="res://textures/cin/r1.jpg" type="Texture" id=12]
 [ext_resource path="res://textures/w.png" type="Texture" id=13]
 [ext_resource path="res://textures/chifish.jpg" type="Texture" id=14]
+[ext_resource path="res://textures/hands.jpg" type="Texture" id=15]
+[ext_resource path="res://textures/cin/c2.jpg" type="Texture" id=16]
+[ext_resource path="res://video/output.ogv" type="VideoStream" id=17]
 
 [sub_resource type="Animation" id=1]
 
@@ -196,10 +199,10 @@ tracks/14/loop_wrap = true
 tracks/14/imported = false
 tracks/14/enabled = true
 tracks/14/keys = {
-"times": PoolRealArray( 0, 25.9, 26.4, 27, 27.6, 28.2, 28.8, 29.4, 29.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 25.9, 25.9, 26.4, 27, 27.6, 28.2, 28.8, 29.4, 29.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/15/type = "value"
 tracks/15/path = NodePath("sounds/s6:playing")
@@ -249,6 +252,109 @@ tracks/18/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/19/type = "value"
+tracks/19/path = NodePath("w:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("hands:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0, 32.4, 32.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("sounds/a:playing")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0, 30, 30.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("hands:visible")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 33.3, 33.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("hands2:visible")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("hands2:modulate")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0, 33.3, 33.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("chifish:visible")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 34.8, 35.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "New Anim"
+length = 10.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("VideoPlayer:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -80.0, 0.0 ]
+}
 
 [node name="main" type="Control" index="0"]
 
@@ -266,7 +372,7 @@ size_flags_vertical = 1
 [node name="cinematic" type="AnimationPlayer" parent="." index="0"]
 
 root_node = NodePath("..")
-autoplay = "cin"
+autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
@@ -288,6 +394,8 @@ texture = ExtResource( 2 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="sounds" type="Node2D" parent="." index="3"]
+
+editor/display_folded = true
 
 [node name="s" type="AudioStreamPlayer" parent="sounds" index="0"]
 
@@ -343,7 +451,16 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="s7" type="AudioStreamPlayer" parent="sounds" index="6"]
+[node name="s8" type="AudioStreamPlayer" parent="sounds" index="6"]
+
+stream = ExtResource( 7 )
+volume_db = -5.0
+pitch_scale = 1.5
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="s7" type="AudioStreamPlayer" parent="sounds" index="7"]
 
 stream = ExtResource( 8 )
 volume_db = -5.0
@@ -352,8 +469,18 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
+[node name="a" type="AudioStreamPlayer" parent="sounds" index="8"]
+
+stream = ExtResource( 3 )
+volume_db = -15.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
 [node name="c0" type="Sprite" parent="." index="4"]
 
+editor/display_folded = true
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 640, 368 )
 scale = Vector2( 0.853333, 0.929293 )
@@ -363,6 +490,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 [node name="c1" type="Sprite" parent="c0" index="0"]
 
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 scale = Vector2( 1, 1 )
 texture = ExtResource( 10 )
 _sections_unfolded = [ "Visibility" ]
@@ -398,14 +526,66 @@ modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 634.811, 359.62 )
 scale = Vector2( 21.27, 12.5964 )
 texture = ExtResource( 13 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Visibility", "Z Index" ]
 
 [node name="chifish" type="Sprite" parent="." index="9"]
 
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 667.424, 356.568 )
 scale = Vector2( 0.660804, 0.660804 )
 texture = ExtResource( 14 )
 _sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="hands" type="Sprite" parent="." index="10"]
+
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 662.518, 364.26 )
+scale = Vector2( 1.08269, 1.08269 )
+texture = ExtResource( 15 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="hands2" type="Sprite" parent="." index="11"]
+
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 512.644, 350.208 )
+scale = Vector2( 0.684101, 0.684101 )
+texture = ExtResource( 16 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="VideoPlayer" type="VideoPlayer" parent="." index="12"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 38.0
+margin_top = 10.0
+margin_right = 1222.0
+margin_bottom = 599.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+audio_track = 0
+stream = ExtResource( 17 )
+volume_db = -80.0
+autoplay = true
+paused = false
+expand = true
+buffering_msec = 500
+bus = "Master"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="13"]
+
+root_node = NodePath("..")
+autoplay = "New Anim"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+"anims/New Anim" = SubResource( 2 )
+blend_times = [  ]
 
 
