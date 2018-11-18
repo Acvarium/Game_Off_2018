@@ -609,7 +609,7 @@ use_filter = false
 font_data = SubResource( 10 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="player" type="KinematicBody2D" groups=[
+[node name="player" type="KinematicBody2D" index="0" groups=[
 "character",
 ]]
 
@@ -633,7 +633,7 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 8
-frame = 22
+frame = 12
 _sections_unfolded = [ "Animation", "Transform", "Visibility" ]
 
 [node name="fish" type="Sprite" parent="." index="1"]
@@ -642,7 +642,7 @@ visible = false
 texture = ExtResource( 3 )
 vframes = 8
 hframes = 8
-frame = 10
+frame = 8
 _sections_unfolded = [ "Animation", "Transform", "Visibility" ]
 
 [node name="gold" type="Sprite" parent="." index="2"]
@@ -672,6 +672,7 @@ anims/left = SubResource( 3 )
 anims/right = SubResource( 4 )
 anims/up = SubResource( 5 )
 blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
 
 [node name="fish_anim" type="AnimationPlayer" parent="." index="5"]
 
