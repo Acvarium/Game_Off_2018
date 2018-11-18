@@ -833,4 +833,16 @@ position = Vector2( 832, 512 )
 texture = ExtResource( 6 )
 _sections_unfolded = [ "Visibility" ]
 
+[node name="bg" type="Sprite" parent="." index="33"]
+
+position = Vector2( 1120, 448 )
+texture = ExtResource( 1 )
+vframes = 4
+hframes = 8
+frame = 5
+_sections_unfolded = [ "Animation" ]
+__meta__ = {
+"_edit_group_": true
+}
+
 

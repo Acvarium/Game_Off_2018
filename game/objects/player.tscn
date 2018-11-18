@@ -1,12 +1,13 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://textures/hero.png" type="Texture" id=2]
-[ext_resource path="res://textures/gold.png" type="Texture" id=3]
-[ext_resource path="res://textures/4x.png" type="Texture" id=4]
-[ext_resource path="res://sounds/blaster.ogg" type="AudioStream" id=5]
-[ext_resource path="res://sounds/miss.ogg" type="AudioStream" id=6]
-[ext_resource path="res://textures/arrow.png" type="Texture" id=7]
+[ext_resource path="res://textures/fSheet.png" type="Texture" id=3]
+[ext_resource path="res://textures/gold.png" type="Texture" id=4]
+[ext_resource path="res://textures/4x.png" type="Texture" id=5]
+[ext_resource path="res://sounds/blaster.ogg" type="AudioStream" id=6]
+[ext_resource path="res://sounds/miss.ogg" type="AudioStream" id=7]
+[ext_resource path="res://textures/arrow.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -132,6 +133,44 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.5, 0.5 ), Vector2( -0.5, 0.5 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+
+resource_name = "left"
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("fish:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11, 12 ]
+}
+
+[sub_resource type="Animation" id=12]
+
+resource_name = "right"
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("fish:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4 ]
 }
 
 [sub_resource type="RectangleShape2D" id=6]
@@ -570,13 +609,13 @@ use_filter = false
 font_data = SubResource( 10 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="player" type="KinematicBody2D" index="0" groups=[
+[node name="player" type="KinematicBody2D" groups=[
 "character",
 ]]
 
 input_pickable = false
-collision_layer = 4
-collision_mask = 4
+collision_layer = 2
+collision_mask = 2
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
@@ -589,28 +628,39 @@ last_trap_tile = Vector2( 0, 0 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
-self_modulate = Color( 1, 0.171875, 0.171875, 1 )
+position = Vector2( -1, 0 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 8
-frame = 20
+frame = 22
 _sections_unfolded = [ "Animation", "Transform", "Visibility" ]
 
-[node name="gold" type="Sprite" parent="." index="1"]
+[node name="fish" type="Sprite" parent="." index="1"]
 
+visible = false
+texture = ExtResource( 3 )
+vframes = 8
+hframes = 8
+frame = 10
+_sections_unfolded = [ "Animation", "Transform", "Visibility" ]
+
+[node name="gold" type="Sprite" parent="." index="2"]
+
+visible = false
 position = Vector2( -0.435586, -33.7144 )
 scale = Vector2( 0.3, 0.3 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
 
+visible = false
 position = Vector2( 0, -10 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Visibility" ]
 
-[node name="anim" type="AnimationPlayer" parent="." index="3"]
+[node name="anim" type="AnimationPlayer" parent="." index="4"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -623,9 +673,22 @@ anims/right = SubResource( 4 )
 anims/up = SubResource( 5 )
 blend_times = [  ]
 
-[node name="rays" type="Node2D" parent="." index="4"]
+[node name="fish_anim" type="AnimationPlayer" parent="." index="5"]
+
+root_node = NodePath("..")
+autoplay = "left"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.5
+anims/left = SubResource( 13 )
+anims/right = SubResource( 12 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="rays" type="Node2D" parent="." index="6"]
 
 editor/display_folded = true
+visible = false
 
 [node name="down" type="RayCast2D" parent="rays" index="0"]
 
@@ -633,7 +696,7 @@ position = Vector2( -12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 5
+collision_mask = 1
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="down2" type="RayCast2D" parent="rays" index="1"]
@@ -642,7 +705,7 @@ position = Vector2( 12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 5
+collision_mask = 1
 _sections_unfolded = [ "Transform" ]
 
 [node name="right" type="RayCast2D" parent="rays" index="2"]
@@ -651,7 +714,7 @@ position = Vector2( 18, 14 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 20, 0 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="right2" type="RayCast2D" parent="rays" index="3"]
 
@@ -659,7 +722,7 @@ position = Vector2( 18, -6 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 20, 0 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="left" type="RayCast2D" parent="rays" index="4"]
 
@@ -667,7 +730,7 @@ position = Vector2( -18, 14 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( -20, 0 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="left2" type="RayCast2D" parent="rays" index="5"]
 
@@ -675,7 +738,7 @@ position = Vector2( -18, -5 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( -20, 0 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="up" type="RayCast2D" parent="rays" index="6"]
 
@@ -683,7 +746,7 @@ position = Vector2( -8, -13 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, -20 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="up2" type="RayCast2D" parent="rays" index="7"]
 
@@ -691,9 +754,9 @@ position = Vector2( 7, -13 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, -20 )
-collision_mask = 5
+collision_mask = 1
 
-[node name="points" type="Node2D" parent="." index="5"]
+[node name="points" type="Node2D" parent="." index="7"]
 
 editor/display_folded = true
 
@@ -706,7 +769,7 @@ _sections_unfolded = [ "Transform" ]
 
 visible = false
 modulate = Color( 0, 1, 0.15625, 1 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="center" type="Position2D" parent="points" index="1"]
@@ -717,7 +780,7 @@ _sections_unfolded = [ "Transform" ]
 
 visible = false
 modulate = Color( 0.898438, 1, 0, 1 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="down" type="Position2D" parent="points" index="2"]
@@ -729,7 +792,7 @@ _sections_unfolded = [ "Transform" ]
 
 visible = false
 modulate = Color( 0.898438, 1, 0, 1 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="l_down" type="Position2D" parent="points" index="3"]
@@ -741,16 +804,16 @@ _sections_unfolded = [ "Transform" ]
 
 visible = false
 modulate = Color( 0.804688, 0, 1, 1 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
-[node name="sounds" type="Node2D" parent="." index="6"]
+[node name="sounds" type="Node2D" parent="." index="8"]
 
 editor/display_folded = true
 
 [node name="blaster" type="AudioStreamPlayer2D" parent="sounds" index="0"]
 
-stream = ExtResource( 5 )
+stream = ExtResource( 6 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = false
@@ -761,7 +824,7 @@ area_mask = 1
 
 [node name="miss" type="AudioStreamPlayer2D" parent="sounds" index="1"]
 
-stream = ExtResource( 6 )
+stream = ExtResource( 7 )
 volume_db = -10.0
 pitch_scale = 1.0
 autoplay = false
@@ -770,7 +833,7 @@ attenuation = 1.0
 bus = "Master"
 area_mask = 1
 
-[node name="Area" type="Area2D" parent="." index="7" groups=[
+[node name="Area" type="Area2D" parent="." index="9" groups=[
 "player",
 ]]
 
@@ -788,17 +851,18 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area" index="0"]
 
+visible = false
 position = Vector2( 0, 5 )
 shape = SubResource( 6 )
 
-[node name="nav_update" type="Timer" parent="." index="8"]
+[node name="nav_update" type="Timer" parent="." index="10"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = true
 
-[node name="colSwitch" type="AnimationPlayer" parent="." index="9"]
+[node name="colSwitch" type="AnimationPlayer" parent="." index="11"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -810,7 +874,7 @@ anims/in_trap = SubResource( 8 )
 anims/player = SubResource( 9 )
 blend_times = [  ]
 
-[node name="arrows" type="Node2D" parent="." index="10"]
+[node name="arrows" type="Node2D" parent="." index="12"]
 
 editor/display_folded = true
 scale = Vector2( 0.5, 0.5 )
@@ -819,31 +883,31 @@ _sections_unfolded = [ "Transform" ]
 [node name="up" type="Sprite" parent="arrows" index="0"]
 
 visible = false
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="right" type="Sprite" parent="arrows" index="1"]
 
 visible = false
 rotation = 1.5708
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="down" type="Sprite" parent="arrows" index="2"]
 
 visible = false
 rotation = 3.14159
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="left" type="Sprite" parent="arrows" index="3"]
 
 visible = false
 rotation = 4.71239
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="timers" type="Node2D" parent="." index="11"]
+[node name="timers" type="Node2D" parent="." index="13"]
 
 editor/display_folded = true
 
@@ -875,7 +939,7 @@ wait_time = 10.0
 one_shot = true
 autostart = true
 
-[node name="coo" type="Label" parent="." index="12"]
+[node name="coo" type="Label" parent="." index="14"]
 
 anchor_left = 0.0
 anchor_top = 0.0

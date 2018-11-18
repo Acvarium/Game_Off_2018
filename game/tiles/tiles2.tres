@@ -451,5 +451,13 @@ extents = Vector2( 32, 32 )
 32/occluder_offset = Vector2( 32, 32 )
 32/navigation_offset = Vector2( 32, 32 )
 32/shapes = [  ]
-_sections_unfolded = [ "29" ]
+33/name = "bg"
+33/texture = ExtResource( 1 )
+33/tex_offset = Vector2( 0, 0 )
+33/modulate = Color( 1, 1, 1, 1 )
+33/region = Rect2( 640, 0, 128, 128 )
+33/is_autotile = false
+33/occluder_offset = Vector2( 64, 64 )
+33/navigation_offset = Vector2( 64, 64 )
+33/shapes = [  ]
 
