@@ -29,8 +29,10 @@ func update_gold_count(value):
 		final()
 	$ui/goldCount.text = str(gold_on_level) + "/" + str(gold_found)
 
+
 func _ready():
 	level = $level
+
 	global = get_node("/root/global")
 	if global.level != -1:
 		$level.queue_free()
@@ -58,7 +60,7 @@ func _ready():
 		mob.update_path()
 	if level.has_node("fin"):
 		level.get_node("fin").visible = false
-		
+	
 	
 func _input(event):
 	if Input.is_action_just_pressed("pause"):
@@ -225,7 +227,15 @@ func busted():
 	$main_camera.zoom_in(0.6)
 	play_sound("busted")
 	get_tree().paused = true
-	
+
+func get_tile_set_number():
+	var set_name = level.get_node("level").tile_set.resource_path.split("/")[3].split(".")[0]
+	if set_name == "tiles":
+		return 1
+	if set_name == "tiles2":
+		return 2
+	return -1
+
 func _process(delta):
 	if $ui/grid.visible and !on_pause:
 		print_world()

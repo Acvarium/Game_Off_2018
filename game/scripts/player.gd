@@ -95,7 +95,7 @@ func _physics_process(delta):
 	
 	var can_move_up = !obstacle(UP) and (c_cell_t == 1 or l_cell_t == 1)
 	var can_move_down = !obstacle(DOWN)
-	on_the_ladder = (c_cell == 1 or d_cell == 1 or l_cell == 1 or ld_cell == 1)
+	on_the_ladder = (c_cell_t == 1 or d_cell_t == 1 or l_cell_t == 1 or ld_cell_t == 1)
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
 	
 	current_tile_pos = main_node.world_to_tile_pos(position)
@@ -197,7 +197,10 @@ func _physics_process(delta):
 		if bot_class > 0 and gold_slot > 0 and in_the_trap:
 			gold_slot = 0
 			var drop_pos = main_node.world_to_tile_pos(position)
-			main_node.replace_cell(drop_pos, 13)
+			var gold_id = 13
+			if main_node.get_tile_set_number() == 2:
+				gold_id = 29
+			main_node.replace_cell(drop_pos, gold_id)
 			
 		if bot_class > 0 and gold_slot > 0 and to_drop_gold and c_cell == -1 and !in_the_trap:
 			allowed_to_pickup = false
@@ -273,12 +276,12 @@ func _physics_process(delta):
 	
 	if can_move_up or can_move_down:
 		if tile_pos.x > position.x:
-			var go_right = (c_cell == 1 or d_cell == 1)
-			if (up_key and c_cell == 1 and d_cell != 1):
+			var go_right = (c_cell_t == 1 or d_cell_t == 1)
+			if (up_key and c_cell_t == 1 and d_cell_t != 1):
 				go_right = true
-			elif up_key and l_cell == 1 and c_cell != 1:
+			elif up_key and l_cell_t == 1 and c_cell_t != 1:
 				go_right = false
-			elif up_key and ld_cell == 1 and d_cell != 1:
+			elif up_key and ld_cell_t == 1 and d_cell_t != 1:
 				go_right = false
 				
 			if go_right:
@@ -290,7 +293,7 @@ func _physics_process(delta):
 				if !is_moving:
 					currentDir = Vector2(-1,0)
 		obstacle(DOWN)
-		if up_key and (c_cell == 1 or allowe_to_crawl_up):
+		if up_key and (c_cell_t == 1 or allowe_to_crawl_up):
 			if !obstacle(UP):
 				direction.y = -1
 				if !is_moving:
