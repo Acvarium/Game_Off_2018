@@ -63,6 +63,8 @@ func _ready():
 		$colSwitch.play("player")
 	# Додати даного персонажа до списку персонажів на рівні
 	main_node.add_player(self)
+	if bot_class > 0:
+		$Sprite.texture = preload("res://textures/hero_bot.png")
 
 func _physics_process(delta):
 
@@ -197,7 +199,7 @@ func _physics_process(delta):
 		if bot_class > 0 and gold_slot > 0 and in_the_trap:
 			gold_slot = 0
 			var drop_pos = main_node.world_to_tile_pos(position)
-			var gold_id = 29
+			var gold_id = 13
 			if main_node.get_tile_set_number() == 2:
 				gold_id = 29
 			main_node.replace_cell(drop_pos, gold_id)
