@@ -104,7 +104,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=5]
 
 resource_name = "stand"
 length = 0.9
@@ -123,7 +123,7 @@ tracks/0/keys = {
 "values": [ 4, 3 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
 length = 0.4
 loop = true
@@ -153,14 +153,13 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 
 custom_solver_bias = 0.0
 extents = Vector2( 23.9017, 25.233 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
-resource_name = "bot"
 length = 0.3
 loop = false
 step = 0.1
@@ -285,9 +284,8 @@ tracks/9/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
-resource_name = "in_trap"
 length = 0.3
 loop = false
 step = 0.1
@@ -424,9 +422,8 @@ tracks/10/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
-resource_name = "player"
 length = 0.3
 loop = false
 step = 0.1
@@ -563,18 +560,18 @@ tracks/10/keys = {
 "values": [ 2 ]
 }
 
-[sub_resource type="DynamicFontData" id=10]
+[sub_resource type="DynamicFontData" id=11]
 
 hinting = 2
 font_path = "res://fonts/LiberationMono-Regular.ttf"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=12]
 
 size = 32
 use_mipmaps = false
 use_filter = false
-font_data = SubResource( 10 )
+font_data = SubResource( 11 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [node name="player" type="KinematicBody2D" index="0" groups=[
@@ -582,8 +579,8 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 ]]
 
 input_pickable = false
-collision_layer = 4
-collision_mask = 2
+collision_layer = 1
+collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
@@ -629,8 +626,8 @@ playback_speed = 1.0
 anims/fall = SubResource( 2 )
 anims/left = SubResource( 3 )
 anims/right = SubResource( 4 )
-anims/stand = SubResource( 12 )
-anims/up = SubResource( 5 )
+anims/stand = SubResource( 5 )
+anims/up = SubResource( 6 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -786,7 +783,6 @@ area_mask = 1
 "player",
 ]]
 
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -802,7 +798,7 @@ _sections_unfolded = [ "Collision" ]
 
 visible = false
 position = Vector2( 0, 5 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="nav_update" type="Timer" parent="." index="8"]
 
@@ -818,9 +814,9 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/bot = SubResource( 7 )
-anims/in_trap = SubResource( 8 )
-anims/player = SubResource( 9 )
+anims/bot = SubResource( 8 )
+anims/in_trap = SubResource( 9 )
+anims/player = SubResource( 10 )
 blend_times = [  ]
 
 [node name="arrows" type="Node2D" parent="." index="10"]
@@ -904,7 +900,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
