@@ -17,6 +17,8 @@ var map_size = Vector2()
 var gold_on_level = 0
 var gold_found = 0
 var fin_map = null
+var set_num = 1
+
 
 func add_player(player):
 	players.append(weakref(player))
@@ -61,6 +63,11 @@ func _ready():
 	if level.has_node("fin"):
 		level.get_node("fin").visible = false
 	
+	var set_name = level.get_node("level").tile_set.resource_path.split("/")[3].split(".")[0]
+	if set_name == "tiles":
+		set_num = 1
+	if set_name == "tiles2":
+		set_num = 2
 	
 func _input(event):
 	if Input.is_action_just_pressed("pause"):
@@ -228,13 +235,6 @@ func busted():
 	play_sound("busted")
 	get_tree().paused = true
 
-func get_tile_set_number():
-	var set_name = level.get_node("level").tile_set.resource_path.split("/")[3].split(".")[0]
-	if set_name == "tiles":
-		return 1
-	if set_name == "tiles2":
-		return 2
-	return -1
 
 func _process(delta):
 	if $ui/grid.visible and !on_pause:

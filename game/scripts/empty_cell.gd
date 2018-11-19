@@ -50,7 +50,7 @@ func _ready():
 	sprite = $Sprite
 	frames = frames1
 	cells = cells1
-	mode = main_node.get_tile_set_number()
+	mode = main_node.set_num
 	if mode == 2:
 		sprite = $Sprite2
 		frames = frames2

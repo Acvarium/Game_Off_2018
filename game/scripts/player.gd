@@ -200,7 +200,7 @@ func _physics_process(delta):
 			gold_slot = 0
 			var drop_pos = main_node.world_to_tile_pos(position)
 			var gold_id = 13
-			if main_node.get_tile_set_number() == 2:
+			if main_node.set_num == 2:
 				gold_id = 29
 			main_node.replace_cell(drop_pos, gold_id)
 			
