@@ -34,7 +34,6 @@ func update_gold_count(value):
 
 func _ready():
 	level = $level
-
 	global = get_node("/root/global")
 	if global.level != -1:
 		$level.queue_free()
