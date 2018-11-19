@@ -197,7 +197,7 @@ func _physics_process(delta):
 		if bot_class > 0 and gold_slot > 0 and in_the_trap:
 			gold_slot = 0
 			var drop_pos = main_node.world_to_tile_pos(position)
-			var gold_id = 13
+			var gold_id = 29
 			if main_node.get_tile_set_number() == 2:
 				gold_id = 29
 			main_node.replace_cell(drop_pos, gold_id)
@@ -363,12 +363,14 @@ func _physics_process(delta):
 				$anim.play("right")
 	if direction == Vector2():
 		if $anim.is_playing():
-			$anim.stop()
+			if $anim.current_animation != "stand" and !b_press and !a_press:
+				$anim.stop()
 		if on_the_ladder and velocity.y != 0:
 			$Sprite.frame = 20
 		else:
-			if abs(velocity.x) < 3 and !(t_type(c_cell) == 2 or t_type(l_cell) == 2):
-				$Sprite.frame = 6
+			if abs(velocity.x) < 3 and !(t_type(c_cell) == 2 or t_type(l_cell) == 2)  and !b_press and !a_press:
+				if $anim.current_animation != "stand":
+					$anim.play("stand")
 #	if last_pos == position and bot_class > 0:
 #		if (OS.get_ticks_msec() - stand_time) > 100:
 #			print(name)
