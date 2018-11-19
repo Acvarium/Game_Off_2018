@@ -209,7 +209,10 @@ func _physics_process(delta):
 			gold_slot = 0
 			$timers/bot_pickup_timer.wait_time = randf() * 15 + 8
 			$timers/bot_pickup_timer.start()
-			main_node.replace_cell(main_node.world_to_tile_pos(position),13)
+			var gold_id = 13
+			if main_node.set_num == 2:
+				gold_id = 29
+			main_node.replace_cell(main_node.world_to_tile_pos(position), gold_id)
 	# визначення, чи знаходиться персонаж на драбині
 	# А чи може на трубі
 	
