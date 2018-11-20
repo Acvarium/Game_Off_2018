@@ -84,7 +84,6 @@ __meta__ = {
 [node name="TileMap" type="TileMap" parent="top_bricks" index="0"]
 
 position = Vector2( -620, 0 )
-scale = Vector2( 1, 1 )
 mode = 0
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 64, 64 )
@@ -127,7 +126,6 @@ __meta__ = {
 [node name="TileMap2" type="TileMap" parent="bottom_bricks" index="0"]
 
 position = Vector2( -620, 0 )
-scale = Vector2( 1, 1 )
 mode = 0
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 64, 64 )
@@ -240,7 +238,7 @@ margin_bottom = 454.0
 grow_horizontal = 0
 grow_vertical = 0
 _sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Margin", "Rect" ]
-level = 4
+level = 5
 
 [node name="select_level8" parent="VBoxContainer" index="7" instance=ExtResource( 5 )]
 
