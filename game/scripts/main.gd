@@ -29,7 +29,7 @@ func update_gold_count(value):
 	gold_found += value
 	if gold_found == gold_on_level:
 		final()
-	$ui/goldCount.text = str(gold_on_level) + "/" + str(gold_found)
+	$ui/goldCount.text = str(gold_found) + "/" + str(gold_on_level)
 
 
 func _ready():

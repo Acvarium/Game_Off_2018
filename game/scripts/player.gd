@@ -172,7 +172,7 @@ func _physics_process(delta):
 	
 # Додадковий інформаційний вивід, що дозволяє відлагоджувати гру
 	var debug_type = 2
-	$gold.visible = gold_slot > 0
+#	$gold.visible = gold_slot > 0
 #	$points/center/x.visible = allowed_to_pickup
 #	$points/left/x.visible = to_drop_gold
 #
