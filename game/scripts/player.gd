@@ -51,6 +51,10 @@ var stand_time = 0
 
 func _ready():
 	main_node = get_node("/root/main")
+	if main_node.is_in_group("view"):
+		set_physics_process(false)
+		visible = false
+		return
 	randomize()
 	# Налаштування променів ігнорувати власника
 	for r in $rays.get_children():
@@ -67,8 +71,6 @@ func _ready():
 		$Sprite.texture = preload("res://textures/hero_bot.png")
 
 func _physics_process(delta):
-
-
 	# Визначення поточної позиції в системі координат тайлів
 	var ss = ""
 #	ss = str(position.y - goal.y)

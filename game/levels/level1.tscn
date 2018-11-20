@@ -6,7 +6,7 @@
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=4]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=5]
 
-[node name="level" type="Node2D"]
+[node name="level" type="Node2D" index="0"]
 
 [node name="vignette" type="Sprite" parent="." index="0"]
 
@@ -16,7 +16,6 @@ texture = ExtResource( 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="1"]
 
-editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -32,7 +31,6 @@ _sections_unfolded = [ "Scroll" ]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
 
-editor/display_folded = true
 motion_scale = Vector2( 0.8, 0.8 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 0, 0 )
@@ -140,6 +138,7 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 "level",
 ]]
 
+visible = false
 mode = 0
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 64, 64 )
@@ -156,7 +155,7 @@ collision_layer = 1027
 collision_mask = 1027
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( 131104, 32, 0, 196640, 30, 0, 262176, 30, 0, 327712, 30, 0, 1048580, 6, 0, 1179654, 6, 0, 1179655, 1, 0, 1179656, 6, 0, 1179659, 6, 0, 1179661, 6, 0, 1179666, 6, 0, 1179668, 6, 0, 1179671, 6, 0, 1179674, 6, 0, 1179675, 6, 0, 1179678, 6, 0, 1179679, 6, 0, 1179681, 6, 0 )
+tile_data = PoolIntArray( 131104, 32, 0, 196640, 30, 0, 262176, 30, 0, 327712, 30, 0 )
 _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 [node name="player" parent="." index="6" instance=ExtResource( 5 )]

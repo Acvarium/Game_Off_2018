@@ -6,7 +6,7 @@
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=4]
 [ext_resource path="res://objects/select_level.tscn" type="PackedScene" id=5]
 
-[node name="main" type="Control" index="0"]
+[node name="main" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -104,7 +104,6 @@ tile_data = PoolIntArray( 65516, 20, 0, 65517, 21, 0, 65518, 20, 0, 65519, 21, 0
 
 [node name="bottom_bricks" type="Control" parent="." index="3"]
 
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -146,6 +145,7 @@ tile_data = PoolIntArray( -65551, 16, 0, -65550, 21, 0, -65549, 16, 0, -65548, 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." index="4"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

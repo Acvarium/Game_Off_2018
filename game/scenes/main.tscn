@@ -82,7 +82,6 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Pause", "Smoothing", "
 [node name="level" type="Node2D" parent="." index="1"]
 
 pause_mode = 1
-editor/display_folded = true
 script = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 __meta__ = {
