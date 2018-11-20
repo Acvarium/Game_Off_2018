@@ -18,7 +18,8 @@ var gold_on_level = 0
 var gold_found = 0
 var fin_map = null
 var set_num = 1
-
+var mouse_move_check = 4
+var mouse_last_pos = Vector2()
 
 func add_player(player):
 	players.append(weakref(player))
@@ -33,6 +34,7 @@ func update_gold_count(value):
 
 
 func _ready():
+	
 	level = $level
 	global = get_node("/root/global")
 	if global.level != -1:
@@ -69,6 +71,10 @@ func _ready():
 		set_num = 2
 	
 func _input(event):
+	if  event is InputEventMouseMotion:
+		mouse_move_check = 4
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
+		$mouse_move_timer.start()
 	if Input.is_action_just_pressed("pause"):
 		on_pause = !on_pause
 		get_tree().paused = on_pause
@@ -247,3 +253,19 @@ func _on_v1_finished():
 	global.next_level()
 	get_tree().reload_current_scene()
 	get_tree().paused = false
+
+	
+
+func _on_mouse_move_timer_timeout():
+	var m_pos = get_global_mouse_position()
+	if mouse_last_pos != m_pos:
+		mouse_move_check = 4
+		mouse_last_pos = m_pos
+		$mouse_move_timer.start()
+	else:
+		mouse_last_pos = m_pos
+		mouse_move_check -= 1
+		if mouse_move_check < 0:
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN) 
+		else:
+			$mouse_move_timer.start()
