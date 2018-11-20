@@ -20,6 +20,7 @@ var fin_map = null
 var set_num = 1
 var mouse_move_check = 4
 var mouse_last_pos = Vector2()
+var start_pause = true
 
 func add_player(player):
 	players.append(weakref(player))
@@ -34,7 +35,6 @@ func update_gold_count(value):
 
 
 func _ready():
-	
 	level = $level
 	global = get_node("/root/global")
 	if global.level != -1:
@@ -69,12 +69,18 @@ func _ready():
 		set_num = 1
 	if set_name == "tiles2":
 		set_num = 2
+		
+	
 	
 func _input(event):
 	if  event is InputEventMouseMotion:
 		mouse_move_check = 4
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
 		$mouse_move_timer.start()
+	elif start_pause:
+		start_pause = false
+		get_tree().paused = false
+		$ui/ready.visible = false
 	if Input.is_action_just_pressed("pause"):
 		on_pause = !on_pause
 		get_tree().paused = on_pause
@@ -269,3 +275,8 @@ func _on_mouse_move_timer_timeout():
 			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN) 
 		else:
 			$mouse_move_timer.start()
+
+func _on_start_pause_timer_timeout():
+	if start_pause:
+		$ui/ready.visible = true
+		get_tree().paused = true

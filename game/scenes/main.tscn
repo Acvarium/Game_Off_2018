@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/main_camera.gd" type="Script" id=2]
@@ -30,7 +30,21 @@ use_filter = false
 font_data = SubResource( 1 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="main" type="Node2D" index="0"]
+[sub_resource type="DynamicFontData" id=3]
+
+hinting = 2
+font_path = "res://fonts/LiberationMono-Regular.ttf"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="DynamicFont" id=4]
+
+size = 60
+use_mipmaps = false
+use_filter = false
+font_data = SubResource( 3 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[node name="main" type="Node2D"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -263,7 +277,6 @@ main_player = false
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -408,6 +421,30 @@ position = Vector2( 23.3869, 23.047 )
 scale = Vector2( 0.68605, 0.68605 )
 texture = ExtResource( 11 )
 
+[node name="ready" type="Label" parent="ui" index="7"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -108.0
+margin_top = -34.5
+margin_right = 108.0
+margin_bottom = 34.5
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Ready!"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts", "custom_styles" ]
+
 [node name="sounds" type="Node2D" parent="." index="3"]
 
 pause_mode = 2
@@ -461,10 +498,19 @@ wait_time = 0.35
 one_shot = true
 autostart = true
 
+[node name="start_pause_timer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 0.05
+one_shot = true
+autostart = true
+
 [connection signal="finished" from="sounds/busted" to="." method="_on_busted_finished"]
 
 [connection signal="finished" from="sounds/v1" to="." method="_on_v1_finished"]
 
 [connection signal="timeout" from="mouse_move_timer" to="." method="_on_mouse_move_timer_timeout"]
+
+[connection signal="timeout" from="start_pause_timer" to="." method="_on_start_pause_timer_timeout"]
 
 
