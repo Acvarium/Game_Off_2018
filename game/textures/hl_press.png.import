@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/map.png-32a4becddad9964732a833532d359b1d.stex"
+path="res://.import/hl_press.png-6d4cf2fbb6e1467c85fb4aa19311e0aa.stex"
 
 [deps]
 
-source_file="res://prev/map.png"
-dest_files=[ "res://.import/map.png-32a4becddad9964732a833532d359b1d.stex" ]
+source_file="res://textures/hl_press.png"
+dest_files=[ "res://.import/hl_press.png-6d4cf2fbb6e1467c85fb4aa19311e0aa.stex" ]
 
 [params]
 

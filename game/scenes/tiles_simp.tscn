@@ -747,7 +747,6 @@ shape = SubResource( 1 )
 
 position = Vector2( 992, 384 )
 texture = ExtResource( 3 )
-frame = 1
 _sections_unfolded = [ "Animation" ]
 
 [node name="gold" type="Sprite" parent="." index="29"]
@@ -759,7 +758,6 @@ texture = ExtResource( 4 )
 
 position = Vector2( 992, 512 )
 texture = ExtResource( 5 )
-frame = 50
 _sections_unfolded = [ "Animation" ]
 
 [node name="ladder_top" type="Sprite" parent="." index="31"]

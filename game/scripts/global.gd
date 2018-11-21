@@ -2,12 +2,12 @@ extends Node
 var current_scene = null
 var level = -1
 var players_lifes = [4,4,4,4]
-var levels = ["level1","level2","level3","level4","level5","level6"]
-var screen_size = Vector2(1280, 720)
+var levels = ["level0", "level1","level2","level3","level4","level5","level6"]
 
 const MAX_STAGE = 200
 var stage = 1
 var stages_lock = []
+var screen_size = Vector2(1280, 720)
 
 func _ready():
 	var root = get_tree().get_root()
@@ -16,13 +16,13 @@ func _ready():
 func next_level():
 	level += 1
 	if level > levels.size() - 1:
-		level = -1
+		level = 0
 #	goto_scene("res://scenes/main.tscn")
 
 func set_level(value):
 	level = value
 	if level > levels.size() - 1:
-		level = -1
+		level = 0
 
 func goto_scene(path):
 	call_deferred("_deferred_goto_scene",path)

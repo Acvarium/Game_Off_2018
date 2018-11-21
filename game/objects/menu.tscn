@@ -4,9 +4,9 @@
 [ext_resource path="res://textures/walls_bg.png" type="Texture" id=2]
 [ext_resource path="res://textures/vignette.png" type="Texture" id=3]
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=4]
-[ext_resource path="res://objects/select_level.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/level_button.tscn" type="PackedScene" id=5]
 
-[node name="main" type="Control"]
+[node name="main" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -104,6 +104,7 @@ tile_data = PoolIntArray( 65516, 20, 0, 65517, 21, 0, 65518, 20, 0, 65519, 21, 0
 
 [node name="bottom_bricks" type="Control" parent="." index="3"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -143,123 +144,72 @@ occluder_light_mask = 1
 format = 1
 tile_data = PoolIntArray( -65551, 16, 0, -65550, 21, 0, -65549, 16, 0, -65548, 21, 0, -65547, 16, 0, -65546, 21, 0, -65545, 21, 0, -65544, 16, 0, -65543, 15, 0, -65542, 26, 0, -65541, 16, 0, -65540, 21, 0, -65539, 16, 0, -65538, 21, 0, -65537, 16, 0, -131072, 21, 0, -131071, 21, 0, -131070, 16, 0, -131069, 15, 0, -131068, 26, 0, -131057, 19, 0, -131056, 15, 0, -131055, 16, 0, -131054, 15, 0, -131053, 16, 0, -131052, 15, 0, -131051, 15, 0, -131050, 16, 0, -131049, 15, 0, -131048, 15, 0, -131047, 16, 0, -131046, 21, 0, -131045, 16, 0, -131044, 21, 0, -131043, 16, 0, -131042, 21, 0, -131041, 21, 0, -131040, 16, 0, -131039, 15, 0, -131038, 26, 0, -15, 21, 0, -14, 16, 0, -13, 16, 0, -12, 15, 0, -11, 21, 0, -10, 16, 0, -9, 15, 0, -8, 15, 0, -7, 16, 0, -6, 15, 0, -5, 21, 0, -4, 16, 0, -3, 16, 0, -2, 15, 0, -1, 21, 0, -65536, 16, 0, -65535, 15, 0, -65534, 15, 0, -65533, 16, 0, -65532, 15, 0, -65531, 15, 0, -65530, 16, 0, -65529, 16, 0, -65528, 15, 0, -65527, 15, 0, -65526, 16, 0, -65525, 15, 0, -65524, 16, 0, -65523, 15, 0, -65522, 16, 0, -65521, 15, 0, -65520, 16, 0, -65519, 15, 0, -65518, 15, 0, -65517, 15, 0, -65516, 15, 0, -65515, 16, 0, -65514, 15, 0, -65513, 16, 0, -65512, 25, 0, -65511, 21, 0, -65510, 16, 0, -65509, 16, 0, -65508, 15, 0, -65507, 21, 0, -65506, 16, 0, -65505, 15, 0, -65504, 15, 0, -65503, 16, 0, -65502, 15, 0 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." index="4"]
+[node name="Container" type="Container" parent="." index="4"]
 
 editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -288.0
-margin_top = -360.0
-margin_right = 288.0
-margin_bottom = 312.0
+margin_left = -560.0
+margin_top = -208.0
+margin_right = 560.0
+margin_bottom = 144.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
-mouse_filter = 1
+rect_clip_content = false
+mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_constants/separation = 59
-alignment = 1
-_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "custom_constants" ]
 
-[node name="select_level" parent="VBoxContainer" index="0" instance=ExtResource( 5 )]
+[node name="level_button7" parent="Container" index="0" instance=ExtResource( 5 )]
 
-margin_left = 0.0
-margin_top = 100.0
-margin_right = 576.0
-margin_bottom = 100.0
-grow_horizontal = 0
-grow_vertical = 0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Margin", "Rect" ]
-level = -1
+margin_top = 192.0
+margin_bottom = 352.0
+level = 4
 
-[node name="select_level2" parent="VBoxContainer" index="1" instance=ExtResource( 5 )]
+[node name="level_button2" parent="Container" index="1" instance=ExtResource( 5 )]
 
-margin_left = 0.0
-margin_top = 159.0
-margin_right = 576.0
-margin_bottom = 159.0
-grow_horizontal = 0
-grow_vertical = 0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Margin", "Rect" ]
-
-[node name="select_level3" parent="VBoxContainer" index="2" instance=ExtResource( 5 )]
-
-margin_left = 0.0
-margin_top = 218.0
-margin_right = 576.0
-margin_bottom = 218.0
-grow_horizontal = 0
-grow_vertical = 0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Margin", "Rect" ]
+margin_left = 288.0
+margin_right = 544.0
 level = 1
 
-[node name="select_level4" parent="VBoxContainer" index="3" instance=ExtResource( 5 )]
+[node name="level_button5" parent="Container" index="2" instance=ExtResource( 5 )]
 
-margin_left = 0.0
-margin_top = 277.0
-margin_right = 576.0
-margin_bottom = 277.0
-grow_horizontal = 0
-grow_vertical = 0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Margin", "Rect" ]
-level = 2
+[node name="level_button8" parent="Container" index="3" instance=ExtResource( 5 )]
 
-[node name="select_level5" parent="VBoxContainer" index="4" instance=ExtResource( 5 )]
-
-margin_left = 0.0
-margin_top = 336.0
-margin_right = 576.0
-margin_bottom = 336.0
-grow_horizontal = 0
-grow_vertical = 0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Margin", "Rect" ]
-level = 3
-
-[node name="select_level6" parent="VBoxContainer" index="5" instance=ExtResource( 5 )]
-
-margin_left = 0.0
-margin_top = 395.0
-margin_right = 576.0
-margin_bottom = 395.0
-grow_horizontal = 0
-grow_vertical = 0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Margin", "Rect" ]
-level = 4
-
-[node name="select_level7" parent="VBoxContainer" index="6" instance=ExtResource( 5 )]
-
-margin_left = 0.0
-margin_top = 454.0
-margin_right = 576.0
-margin_bottom = 454.0
-grow_horizontal = 0
-grow_vertical = 0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Margin", "Rect" ]
+margin_left = 288.0
+margin_top = 192.0
+margin_right = 544.0
+margin_bottom = 352.0
 level = 5
 
-[node name="select_level8" parent="VBoxContainer" index="7" instance=ExtResource( 5 )]
+[node name="level_button3" parent="Container" index="4" instance=ExtResource( 5 )]
 
-margin_left = 0.0
-margin_top = 513.0
-margin_right = 576.0
-margin_bottom = 513.0
-grow_horizontal = 0
-grow_vertical = 0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Margin", "Rect" ]
-level = 4
+margin_left = 576.0
+margin_right = 832.0
+level = 2
 
-[node name="select_level9" parent="VBoxContainer" index="8" instance=ExtResource( 5 )]
+[node name="level_button6" parent="Container" index="5" instance=ExtResource( 5 )]
 
-margin_left = 0.0
-margin_top = 572.0
-margin_right = 576.0
-margin_bottom = 572.0
-grow_horizontal = 0
-grow_vertical = 0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Margin", "Rect" ]
-level = 4
+margin_left = 576.0
+margin_top = 192.0
+margin_right = 832.0
+margin_bottom = 352.0
+level = 6
+
+[node name="level_button9" parent="Container" index="6" instance=ExtResource( 5 )]
+
+margin_left = 864.0
+margin_top = 192.0
+margin_right = 1120.0
+margin_bottom = 352.0
+level = 6
+
+[node name="level_button4" parent="Container" index="7" instance=ExtResource( 5 )]
+
+margin_left = 864.0
+margin_right = 1120.0
+level = 3
 
 

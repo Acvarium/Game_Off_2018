@@ -6,7 +6,7 @@
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=4]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=5]
 
-[node name="level" type="Node2D" index="0"]
+[node name="level" type="Node2D"]
 
 [node name="vignette" type="Sprite" parent="." index="0"]
 
