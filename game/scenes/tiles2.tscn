@@ -845,4 +845,28 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="ground_hole0" type="Sprite" parent="." index="34"]
+
+position = Vector2( 576, 96 )
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 16
+frame = 7
+_sections_unfolded = [ "Animation" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ground_hole1" type="Sprite" parent="." index="35"]
+
+position = Vector2( 576, 160 )
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 16
+frame = 23
+_sections_unfolded = [ "Animation" ]
+__meta__ = {
+"_edit_group_": true
+}
+
 

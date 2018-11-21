@@ -386,14 +386,11 @@ func _physics_process(delta):
 #		stand_time = OS.get_ticks_msec()
 #	last_pos = position
 
-
-
-
-
-
 func can_be_holed(cell_pos):
 	var _cell = main_node.get_cell(cell_pos) 
 	var cell_name = main_node.get_tile_name(_cell)
+	if cell_name.left(8) == "ground_h":
+		return false
 	if cell_name.left(1) == 'g':
 		var up_cell_pos = cell_pos
 		up_cell_pos.y -= 1

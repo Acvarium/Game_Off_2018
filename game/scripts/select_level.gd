@@ -5,11 +5,16 @@ var global
 
 func set_level(value):
 	level = value
+	if has_node("level_num"):
+		$level_num.text = str(level)
 #	if has_node("level_button"):
 #		$level_button.text = "level " + str(level)
 
 func _ready():
 	global = get_node("/root/global")
+	if has_node("level_num"):
+		if !Engine.editor_hint:
+			$level_num.visible = false
 	if has_node("prev"):
 		var has_prev = false
 		if level >= 0 and level < global.levels.size() :
@@ -20,6 +25,8 @@ func _ready():
 			$prev.texture = load("res://prev/" + global.levels[level] + ".png")
 		else:
 			$prev.visible = false
+			if !Engine.editor_hint:
+				visible = false
 			
 
 func _on_level_button_pressed():
