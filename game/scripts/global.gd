@@ -35,6 +35,9 @@ func _deferred_goto_scene(path):
 	get_tree().set_current_scene( current_scene )
 
 
+func _input(event):
+	if Input.is_action_just_pressed("full_scr"):
+		OS.window_fullscreen = !OS.window_fullscreen
 
 func save_game():
 	var savegame = File.new()
