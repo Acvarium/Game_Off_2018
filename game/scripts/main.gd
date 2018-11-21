@@ -73,6 +73,8 @@ func _ready():
 	
 	
 func _input(event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		global.goto_scene("res://scenes/menu.tscn")
 	if  event is InputEventMouseMotion:
 		mouse_move_check = 4
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
