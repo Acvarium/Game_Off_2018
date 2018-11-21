@@ -9,9 +9,9 @@ func set_level(value):
 	level = value
 	if has_node("level_num"):
 		$level_num.text = str(level)
-#	if has_node("level_num"):
-#		if !Engine.editor_hint:
-#			$level_num.visible = false
+	if has_node("level_num"):
+		if !Engine.editor_hint:
+			$level_num.visible = false
 	if has_node("prev"):
 		var has_prev = false
 		if level >= 0 and level < global.levels.size():
