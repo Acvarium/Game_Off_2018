@@ -164,12 +164,14 @@ format = 1
 tile_data = PoolIntArray( 65568, 32, 0, 131104, 30, 0, 196640, 30, 0, 262176, 30, 0, 327712, 30, 0 )
 _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
-[node name="player" parent="." index="6" instance=ExtResource( 6 )]
+[node name="objects" type="Node2D" parent="." index="6"]
+
+[node name="player" parent="." index="7" instance=ExtResource( 6 )]
 
 pause_mode = 1
 position = Vector2( 416, 1056 )
 
-[node name="bots" type="Node2D" parent="." index="7"]
+[node name="bots" type="Node2D" parent="." index="8"]
 
 editor/display_folded = true
 

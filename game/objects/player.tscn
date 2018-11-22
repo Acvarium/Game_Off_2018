@@ -574,7 +574,7 @@ use_filter = false
 font_data = SubResource( 11 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="player" type="KinematicBody2D" groups=[
+[node name="player" type="KinematicBody2D" index="0" groups=[
 "character",
 ]]
 
@@ -633,6 +633,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="rays" type="Node2D" parent="." index="4"]
 
+editor/display_folded = true
 visible = false
 
 [node name="down" type="RayCast2D" parent="rays" index="0"]
@@ -702,8 +703,6 @@ cast_to = Vector2( 0, -20 )
 collision_mask = 5
 
 [node name="points" type="Node2D" parent="." index="5"]
-
-editor/display_folded = true
 
 [node name="left" type="Position2D" parent="points" index="0"]
 

@@ -11,7 +11,7 @@ var screen_size = Vector2(1280, 720)
 
 func _ready():
 	var root = get_tree().get_root()
-	current_scene = root.get_child( root.get_child_count() -1 )
+	current_scene = weakref(root.get_child( root.get_child_count() -1 ))
 
 func next_level():
 	level += 1
@@ -28,12 +28,12 @@ func goto_scene(path):
 	call_deferred("_deferred_goto_scene",path)
 
 func _deferred_goto_scene(path):
-	if current_scene != null:
-		current_scene.queue_free()
+	if (current_scene.get_ref()):
+		current_scene.get_ref().queue_free()
 	var s = ResourceLoader.load(path)
-	current_scene = s.instance()
-	get_tree().get_root().add_child(current_scene)
-	get_tree().set_current_scene( current_scene )
+	current_scene =  weakref(s.instance())
+	get_tree().get_root().add_child(current_scene.get_ref())
+	get_tree().set_current_scene( current_scene .get_ref())
 
 
 func _input(event):

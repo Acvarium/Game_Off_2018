@@ -463,6 +463,13 @@ func obstacle(dir):
 	elif dir == RIGHT:
 		return $rays/right.is_colliding() or $rays/right2.is_colliding()
 
+
+
+func _input(event):
+	if bot_class == 0:
+		if Input.is_action_just_released("put"):
+			main_node.put_obj("bomb", $points/center.global_position)
+
 func set_nav(new_nav):
 	nav = new_nav
 	update_path()

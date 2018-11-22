@@ -61,6 +61,8 @@ texture = ExtResource( 2 )
 
 [node name="nav" type="Navigation2D" parent="." index="2"]
 
+editor/display_folded = true
+
 [node name="navMap" type="TileMap" parent="nav" index="0"]
 
 visible = false
@@ -85,6 +87,8 @@ tile_data = PoolIntArray( 327685, 1, 0, 327694, 1, 0, 327695, 1, 0, 327696, 1, 0
 _sections_unfolded = [ "Cell", "Visibility" ]
 
 [node name="nav_fa" type="Navigation2D" parent="." index="3"]
+
+editor/display_folded = true
 
 [node name="navMap" type="TileMap" parent="nav_fa" index="0"]
 
@@ -155,12 +159,14 @@ format = 1
 tile_data = PoolIntArray( 131097, 32, 0, 196633, 30, 0, 262169, 30, 0, 327705, 30, 0 )
 _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
-[node name="player" parent="." index="6" instance=ExtResource( 5 )]
+[node name="objects" type="Node2D" parent="." index="6"]
+
+[node name="player" parent="." index="7" instance=ExtResource( 5 )]
 
 pause_mode = 1
 position = Vector2( 416, 1056 )
 
-[node name="bots" type="Node2D" parent="." index="7"]
+[node name="bots" type="Node2D" parent="." index="8"]
 
 editor/display_folded = true
 

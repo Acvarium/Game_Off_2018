@@ -34,6 +34,19 @@ func update_gold_count(value):
 	$ui/goldCount.text = str(gold_found) + "/" + str(gold_on_level)
 
 
+func put_obj(obj_name, _pos):
+	if level.has_node("objects"):
+		var cell_pos = world_to_map(_pos)
+		var w_pos = map_to_world(cell_pos)
+		var obj = load("res://objects/" + obj_name + ".tscn")
+		var obj_inst = obj.instance()
+		level.get_node("objects").add_child(obj_inst)
+		obj_inst.global_position = w_pos
+		
+	
+	
+	
+
 func _ready():
 	level = $level
 	global = get_node("/root/global")
