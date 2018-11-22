@@ -517,6 +517,8 @@ func _on_bot_get_out_timer_timeout():
 	allowe_to_crawl_up = true
 
 func _on_Area_area_entered(area):
+	if area.is_in_group("level"):
+		die()
 	if bot_class == 0:
 		if area.is_in_group("player"):
 			if area.get_parent().bot_class > 0:
