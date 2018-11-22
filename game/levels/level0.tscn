@@ -174,29 +174,27 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 pause_mode = 1
 position = Vector2( 1248, 1024 )
 
-[node name="bots" type="Node2D" parent="." index="8"]
-
-editor/display_folded = true
-
-[node name="bot1" parent="bots" index="0" instance=ExtResource( 6 )]
+[node name="bot1" parent="." index="8" instance=ExtResource( 6 )]
 
 pause_mode = 1
 position = Vector2( 1248, 288 )
 bot_class = 1
 main_player = false
 
-[node name="bot3" parent="bots" index="1" instance=ExtResource( 6 )]
+[node name="bot3" parent="." index="9" instance=ExtResource( 6 )]
 
 pause_mode = 1
 position = Vector2( 1888, 288 )
 bot_class = 1
 main_player = false
 
-[node name="bot2" parent="bots" index="2" instance=ExtResource( 6 )]
+[node name="bot2" parent="." index="10" instance=ExtResource( 6 )]
 
 pause_mode = 1
 position = Vector2( 480, 288 )
 bot_class = 1
 main_player = false
+
+[node name="bots" type="Node2D" parent="." index="11"]
 
 

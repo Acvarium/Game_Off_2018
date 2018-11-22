@@ -48,6 +48,7 @@ var current_tile_pos = Vector2()
 var bot_random_dir = UP
 var bot_go_random = true
 var stand_time = 0
+var allowe_to_move = true
 
 func _ready():
 	main_node = get_node("/root/main")
@@ -230,14 +231,16 @@ func _physics_process(delta):
 		bb_press = false
 		
 		if current_hole_L != null:
-			current_hole_L.play_back()
+			if current_hole_L.get_ref():
+				current_hole_L.get_ref().play_back()
 		current_hole_L = null
 	# Якщо відпущено праву клавішу буріння
 	if Input.is_action_just_released("A") and main_player:
 		a_press = false
 		aa_press = false
 		if current_hole_R != null:
-			current_hole_R.play_back()
+			if current_hole_R.get_ref():
+				current_hole_R.get_ref().play_back()
 		current_hole_R = null
 
 	if abs(direction.y) == 0:
@@ -252,7 +255,7 @@ func _physics_process(delta):
 			elif can_be_holed(cell_to_empty) and !b_press:
 				b_press = true
 				$sounds/blaster.play()
-				current_hole_L = main_node.add_empty_cell(cell_to_empty)
+				current_hole_L = weakref(main_node.add_empty_cell(cell_to_empty))
 				$Sprite.frame = 17
 			elif !bb_press:
 				$sounds/miss.play()
@@ -269,7 +272,7 @@ func _physics_process(delta):
 			elif can_be_holed(cell_to_empty) and !a_press:
 				a_press = true
 				$sounds/blaster.play()
-				current_hole_R = main_node.add_empty_cell(cell_to_empty)
+				current_hole_R = weakref(main_node.add_empty_cell(cell_to_empty))
 				$Sprite.frame = 19
 			elif !aa_press:
 				$sounds/miss.play()
@@ -278,6 +281,16 @@ func _physics_process(delta):
 	can_move_up = (up_key and (c_cell_t == 1 or l_cell_t == 1))
 	can_move_down = down_key
 	
+	
+	
+	allowe_to_move = current_hole_L == null and current_hole_R == null
+		
+	if !allowe_to_move:
+		up_key = false
+		left_key = false
+		right_key = false
+		down_key = false
+		
 	if in_the_trap and allowe_to_crawl_up:
 		can_move_up = true
 	
@@ -345,7 +358,19 @@ func _physics_process(delta):
 			is_moving = false
 		move_and_collide(velocity)
 
-	if direction.y == 1:
+	if current_hole_L or current_hole_R:
+		if $anim.is_playing():
+			$anim.stop()
+		if b_press and a_press:
+			$Sprite.frame = 14
+		elif b_press:
+			$Sprite.frame = 17
+		elif a_press:
+			$Sprite.frame = 19
+			
+			
+		
+	elif direction.y == 1:
 		if on_the_ladder:
 			if $anim.current_animation != "up":
 				$anim.play("up")
@@ -368,7 +393,7 @@ func _physics_process(delta):
 		else:
 			if $anim.current_animation != "right":
 				$anim.play("right")
-	if direction == Vector2():
+	elif direction == Vector2():
 		if $anim.is_playing():
 			if $anim.current_animation != "stand" and !b_press and !a_press:
 				$anim.stop()
