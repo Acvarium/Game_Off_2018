@@ -30,6 +30,8 @@ func goto_scene(path):
 func _deferred_goto_scene(path):
 	if (current_scene.get_ref()):
 		current_scene.get_ref().queue_free()
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
 	var s = ResourceLoader.load(path)
 	current_scene =  weakref(s.instance())
 	get_tree().get_root().add_child(current_scene.get_ref())
