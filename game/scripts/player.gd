@@ -342,7 +342,7 @@ func _physics_process(delta):
 	if !is_moving and direction != Vector2():
 		target_direction = direction
 		if main_node.is_cell_vacant(self):
-			target_pos = main_node.update_player_pos(self)
+			target_pos = main_node.map_to_world(main_node.world_to_map(position) + direction)
 			is_moving = true
 	elif is_moving:
 		speed = max_speed
@@ -456,7 +456,6 @@ func die():
 		$timers/bot_get_out_timer.stop()
 		to_remove_last_trap_tile = false
 		allowe_to_crawl_up = false
-		main_node.remove_player(self)
 		target_pos = Vector2()
 		target_direction = Vector2()
 		direction = Vector2()

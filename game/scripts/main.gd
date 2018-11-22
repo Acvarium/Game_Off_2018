@@ -1,8 +1,6 @@
 extends Node2D
 var cell_size = 32
 var tile_cell_size = 64
-var world_size = 128
-var world = []
 var offset = Vector2(32,32)
 var empty_cell_obj = load("res://objects/empty_cell.tscn")
 var global
@@ -43,9 +41,6 @@ func put_obj(obj_name, _pos):
 		level.get_node("objects").add_child(obj_inst)
 		obj_inst.global_position = w_pos
 		
-	
-	
-	
 
 func _ready():
 	level = $level
@@ -62,10 +57,7 @@ func _ready():
 	fin_map = level.get_node("fin")
 	calculate_map_bounds(level.get_node("level"))
 	update_gold_count(0)
-	for x in range(world_size):
-		world.append([])
-		for y in range(world_size):
-			world[x].append(null)
+	
 	if level.has_method("_rebuild"):
 		level._rebuild(1)
 	for mob in level.get_node("bots").get_children():
@@ -83,7 +75,6 @@ func _ready():
 	if set_name == "tiles2":
 		set_num = 2
 		
-	
 	
 func _input(event):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -175,57 +166,32 @@ func is_cell_vacant(player):
 		return true
 	var direction = player.direction
 	var grid_pos = world_to_map(player.position) + direction
-	for x in range(2):
-		for y in range(2):
-			if (grid_pos.x + x - 1) < 0 or (grid_pos.x + x - 1) >= world.size():
-				is_vacant = false
-			if (grid_pos.y + y - 1) < 0 or (grid_pos.y + y - 1) >= world[0].size():
-				is_vacant = false
-			var cell = world[grid_pos.x + x - 1][grid_pos.y + y - 1]
-			if cell != null:
-				if cell.get_ref() != player:
-					is_vacant = false
-	if !is_vacant:
+	for p in players:
+		if p == null or !p.get_ref():
+			continue
+		if p.get_ref() == player or p.get_ref().bot_class == 0:
+			continue
+		var p_grid_pos = world_to_map(p.get_ref().position) 
+		if abs(p_grid_pos.x - grid_pos.x) < 2 and abs(p_grid_pos.y - grid_pos.y) < 2:
+			is_vacant = false
+#	for x in range(2):
+#		for y in range(2):
+#			if (grid_pos.x + x - 1) < 0 or (grid_pos.x + x - 1) >= world.size():
+#				is_vacant = false
+#			if (grid_pos.y + y - 1) < 0 or (grid_pos.y + y - 1) >= world[0].size():
+#				is_vacant = false
+#			var cell = world[grid_pos.x + x - 1][grid_pos.y + y - 1]
+#			if cell != null:
+#				if cell.get_ref() != player:
+#					is_vacant = false
 #		print(player.name)
 #		var rand_pos = Vector2()
 #		rand_pos.x = randf() * map_size.x + top_left.x
 #		rand_pos.y = randf() * map_size.y + bottom_right.y
 #		player.goal = rand_pos
 #		player.follow_player = false
-		return false
-	return true
+	return is_vacant
 
-func remove_player(player):
-	var grid_pos = world_to_map(player.position)
-	for x in range(world_size):
-		for y in range(world_size):
-			if world[x][y]:
-				if world[x][y].get_ref() == player:
-					world[x][y] = null
-
-func update_player_pos(player):
-	remove_player(player)
-	var grid_pos = world_to_map(player.position)
-	var new_grid_pos = grid_pos + player.direction
-	var target_pos = map_to_world(new_grid_pos) 
-	if player.bot_class == 0:
-		return target_pos
-	for x in range(2):
-		for y in range(2):
-			world[new_grid_pos.x + x - 1][new_grid_pos.y + y - 1] = weakref(player)
-	return target_pos
-	
-func print_world():
-	var ss = ""
-	for x in range(world_size):
-		var l = ""
-		for y in range(world_size):
-			if world[y][x] != null:
-				l += "[color=green][[/color]+[color=green]][/color]"
-			else:
-				l += " . "
-		ss += l + "\n"
-	$ui/grid.bbcode_text = ss
 			
 func calculate_map_bounds(_tilemap):
 	var used_cells = _tilemap.get_used_cells()
