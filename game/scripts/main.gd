@@ -39,7 +39,6 @@ func put_obj(obj_name, _pos):
 		var obj_inst = obj.instance()
 		level.get_node("objects").add_child(obj_inst)
 		obj_inst.global_position = w_pos
-		
 
 func _ready():
 	level = $level
@@ -76,6 +75,8 @@ func _ready():
 		
 	
 func _input(event):
+	if Input.is_action_just_pressed("ui_page_up"):
+		exit()
 	if Input.is_action_just_pressed("ui_cancel"):
 		global.goto_scene("res://scenes/menu.tscn")
 	if  event is InputEventMouseMotion:
@@ -170,7 +171,7 @@ func is_cell_vacant(player):
 			continue
 		if p.get_ref() == player or p.get_ref().bot_class == 0:
 			continue
-		var p_grid_pos = world_to_map(p.get_ref().position) 
+		var p_grid_pos = world_to_map(p.get_ref().target_pos) 
 		if abs(p_grid_pos.x - grid_pos.x) < 2 and abs(p_grid_pos.y - grid_pos.y) < 2:
 			is_vacant = false
 #	for x in range(2):
@@ -236,9 +237,10 @@ func _on_busted_finished():
 	get_tree().paused = false
 
 func _on_v1_finished():
+	print("next")
 	global.next_level()
-	get_tree().reload_current_scene()
-	get_tree().paused = false
+#	get_tree().reload_current_scene()
+#	get_tree().paused = false
 
 	
 

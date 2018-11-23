@@ -27,7 +27,6 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
 _sections_unfolded = [ "Material", "Rect", "Visibility" ]
-level = 0
 
 [node name="bgb" type="TextureRect" parent="." index="0"]
 

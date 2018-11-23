@@ -25,6 +25,7 @@ var in_the_trap = false
 var allowed_to_pickup = true
 var follow_player = true
 var last_pos = Vector2()
+var ghost_mode = false
 
 export var bot_class = 0
 export var main_player = true
@@ -467,7 +468,17 @@ func die():
 		if bot_class > 0:
 			update_path()
 	else:
-		main_node.busted()
+		if !ghost_mode:
+			main_node.busted()
+
+func toggle_ghost():
+	ghost_mode = !ghost_mode
+	if ghost_mode:
+		modulate = Color(1,1,1,0.5)
+	else:
+		modulate = Color(1,1,1,1)
+		
+	
 
 func obstacle(dir):
 	if dir == UP:
@@ -496,6 +507,8 @@ func _input(event):
 	if bot_class == 0:
 		if Input.is_action_just_released("put"):
 			main_node.put_obj("bomb", $points/center.global_position)
+		if Input.is_action_just_pressed("ghost"):
+			toggle_ghost()
 
 func set_nav(new_nav):
 	nav = new_nav

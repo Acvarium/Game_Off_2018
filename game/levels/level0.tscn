@@ -7,7 +7,7 @@
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=5]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=6]
 
-[node name="level" type="Node2D"]
+[node name="level" type="Node2D" index="0"]
 
 pause_mode = 1
 script = ExtResource( 1 )
@@ -169,12 +169,9 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 [node name="objects" type="Node2D" parent="." index="6"]
 
-[node name="player" parent="." index="7" instance=ExtResource( 6 )]
+[node name="bots" type="Node2D" parent="." index="7"]
 
-pause_mode = 1
-position = Vector2( 1248, 1024 )
-
-[node name="bots" type="Node2D" parent="." index="8"]
+editor/display_folded = true
 
 [node name="bot1" parent="bots" index="0" instance=ExtResource( 6 )]
 
@@ -196,5 +193,10 @@ pause_mode = 1
 position = Vector2( 480, 288 )
 bot_class = 1
 main_player = false
+
+[node name="player" parent="." index="8" instance=ExtResource( 6 )]
+
+pause_mode = 1
+position = Vector2( 1248, 1024 )
 
 

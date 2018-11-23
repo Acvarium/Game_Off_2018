@@ -1,7 +1,7 @@
 tool
 extends Control
 export var level = 0 setget set_level
-var global = null
+var lock = true
 
 func set_level(value):
 	if global == null:
@@ -21,6 +21,7 @@ func set_level(value):
 		$prev.visible = has_prev
 		
 		if has_prev:
+			$prev/lock.visible = global.check_lock(level) < 0
 			$prev.texture = load("res://prev/" + global.levels[level] + ".png")
 				
 func _ready():
@@ -28,6 +29,6 @@ func _ready():
 	set_level(level)
 	
 func _on_level_button_pressed():
-	if level >= 0 and level < global.levels.size():
+	if level >= 0 and level < global.levels.size() and $prev/lock.visible == false:
 		global.set_level(level)
 		global.goto_scene("res://scenes/main.tscn")
