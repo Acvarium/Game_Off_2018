@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="Game Off 2018"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -84,5 +84,4 @@ put=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","d
 
 [rendering]
 
-environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

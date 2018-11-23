@@ -7,7 +7,7 @@
 [ext_resource path="res://objects/level_button.tscn" type="PackedScene" id=5]
 [ext_resource path="res://textures/simp/gold.png" type="Texture" id=6]
 
-[node name="menu" type="Control" index="0"]
+[node name="menu" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -147,7 +147,6 @@ tile_data = PoolIntArray( -65551, 16, 0, -65550, 21, 0, -65549, 16, 0, -65548, 2
 
 [node name="l_cont" type="Container" parent="." index="4"]
 
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

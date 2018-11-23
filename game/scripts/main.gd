@@ -31,7 +31,6 @@ func update_gold_count(value):
 		final()
 	$ui/goldCount.text = str(gold_found) + "/" + str(gold_on_level)
 
-
 func put_obj(obj_name, _pos):
 	if level.has_node("objects"):
 		var cell_pos = world_to_map(_pos)

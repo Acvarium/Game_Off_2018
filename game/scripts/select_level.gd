@@ -18,13 +18,10 @@ func set_level(value):
 			var file2Check = File.new()
 			if file2Check.file_exists("res://prev/" + global.levels[level] + ".png"):
 				has_prev = true
+		$prev.visible = has_prev
+		
 		if has_prev:
 			$prev.texture = load("res://prev/" + global.levels[level] + ".png")
-			$prev.visible = true
-		else:
-			$prev.visible = false
-#			if !Engine.editor_hint:
-#				visible = false
 				
 func _ready():
 	global = get_node("/root/global")

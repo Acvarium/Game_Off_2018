@@ -704,6 +704,8 @@ collision_mask = 5
 
 [node name="points" type="Node2D" parent="." index="5"]
 
+editor/display_folded = true
+
 [node name="left" type="Position2D" parent="points" index="0"]
 
 position = Vector2( -20, 0 )

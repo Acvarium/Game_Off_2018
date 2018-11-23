@@ -98,6 +98,11 @@ func _physics_process(delta):
 	var up_key = false
 	var down_key = false
 	
+	
+	ss += str(tile_pos) + " " + str(current_tile_pos)
+#	$coo.text = ss
+	
+	
 	var can_move_up = !obstacle(UP) and (c_cell_t == 1 or l_cell_t == 1)
 	var can_move_down = !obstacle(DOWN)
 	on_the_ladder = (c_cell_t == 1 or d_cell_t == 1 or l_cell_t == 1 or ld_cell_t == 1)
@@ -137,7 +142,6 @@ func _physics_process(delta):
 			var d = position.distance_to(path[0])
 			var d_vec = position - path[0]
 			if d > 32:
-				ss = ""
 				if d_vec.y < 0 and !obstacle(DOWN) and on_the_ladder:
 					down_key = true
 					ss += "down  "
@@ -348,16 +352,15 @@ func _physics_process(delta):
 		speed = max_speed
 		velocity = speed * target_direction * delta
 		var distance_to_target = Vector2(abs(target_pos.x - position.x), abs(target_pos.y - position.y))
-		
+			
 		if abs(velocity.x) > distance_to_target.x:
 			velocity.x = distance_to_target.x * target_direction.x
 			is_moving = false
-			
+		
 		if abs(velocity.y) > distance_to_target.y:
 			velocity.y = distance_to_target.y * target_direction.y
 			is_moving = false
 		move_and_collide(velocity)
-
 	if current_hole_L or current_hole_R:
 		if $anim.is_playing():
 			$anim.stop()

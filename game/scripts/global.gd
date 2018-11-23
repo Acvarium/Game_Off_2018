@@ -3,15 +3,20 @@ var current_scene = null
 var level = -1
 var players_lifes = [4,4,4,4]
 var levels = ["level0", "level1","level2","level3","level4","level5","level6"]
-
+var stage_locks = []
 const MAX_STAGE = 200
 var stage = 1
-var stages_lock = []
 var screen_size = Vector2(1280, 720)
+const SAVE_PATH = "user://g2018_savegame.save"
+var levels_states = {}
 
 func _ready():
 	var root = get_tree().get_root()
+	print(OS.get_user_data_dir())
+	
 	current_scene = weakref(root.get_child( root.get_child_count() -1 ))
+	load_game()
+#	save_game()
 
 func next_level():
 	level += 1
@@ -42,29 +47,36 @@ func _input(event):
 	if Input.is_action_just_pressed("full_scr"):
 		OS.window_fullscreen = !OS.window_fullscreen
 
+func create_default_locks():
+	levels_states.clear()
+	levels_states["0"] = 0
+	for i in range(MAX_STAGE):
+		levels_states[str(i)] = -1
+
 func save_game():
 	var savegame = File.new()
-	savegame.open("user://__savegame.save", File.WRITE)
-	for i in range(stages_lock.size()):
-		savegame.store_line({str(i):stages_lock[i]}.to_json())
+	savegame.open(SAVE_PATH, File.WRITE)
+	for i in range(MAX_STAGE):
+		if levels_states.has(str(i)):
+			savegame.store_line(to_json( {str(i) : levels_states[str(i)]}))
+		else:
+			savegame.store_line(to_json( {str(i) : -1}))
+	
 	savegame.close()
 
 # Завантаження гри
 func load_game():
-	var savegame = File.new()
-	if !savegame.file_exists("user://__savegame.save"):
-		for i in range(MAX_STAGE):
-			stages_lock.append(1)
-		stages_lock[0] = 0
-		return #Error!  We don't have a save to load
-	var currentline = {} 
-	savegame.open("user://__savegame.save", File.READ)
-	stages_lock.clear()
-	var n = 0
-	while (!savegame.eof_reached()):
-		n += 1
-		currentline.parse_json(savegame.get_line())
-	for i in range(MAX_STAGE):
-		stages_lock.append(currentline[str(i)])
-	savegame.close()
-	print(currentline["72"])
+	var save_file = File.new()
+	if !save_file.file_exists(SAVE_PATH):
+		create_default_locks()
+		save_game()
+		print("new")
+		return null
+	save_file.open(SAVE_PATH, File.READ)
+#	levels_states = parse_json(save_file.get_as_text())
+	while not save_file.eof_reached():
+		var current_line = parse_json(save_file.get_line())
+		if current_line != null:
+			print(current_line.keys()[0] + " " + str(int(current_line.values()[0])))
+			levels_states[current_line.keys()[0]] = int(current_line.values()[0])
+# First we need to create the object and add it to the tree and set its position.
