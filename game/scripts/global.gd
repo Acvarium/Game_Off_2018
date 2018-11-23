@@ -1,5 +1,7 @@
 extends Node
 var current_scene = null
+var current_scene_path = ""
+
 var level = -1
 var players_lifes = [4,4,4,4]
 var levels = ["level0", "level1","level2","level3","level4","level5","level6"]
@@ -44,6 +46,11 @@ func set_level(value):
 	if level > levels.size() - 1:
 		level = 0
 
+func reload_current():
+	if current_scene_path != "":
+		goto_scene(current_scene_path)
+
+
 func goto_scene(path):
 	call_deferred("_deferred_goto_scene",path)
 
@@ -53,8 +60,7 @@ func _deferred_goto_scene(path):
 	var s = ResourceLoader.load(path)
 	current_scene = s.instance()
 	get_tree().get_root().add_child(current_scene)
-#	get_tree().set_current_scene(current_scene)
-
+	current_scene_path = path
 
 func _input(event):
 	if Input.is_action_just_pressed("full_scr"):

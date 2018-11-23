@@ -233,8 +233,10 @@ func _process(delta):
 		print_world()
 
 func _on_busted_finished():
-	get_tree().reload_current_scene()
-	get_tree().paused = false
+	print("reload")
+	global.reload_current()
+#	get_tree().reload_current_scene()
+#	get_tree().paused = false
 
 func _on_v1_finished():
 	print("next")
