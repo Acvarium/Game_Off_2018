@@ -75,6 +75,8 @@ func _ready():
 	
 	if global.levels_states[str(global.level + 1)] < -3:
 		$ui/skip_button.visible = true
+		
+	$ui/level_name.text = "Level " + str(global.level + 1)
 	
 func _input(event):
 	if Input.is_action_just_pressed("ui_page_up"):
@@ -89,6 +91,7 @@ func _input(event):
 		start_pause = false
 		get_tree().paused = false
 		$ui/ready.visible = false
+		$ui/level_name.visible = false
 	if Input.is_action_just_pressed("pause"):
 		on_pause = !on_pause
 		get_tree().paused = on_pause
@@ -258,7 +261,9 @@ func _on_mouse_move_timer_timeout():
 
 func _on_start_pause_timer_timeout():
 	if start_pause:
+		play_sound("start")
 		$ui/ready.visible = true
+		$ui/level_name.visible = true
 		get_tree().paused = true
 
 

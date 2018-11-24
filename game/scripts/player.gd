@@ -530,11 +530,12 @@ func obstacle(dir):
 
 
 func _input(event):
-	if bot_class == 0:
-		if Input.is_action_just_released("put"):
-			main_node.put_obj("bomb", $points/center.global_position)
-		if Input.is_action_just_pressed("ghost"):
-			toggle_ghost()
+	pass
+#	if bot_class == 0:
+#		if Input.is_action_just_released("put"):
+#			main_node.put_obj("bomb", $points/center.global_position)
+#		if Input.is_action_just_pressed("ghost"):
+#			toggle_ghost()
 
 func set_nav(new_nav):
 	nav = new_nav
