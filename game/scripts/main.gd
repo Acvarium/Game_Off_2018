@@ -19,6 +19,7 @@ var set_num = 1
 var mouse_move_check = 4
 var mouse_last_pos = Vector2()
 var start_pause = true
+var default_zoom = Vector2(0.8,0.8)
 
 func add_player(player):
 	players.append(weakref(player))
@@ -77,6 +78,11 @@ func _ready():
 		$ui/skip_button.visible = true
 		
 	$ui/level_name.text = "Level " + str(global.level + 1)
+	default_zoom = $main_camera.zoom
+	var zzz = ((bottom_right - top_left )) / global.screen_size
+	$main_camera.zoom = Vector2(zzz.x, zzz.y)
+	print(bottom_right)
+	$main_camera.position = ((bottom_right - top_left) * 64) * 0.5 + top_left
 	
 func _input(event):
 	if Input.is_action_just_pressed("ui_page_up"):
@@ -88,6 +94,7 @@ func _input(event):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
 		$mouse_move_timer.start()
 	elif start_pause:
+		$main_camera.zoom = default_zoom
 		start_pause = false
 		get_tree().paused = false
 		$ui/ready.visible = false

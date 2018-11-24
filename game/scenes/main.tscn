@@ -29,7 +29,7 @@ use_filter = false
 font_data = SubResource( 1 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Resource", "Settings" ]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -69,7 +69,6 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Pause", "Smoothing", "
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -240,14 +239,12 @@ _sections_unfolded = [ "custom_colors", "custom_fonts", "custom_styles" ]
 
 [node name="level_name" type="Label" parent="ui" index="8"]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_top = 54.0
-margin_bottom = 123.0
+margin_top = 24.0
+margin_bottom = 93.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -266,7 +263,7 @@ _sections_unfolded = [ "custom_colors", "custom_fonts", "custom_styles" ]
 
 [node name="TextureRect" type="TextureRect" parent="ui/level_name" index="0"]
 
-modulate = Color( 1, 1, 1, 0.397765 )
+modulate = Color( 1, 1, 1, 0.132627 )
 show_behind_parent = true
 anchor_left = 0.0
 anchor_top = 0.0
@@ -315,6 +312,7 @@ _sections_unfolded = [ "Rect", "Textures", "Visibility" ]
 [node name="sounds" type="Node2D" parent="." index="3"]
 
 pause_mode = 2
+editor/display_folded = true
 _sections_unfolded = [ "Pause" ]
 __meta__ = {
 "_edit_group_": true,

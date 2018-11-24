@@ -22,7 +22,6 @@ func _ready():
 				top_left.y = pos.y
 			elif pos.y > bottom_right.y:
 				bottom_right.y = pos.y
-		print(top_left * 64)
 		$vCam.position = top_left * 64
 		var zzz = ((bottom_right - top_left + Vector2(1,1)) * 64) / global.screen_size
 		print(zzz)
