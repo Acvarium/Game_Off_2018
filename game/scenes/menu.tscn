@@ -105,6 +105,7 @@ tile_data = PoolIntArray( 65516, 20, 0, 65517, 21, 0, 65518, 20, 0, 65519, 21, 0
 
 [node name="bottom_bricks" type="Control" parent="." index="3"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5

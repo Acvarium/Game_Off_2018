@@ -15,6 +15,8 @@ func set_page(_page):
 	for i in range(8):
 		get_node("l_cont/level_button" + str(i+1)).set_level(i + page * 8)
 	$page_num.text = str(page)
+	$l_cont/page_plus.visible = (page + 1) * 8 < (global.levels.size())
+	print(page * 8 )
 
 func _on_page_minus_pressed():
 	set_page(page - 1)
