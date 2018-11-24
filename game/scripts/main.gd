@@ -72,7 +72,9 @@ func _ready():
 		set_num = 1
 	if set_name == "tiles2":
 		set_num = 2
-		
+	
+	if global.levels_states[str(global.level + 1)] < -3:
+		$ui/skip_button.visible = true
 	
 func _input(event):
 	if Input.is_action_just_pressed("ui_page_up"):
@@ -233,18 +235,11 @@ func _process(delta):
 		print_world()
 
 func _on_busted_finished():
-	print("reload")
+	global.change_level_state(-1)
 	global.reload_current()
-#	get_tree().reload_current_scene()
-#	get_tree().paused = false
 
 func _on_v1_finished():
-	print("next")
 	global.next_level()
-#	get_tree().reload_current_scene()
-#	get_tree().paused = false
-
-	
 
 func _on_mouse_move_timer_timeout():
 	var m_pos = get_global_mouse_position()
@@ -264,3 +259,7 @@ func _on_start_pause_timer_timeout():
 	if start_pause:
 		$ui/ready.visible = true
 		get_tree().paused = true
+
+
+func _on_skip_button_pressed():
+	global.next_level()

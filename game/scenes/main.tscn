@@ -39,7 +39,7 @@ use_filter = false
 font_data = SubResource( 3 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -79,7 +79,6 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Pause", "Smoothing", "
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -248,6 +247,30 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors", "custom_fonts", "custom_styles" ]
 
+[node name="skip_button" type="Button" parent="ui" index="8"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1088.0
+margin_top = -38.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Skip to next"
+flat = false
+align = 1
+
 [node name="sounds" type="Node2D" parent="." index="3"]
 
 pause_mode = 2
@@ -307,6 +330,8 @@ process_mode = 1
 wait_time = 0.05
 one_shot = true
 autostart = true
+
+[connection signal="pressed" from="ui/skip_button" to="." method="_on_skip_button_pressed"]
 
 [connection signal="finished" from="sounds/busted" to="." method="_on_busted_finished"]
 

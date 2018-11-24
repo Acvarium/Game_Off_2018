@@ -15,10 +15,17 @@ var erast = true
 func _ready():
 	var root = get_tree().get_root()
 	print(OS.get_user_data_dir())
-	
 	current_scene = root.get_child( root.get_child_count() -1 )
 	load_game()
 #	save_game()
+
+
+func change_level_state(value):
+	if levels_states.has(str(level + 1)):
+		if levels_states[str(level + 1)] <= 0:
+			var a = levels_states[str(level + 1)] 
+			levels_states[str(level + 1)] = a - 1
+			save_game()
 
 
 func check_lock(level_id):
