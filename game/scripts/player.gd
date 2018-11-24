@@ -239,7 +239,7 @@ func _physics_process(delta):
 		current_hole_R = null
 
 	if abs(direction.y) == 0:
-		if Input.is_action_pressed("B") and main_player and (obstacle(DOWN) or on_the_ladder or on_pipe):
+		if Input.is_action_pressed("B") and main_player and (obstacle(DOWN) or on_the_ladder or on_pipe) and !current_hole_R:
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			
 			cell_to_empty.x -= 1
@@ -256,7 +256,7 @@ func _physics_process(delta):
 				bb_press = true
 
 			
-		if Input.is_action_pressed("A")  and main_player and (obstacle(DOWN) or on_the_ladder or on_pipe):
+		if Input.is_action_pressed("A")  and main_player and (obstacle(DOWN) or on_the_ladder or on_pipe) and !current_hole_L:
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x += 1
 			cell_to_empty.y += 1
