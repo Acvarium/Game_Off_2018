@@ -8,9 +8,11 @@ func set_level(value):
 	if global == null:
 		return
 	level = value
+	
 	if has_node("level_num"):
 		$level_num.text = str(level)
 	if has_node("level_num"):
+		pass
 		if !Engine.editor_hint:
 			$level_num.visible = false
 	if has_node("prev"):
