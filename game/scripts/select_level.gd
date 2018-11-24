@@ -1,7 +1,8 @@
-tool
+#tool
 extends Control
 export var level = 0 setget set_level
 var lock = true
+export var shortcut_id = -1
 
 func set_level(value):
 	if global == null:
@@ -27,8 +28,15 @@ func set_level(value):
 func _ready():
 	global = get_node("/root/global")
 	set_level(level)
+#	if shortcut_id > 0 and shortcut_id < 10:
+#		if shortcut_id == 3:
+#		 	$level_button.shortcut = load("res://shortcuts/sh1.tres")
+#		elif shortcut_id == 2:
+#		 	$level_button.shortcut = load("res://shortcuts/sh2.tres")
+
 	
 func _on_level_button_pressed():
+	print(name + " " + str(level))
 	if level >= 0 and level < global.levels.size() and $prev/lock.visible == false:
 		global.set_level(level)
 		global.goto_scene("res://scenes/main.tscn")

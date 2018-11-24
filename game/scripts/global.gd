@@ -50,7 +50,6 @@ func reload_current():
 	if current_scene_path != "":
 		goto_scene(current_scene_path)
 
-
 func goto_scene(path):
 	call_deferred("_deferred_goto_scene",path)
 

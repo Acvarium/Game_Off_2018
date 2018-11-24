@@ -75,8 +75,6 @@ func _ready():
 func _physics_process(delta):
 	# Визначення поточної позиції в системі координат тайлів
 	var ss = ""
-#	ss = str(position.y - goal.y)
-#	$coo.text = ss
 
 	direction = Vector2()
 	var tile_pos = main_node.to_64(position)
@@ -181,14 +179,6 @@ func _physics_process(delta):
 # Додадковий інформаційний вивід, що дозволяє відлагоджувати гру
 	var debug_type = 2
 #	$gold.visible = gold_slot > 0
-#	$points/center/x.visible = allowed_to_pickup
-#	$points/left/x.visible = to_drop_gold
-#
-#	$points/center/x.visible =  allowe_to_crawl_up
-#	$points/left/x.visible = l_cell_t ==  debug_type
-#	$points/down/x.visible = d_cell_t ==  debug_type
-#	$points/l_down/x.visible = bot_go_random
-#
 	if tile_pos.x <= position.x and tile_pos.y <= position.y:
 		if c_cell_t == 3:
 			if bot_class == 0:
@@ -251,13 +241,12 @@ func _physics_process(delta):
 	if abs(direction.y) == 0:
 		if Input.is_action_pressed("B") and main_player and (obstacle(DOWN) or on_the_ladder or on_pipe):
 			var cell_to_empty = main_node.world_to_tile_pos(position)
+			
 			cell_to_empty.x -= 1
 			cell_to_empty.y += 1
-			if tile_pos.x > position.x:
-				direction.x = 1
-				if !is_moving:
-					currentDir = Vector2(1,0)
-			elif can_be_holed(cell_to_empty) and !b_press:
+			var cbh = can_be_holed(cell_to_empty)
+
+			if cbh and !b_press:
 				b_press = true
 				$sounds/blaster.play()
 				current_hole_L = weakref(main_node.add_empty_cell(cell_to_empty))
@@ -265,16 +254,15 @@ func _physics_process(delta):
 			elif !bb_press:
 				$sounds/miss.play()
 				bb_press = true
+
 			
 		if Input.is_action_pressed("A")  and main_player and (obstacle(DOWN) or on_the_ladder or on_pipe):
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x += 1
 			cell_to_empty.y += 1
 			if tile_pos.x > position.x:
-				direction.x = -1
-				if !is_moving:
-					currentDir = Vector2(-1,0)
-			elif can_be_holed(cell_to_empty) and !a_press:
+				cell_to_empty.x -= 1
+			if can_be_holed(cell_to_empty) and !a_press:
 				a_press = true
 				$sounds/blaster.play()
 				current_hole_R = weakref(main_node.add_empty_cell(cell_to_empty))
@@ -344,6 +332,43 @@ func _physics_process(delta):
 		if !is_moving:
 			currentDir = Vector2(0,1)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	var on_the_edge = tile_pos.x > position.x and (current_hole_R != null or current_hole_L != null)
+		
+	if on_the_edge:
+		print("on_the_edge" + str(randf()))
+		if current_hole_R:
+			target_pos = current_hole_R.get_ref().position + Vector2(-64,-64)
+			if position.x > target_pos.x:
+				print("to right")
+				target_direction = Vector2(-1,0)
+			else:
+				print("to left")
+				target_direction = Vector2(1,0)
+			is_moving = true
+		if current_hole_L:
+			target_pos = current_hole_L.get_ref().position + Vector2(64,-64)
+			if position.x > target_pos.x:
+				print("to right")
+				target_direction = Vector2(-1,0)
+			else:
+				print("to left")
+				target_direction = Vector2(1,0)
+			is_moving = true
+	
 	if !is_moving and direction != Vector2():
 		target_direction = direction
 		if main_node.is_cell_vacant(self):
@@ -414,6 +439,7 @@ func _physics_process(delta):
 #	else:
 #		stand_time = OS.get_ticks_msec()
 #	last_pos = position
+
 
 func can_be_holed(cell_pos):
 	var _cell = main_node.get_cell(cell_pos) 

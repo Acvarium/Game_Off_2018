@@ -7,7 +7,7 @@
 [ext_resource path="res://objects/level_button.tscn" type="PackedScene" id=5]
 [ext_resource path="res://textures/simp/gold.png" type="Texture" id=6]
 
-[node name="menu" type="Control"]
+[node name="menu" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -147,7 +147,6 @@ tile_data = PoolIntArray( -65551, 16, 0, -65550, 21, 0, -65549, 16, 0, -65548, 2
 
 [node name="l_cont" type="Container" parent="." index="4"]
 
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -170,36 +169,48 @@ margin_left = 16.0
 margin_top = 8.0
 margin_right = 231.0
 margin_bottom = 143.0
+_sections_unfolded = [ "Anchor", "Material", "Rect", "Visibility" ]
+shortcut_id = 1
 
-[node name="level_button2" parent="l_cont" index="1" instance=ExtResource( 5 )]
+[node name="level_button9" parent="l_cont" index="1" instance=ExtResource( 5 )]
+
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 231.0
+margin_bottom = 143.0
+_sections_unfolded = [ "Anchor", "Material", "Rect", "Visibility" ]
+shortcut_id = 1
+
+[node name="level_button2" parent="l_cont" index="2" instance=ExtResource( 5 )]
 
 margin_left = 273.0
 margin_top = 8.0
 margin_right = 488.0
 margin_bottom = 143.0
+shortcut_id = 2
 
-[node name="level_button3" parent="l_cont" index="2" instance=ExtResource( 5 )]
+[node name="level_button3" parent="l_cont" index="3" instance=ExtResource( 5 )]
 
 margin_left = 528.0
 margin_top = 8.0
 margin_right = 743.0
 margin_bottom = 143.0
 
-[node name="level_button4" parent="l_cont" index="3" instance=ExtResource( 5 )]
+[node name="level_button4" parent="l_cont" index="4" instance=ExtResource( 5 )]
 
 margin_left = 784.0
 margin_top = 8.0
 margin_right = 999.0
 margin_bottom = 143.0
 
-[node name="level_button5" parent="l_cont" index="4" instance=ExtResource( 5 )]
+[node name="level_button5" parent="l_cont" index="5" instance=ExtResource( 5 )]
 
 margin_left = 16.0
 margin_top = 200.0
 margin_right = 231.0
 margin_bottom = 335.0
 
-[node name="level_button6" parent="l_cont" index="5" instance=ExtResource( 5 )]
+[node name="level_button6" parent="l_cont" index="6" instance=ExtResource( 5 )]
 
 margin_left = 272.0
 margin_top = 200.0
@@ -207,21 +218,21 @@ margin_right = 487.0
 margin_bottom = 335.0
 _sections_unfolded = [ "Margin", "Material", "Rect", "Visibility" ]
 
-[node name="level_button7" parent="l_cont" index="6" instance=ExtResource( 5 )]
+[node name="level_button7" parent="l_cont" index="7" instance=ExtResource( 5 )]
 
 margin_left = 528.0
 margin_top = 200.0
 margin_right = 743.0
 margin_bottom = 335.0
 
-[node name="level_button8" parent="l_cont" index="7" instance=ExtResource( 5 )]
+[node name="level_button8" parent="l_cont" index="8" instance=ExtResource( 5 )]
 
 margin_left = 784.0
 margin_top = 200.0
 margin_right = 999.0
 margin_bottom = 335.0
 
-[node name="page_minus" type="TextureButton" parent="l_cont" index="8"]
+[node name="page_minus" type="TextureButton" parent="l_cont" index="9"]
 
 anchor_left = 0.0
 anchor_top = 0.5
@@ -246,7 +257,7 @@ group = null
 texture_normal = ExtResource( 6 )
 _sections_unfolded = [ "Rect", "Textures" ]
 
-[node name="page_plus" type="TextureButton" parent="l_cont" index="9"]
+[node name="page_plus" type="TextureButton" parent="l_cont" index="10"]
 
 anchor_left = 0.0
 anchor_top = 0.5
