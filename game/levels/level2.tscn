@@ -161,12 +161,7 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 [node name="objects" type="Node2D" parent="." index="6"]
 
-[node name="player" parent="." index="7" instance=ExtResource( 5 )]
-
-pause_mode = 1
-position = Vector2( 416, 1056 )
-
-[node name="bots" type="Node2D" parent="." index="8"]
+[node name="bots" type="Node2D" parent="." index="7"]
 
 editor/display_folded = true
 
@@ -190,5 +185,10 @@ pause_mode = 1
 position = Vector2( 800, 384 )
 bot_class = 1
 main_player = false
+
+[node name="player" parent="." index="8" instance=ExtResource( 5 )]
+
+pause_mode = 1
+position = Vector2( 416, 1056 )
 
 

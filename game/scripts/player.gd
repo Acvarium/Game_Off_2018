@@ -349,23 +349,18 @@ func _physics_process(delta):
 	var on_the_edge = tile_pos.x > position.x and (current_hole_R != null or current_hole_L != null)
 		
 	if on_the_edge:
-		print("on_the_edge" + str(randf()))
 		if current_hole_R:
 			target_pos = current_hole_R.get_ref().position + Vector2(-64,-64)
 			if position.x > target_pos.x:
-				print("to right")
 				target_direction = Vector2(-1,0)
 			else:
-				print("to left")
 				target_direction = Vector2(1,0)
 			is_moving = true
 		if current_hole_L:
 			target_pos = current_hole_L.get_ref().position + Vector2(64,-64)
 			if position.x > target_pos.x:
-				print("to right")
 				target_direction = Vector2(-1,0)
 			else:
-				print("to left")
 				target_direction = Vector2(1,0)
 			is_moving = true
 	
@@ -434,7 +429,6 @@ func _physics_process(delta):
 					$anim.play("stand")
 #	if last_pos == position and bot_class > 0:
 #		if (OS.get_ticks_msec() - stand_time) > 100:
-#			print(name)
 #			random_goal()
 #	else:
 #		stand_time = OS.get_ticks_msec()
@@ -527,8 +521,6 @@ func obstacle(dir):
 	elif dir == RIGHT:
 		return $rays/right.is_colliding() or $rays/right2.is_colliding()
 
-
-
 func _input(event):
 	pass
 #	if bot_class == 0:
@@ -549,7 +541,7 @@ func update_path():
 	var c_nav = nav
 	if follow_player and goal_obj != null:
 		goal = goal_obj.position
-	if (position.y - goal.y) < -96 and nav_from_above != null:
+	if (position.y - goal.y) < -32 and nav_from_above != null:
 		c_nav = nav_from_above
 	if c_nav != null:
 		path = c_nav.get_simple_path(position, goal, false)
@@ -571,7 +563,6 @@ func _on_nav_update_timeout():
 #	if path.size() > 0:
 #		if randi()%path.size() > 5:
 #			random_goal()
-#	print(main_node.map_size)
 	if nav != null and bot_class > 0:
 		update_path()
 		$nav_update.wait_time = randf() * 0.5 + 0.5

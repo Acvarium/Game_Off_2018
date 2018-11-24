@@ -1,5 +1,5 @@
 extends Node
-var erast = true
+var erast = false
 
 
 var current_scene = null
@@ -7,7 +7,7 @@ var current_scene_path = ""
 
 var level = -1
 var players_lifes = [4,4,4,4]
-var levels = ["level0", "level1","level2","level3","level4","level5","level6"]
+var levels = ["level0", "level1","level2","level3","level4","level5","level6","level7"]
 const MAX_STAGE = 200
 var stage = 1
 var screen_size = Vector2(1280, 720)
@@ -25,7 +25,7 @@ func _ready():
 func change_level_state(value):
 	if value < 0:
 		if levels_states.has(str(level + 1)):
-			if levels_states[str(level + 1)] <= 0:
+			if levels_states[str(level + 1)] < 0:
 				var a = levels_states[str(level + 1)] 
 				levels_states[str(level + 1)] = a - 1
 				save_game()
