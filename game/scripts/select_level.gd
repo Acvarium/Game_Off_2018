@@ -23,6 +23,8 @@ func set_level(value):
 		
 		if has_prev:
 			$prev/lock.visible = global.check_lock(level) < 0
+			$prev/cup.visible = global.check_lock(level) > 0
+			
 			$prev.texture = load("res://prev/" + global.levels[level] + ".png")
 				
 func _ready():
@@ -36,7 +38,6 @@ func _ready():
 
 	
 func _on_level_button_pressed():
-	print(name + " " + str(level))
 	if level >= 0 and level < global.levels.size() and $prev/lock.visible == false:
 		global.set_level(level)
 		global.goto_scene("res://scenes/main.tscn")

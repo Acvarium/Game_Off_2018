@@ -239,6 +239,7 @@ func _on_busted_finished():
 	global.reload_current()
 
 func _on_v1_finished():
+	global.change_level_state(1)
 	global.next_level()
 
 func _on_mouse_move_timer_timeout():

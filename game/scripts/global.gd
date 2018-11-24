@@ -1,4 +1,7 @@
 extends Node
+var erast = true
+
+
 var current_scene = null
 var current_scene_path = ""
 
@@ -10,7 +13,6 @@ var stage = 1
 var screen_size = Vector2(1280, 720)
 const SAVE_PATH = "user://g2018_savegame.save"
 var levels_states = {}
-var erast = true
 
 func _ready():
 	var root = get_tree().get_root()
@@ -21,11 +23,15 @@ func _ready():
 
 
 func change_level_state(value):
-	if levels_states.has(str(level + 1)):
-		if levels_states[str(level + 1)] <= 0:
-			var a = levels_states[str(level + 1)] 
-			levels_states[str(level + 1)] = a - 1
-			save_game()
+	if value < 0:
+		if levels_states.has(str(level + 1)):
+			if levels_states[str(level + 1)] <= 0:
+				var a = levels_states[str(level + 1)] 
+				levels_states[str(level + 1)] = a - 1
+				save_game()
+	elif value > 0:
+		if levels_states.has(str(level)):
+			levels_states[str(level)] = 1
 
 
 func check_lock(level_id):
@@ -36,8 +42,8 @@ func check_lock(level_id):
 
 
 func next_level():
-	if levels_states.has(str(level)):
-		levels_states[str(level)] = 1
+#	if levels_states.has(str(level)):
+#		levels_states[str(level)] = 1
 	level += 1
 	if level > levels.size() - 1:
 		level = 0
