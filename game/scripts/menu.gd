@@ -6,6 +6,7 @@ func _ready():
 	global = get_node("/root/global")
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
 	set_page(0)
+	select_tab(1)
 
 func set_page(_page):
 	page = _page
@@ -17,6 +18,10 @@ func set_page(_page):
 	$page_num.text = str(page)
 	$l_cont/page_plus.visible = (page + 1) * 8 < (global.levels.size())
 	print(page * 8 )
+
+func select_tab(value):
+	for t in $tabs.get_children():
+		print(t.name)
 
 func _on_page_minus_pressed():
 	set_page(page - 1)

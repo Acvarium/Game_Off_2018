@@ -3,6 +3,8 @@ extends Control
 export var level = 0 setget set_level
 var lock = true
 export var shortcut_id = -1
+var tabs = ["l_cont", "options"]
+var selected_tab = 0
 
 func set_level(value):
 	if global == null:
@@ -17,7 +19,7 @@ func set_level(value):
 			$level_num.visible = false
 	if has_node("prev"):
 		var has_prev = true
-		if level < 0 or level > global.levels.size():
+		if level < 0 or level > global.levels.size() - 1:
 			has_prev = false
 		$prev.visible = has_prev
 		if has_prev:
@@ -25,10 +27,13 @@ func set_level(value):
 			$prev/cup.visible = global.check_lock(level) > 0
 			
 			$prev.texture = load("res://prev/" + global.levels[level] + ".png")
-				
+
+
+
 func _ready():
 	global = get_node("/root/global")
 	set_level(level)
+
 #	if shortcut_id > 0 and shortcut_id < 10:
 #		if shortcut_id == 3:
 #		 	$level_button.shortcut = load("res://shortcuts/sh1.tres")
