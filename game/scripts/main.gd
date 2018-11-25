@@ -256,18 +256,7 @@ func _on_v1_finished():
 	global.next_level()
 
 func _on_mouse_move_timer_timeout():
-	var m_pos = get_global_mouse_position()
-	if mouse_last_pos != m_pos:
-		mouse_move_check = 4
-		mouse_last_pos = m_pos
-		$mouse_move_timer.start()
-	else:
-		mouse_last_pos = m_pos
-		mouse_move_check -= 1
-		if mouse_move_check < 0:
-			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN) 
-		else:
-			$mouse_move_timer.start()
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN) 
 
 func _on_start_pause_timer_timeout():
 	if start_pause:

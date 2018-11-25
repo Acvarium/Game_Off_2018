@@ -31,7 +31,7 @@ use_filter = false
 font_data = SubResource( 1 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Resource", "Settings" ]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -440,8 +440,8 @@ bus = "Master"
 [node name="mouse_move_timer" type="Timer" parent="." index="4"]
 
 process_mode = 1
-wait_time = 0.35
-one_shot = true
+wait_time = 2.0
+one_shot = false
 autostart = true
 
 [node name="start_pause_timer" type="Timer" parent="." index="5"]
