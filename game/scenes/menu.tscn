@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/menu.gd" type="Script" id=1]
 [ext_resource path="res://textures/walls_bg.png" type="Texture" id=2]
@@ -11,8 +11,9 @@
 [ext_resource path="res://textures/exit.png" type="Texture" id=9]
 [ext_resource path="res://textures/exit_hover.png" type="Texture" id=10]
 [ext_resource path="res://textures/exit_shadow.png" type="Texture" id=11]
+[ext_resource path="res://env.tres" type="Environment" id=12]
 
-[node name="menu" type="Control"]
+[node name="menu" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -152,6 +153,7 @@ tile_data = PoolIntArray( -65551, 16, 0, -65550, 21, 0, -65549, 16, 0, -65548, 2
 
 [node name="l_cont" type="Container" parent="." index="4"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -397,6 +399,10 @@ size_flags_vertical = 1
 texture = ExtResource( 11 )
 stretch_mode = 0
 _sections_unfolded = [ "Mouse", "Visibility" ]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="9"]
+
+environment = ExtResource( 12 )
 
 [connection signal="pressed" from="l_cont/page_minus" to="." method="_on_page_minus_pressed"]
 
