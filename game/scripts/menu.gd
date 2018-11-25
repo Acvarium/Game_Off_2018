@@ -27,3 +27,7 @@ func _on_page_plus_pressed():
 
 func _on_game_name_pressed():
 	OS.shell_open("https://acvarium.itch.io/super-gold-oranda")
+
+func _on_exit_pressed():
+	global.save_game()
+	get_tree().quit()
