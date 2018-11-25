@@ -271,6 +271,18 @@ tracks/8/keys = {
 "update": 1,
 "values": [ 4 ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath(".:collision_mask")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
 
 [sub_resource type="Animation" id=9]
 
@@ -410,7 +422,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
@@ -422,7 +434,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
@@ -434,7 +446,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
@@ -446,7 +458,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
@@ -458,7 +470,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
@@ -470,7 +482,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
@@ -482,7 +494,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
@@ -494,7 +506,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
@@ -506,10 +518,10 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 1 ]
+"values": [ 2 ]
 }
 tracks/9/type = "value"
 tracks/9/path = NodePath(".:collision_mask")
@@ -518,10 +530,10 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 1 ]
+"values": [ 2 ]
 }
 
 [sub_resource type="DynamicFontData" id=11]
@@ -538,13 +550,13 @@ use_filter = false
 font_data = SubResource( 11 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="player" type="KinematicBody2D" groups=[
+[node name="player" type="KinematicBody2D" index="0" groups=[
 "character",
 ]]
 
 input_pickable = false
-collision_layer = 1
-collision_mask = 1
+collision_layer = 4
+collision_mask = 4
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform", "Visibility", "collision" ]
@@ -606,7 +618,7 @@ position = Vector2( -12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 1
+collision_mask = 5
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="down2" type="RayCast2D" parent="rays" index="1"]
@@ -615,7 +627,7 @@ position = Vector2( 12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 1
+collision_mask = 5
 _sections_unfolded = [ "Transform" ]
 
 [node name="right" type="RayCast2D" parent="rays" index="2"]
@@ -624,7 +636,7 @@ position = Vector2( 18, 14 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 20, 0 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="right2" type="RayCast2D" parent="rays" index="3"]
 
@@ -632,7 +644,7 @@ position = Vector2( 18, -6 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 20, 0 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="left" type="RayCast2D" parent="rays" index="4"]
 
@@ -640,7 +652,7 @@ position = Vector2( -18, 14 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( -20, 0 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="left2" type="RayCast2D" parent="rays" index="5"]
 
@@ -648,7 +660,7 @@ position = Vector2( -18, -5 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( -20, 0 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="up" type="RayCast2D" parent="rays" index="6"]
 
@@ -656,7 +668,7 @@ position = Vector2( -8, -13 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, -20 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="up2" type="RayCast2D" parent="rays" index="7"]
 
@@ -664,7 +676,7 @@ position = Vector2( 7, -13 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, -20 )
-collision_mask = 1
+collision_mask = 5
 
 [node name="points" type="Node2D" parent="." index="5"]
 
