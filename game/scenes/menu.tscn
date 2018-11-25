@@ -1,26 +1,28 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/menu.gd" type="Script" id=1]
 [ext_resource path="res://textures/walls_bg.png" type="Texture" id=2]
 [ext_resource path="res://textures/vignette.png" type="Texture" id=3]
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=4]
 [ext_resource path="res://textures/tab_panel.png" type="Texture" id=5]
-[ext_resource path="res://textures/tab_icons/options.png" type="Texture" id=6]
-[ext_resource path="res://textures/tab_icons/options_selected_hover.png" type="Texture" id=7]
-[ext_resource path="res://textures/tab_icons/options_hover.png" type="Texture" id=8]
-[ext_resource path="res://textures/tab_icons/options_selected.png" type="Texture" id=9]
-[ext_resource path="res://textures/tab_icons/levels.png" type="Texture" id=10]
-[ext_resource path="res://textures/tab_icons/levels_selected_hover.png" type="Texture" id=11]
-[ext_resource path="res://textures/tab_icons/levels_hover.png" type="Texture" id=12]
-[ext_resource path="res://textures/tab_icons/levels_selected.png" type="Texture" id=13]
-[ext_resource path="res://objects/level_button.tscn" type="PackedScene" id=14]
-[ext_resource path="res://textures/simp/gold.png" type="Texture" id=15]
-[ext_resource path="res://textures/Name.png" type="Texture" id=16]
-[ext_resource path="res://textures/Name_hover.png" type="Texture" id=17]
-[ext_resource path="res://textures/exit.png" type="Texture" id=18]
-[ext_resource path="res://textures/exit_hover.png" type="Texture" id=19]
-[ext_resource path="res://textures/exit_shadow.png" type="Texture" id=20]
-[ext_resource path="res://env.tres" type="Environment" id=21]
+[ext_resource path="res://textures/tab_icons/levels.png" type="Texture" id=6]
+[ext_resource path="res://textures/tab_icons/levels_selected_hover.png" type="Texture" id=7]
+[ext_resource path="res://textures/tab_icons/levels_hover.png" type="Texture" id=8]
+[ext_resource path="res://textures/tab_icons/levels_selected.png" type="Texture" id=9]
+[ext_resource path="res://scripts/tab_button.gd" type="Script" id=10]
+[ext_resource path="res://textures/tab_icons/options.png" type="Texture" id=11]
+[ext_resource path="res://textures/tab_icons/options_selected_hover.png" type="Texture" id=12]
+[ext_resource path="res://textures/tab_icons/options_hover.png" type="Texture" id=13]
+[ext_resource path="res://textures/tab_icons/options_selected.png" type="Texture" id=14]
+[ext_resource path="res://objects/level_button.tscn" type="PackedScene" id=15]
+[ext_resource path="res://textures/page_button.png" type="Texture" id=16]
+[ext_resource path="res://textures/page_button_hover.png" type="Texture" id=17]
+[ext_resource path="res://textures/Name.png" type="Texture" id=18]
+[ext_resource path="res://textures/Name_hover.png" type="Texture" id=19]
+[ext_resource path="res://textures/exit.png" type="Texture" id=20]
+[ext_resource path="res://textures/exit_hover.png" type="Texture" id=21]
+[ext_resource path="res://textures/exit_shadow.png" type="Texture" id=22]
+[ext_resource path="res://env.tres" type="Environment" id=23]
 
 [node name="menu" type="Control" index="0"]
 
@@ -162,14 +164,15 @@ tile_data = PoolIntArray( -65551, 16, 0, -65550, 21, 0, -65549, 16, 0, -65548, 2
 
 [node name="tabs" type="NinePatchRect" parent="." index="4"]
 
-anchor_left = 1.0
+self_modulate = Color( 1, 1, 1, 0.535882 )
+anchor_left = 0.5
 anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -96.0
-margin_top = 96.0
-margin_right = -64.0
-margin_bottom = -496.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -64.0
+margin_top = 80.0
+margin_right = 64.0
+margin_bottom = 112.0
 rect_scale = Vector2( 2, 2 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -182,42 +185,18 @@ patch_margin_left = 8
 patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
-_sections_unfolded = [ "Patch Margin", "Rect" ]
+_sections_unfolded = [ "Patch Margin", "Rect", "Visibility" ]
 
-[node name="options" type="TextureButton" parent="tabs" index="0"]
+[node name="l_cont" type="TextureButton" parent="tabs" index="0"]
 
+modulate = Color( 0.574219, 0.574219, 0.574219, 1 )
 anchor_left = 0.0
-anchor_top = 0.0
+anchor_top = 0.5
 anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 32.0
+anchor_bottom = 0.5
+margin_top = -16.0
 margin_right = 32.0
-margin_bottom = 64.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-texture_normal = ExtResource( 6 )
-texture_pressed = ExtResource( 7 )
-texture_hover = ExtResource( 8 )
-texture_disabled = ExtResource( 9 )
-_sections_unfolded = [ "Textures" ]
-
-[node name="l_cont" type="TextureButton" parent="tabs" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 32.0
-margin_bottom = 32.0
+margin_bottom = 16.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -230,23 +209,56 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 11 )
-texture_hover = ExtResource( 12 )
-texture_disabled = ExtResource( 13 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
+texture_disabled = ExtResource( 9 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "Textures" ]
+tab_num = 0
+
+[node name="options" type="TextureButton" parent="tabs" index="1"]
+
+modulate = Color( 0.574219, 0.574219, 0.574219, 1 )
+anchor_left = 0.0
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+margin_left = 30.0
+margin_top = -16.0
+margin_right = 62.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
+texture_hover = ExtResource( 13 )
+texture_disabled = ExtResource( 14 )
+script = ExtResource( 10 )
+_sections_unfolded = [ "Textures" ]
+tab_num = 1
 
 [node name="l_cont" type="Container" parent="." index="5"]
 
 editor/display_folded = true
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -508.0
-margin_top = -206.0
+margin_top = -186.0
 margin_right = 507.0
-margin_bottom = 205.0
+margin_bottom = 225.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -255,7 +267,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="level_button1" parent="l_cont" index="0" instance=ExtResource( 14 )]
+[node name="level_button1" parent="l_cont" index="0" instance=ExtResource( 15 )]
 
 margin_left = 16.0
 margin_top = 8.0
@@ -264,7 +276,7 @@ margin_bottom = 143.0
 _sections_unfolded = [ "Anchor", "Material", "Rect", "Visibility" ]
 shortcut_id = 1
 
-[node name="level_button2" parent="l_cont" index="1" instance=ExtResource( 14 )]
+[node name="level_button2" parent="l_cont" index="1" instance=ExtResource( 15 )]
 
 margin_left = 273.0
 margin_top = 8.0
@@ -273,7 +285,7 @@ margin_bottom = 143.0
 level = 1
 shortcut_id = 2
 
-[node name="level_button3" parent="l_cont" index="2" instance=ExtResource( 14 )]
+[node name="level_button3" parent="l_cont" index="2" instance=ExtResource( 15 )]
 
 margin_left = 528.0
 margin_top = 8.0
@@ -281,7 +293,7 @@ margin_right = 743.0
 margin_bottom = 143.0
 level = 2
 
-[node name="level_button4" parent="l_cont" index="3" instance=ExtResource( 14 )]
+[node name="level_button4" parent="l_cont" index="3" instance=ExtResource( 15 )]
 
 margin_left = 784.0
 margin_top = 8.0
@@ -289,7 +301,7 @@ margin_right = 999.0
 margin_bottom = 143.0
 level = 3
 
-[node name="level_button5" parent="l_cont" index="4" instance=ExtResource( 14 )]
+[node name="level_button5" parent="l_cont" index="4" instance=ExtResource( 15 )]
 
 margin_left = 16.0
 margin_top = 200.0
@@ -297,7 +309,7 @@ margin_right = 231.0
 margin_bottom = 335.0
 level = 4
 
-[node name="level_button6" parent="l_cont" index="5" instance=ExtResource( 14 )]
+[node name="level_button6" parent="l_cont" index="5" instance=ExtResource( 15 )]
 
 margin_left = 272.0
 margin_top = 200.0
@@ -306,7 +318,7 @@ margin_bottom = 335.0
 _sections_unfolded = [ "Margin", "Material", "Rect", "Visibility" ]
 level = 5
 
-[node name="level_button7" parent="l_cont" index="6" instance=ExtResource( 14 )]
+[node name="level_button7" parent="l_cont" index="6" instance=ExtResource( 15 )]
 
 margin_left = 528.0
 margin_top = 200.0
@@ -314,7 +326,7 @@ margin_right = 743.0
 margin_bottom = 335.0
 level = 6
 
-[node name="level_button8" parent="l_cont" index="7" instance=ExtResource( 14 )]
+[node name="level_button8" parent="l_cont" index="7" instance=ExtResource( 15 )]
 
 margin_left = 784.0
 margin_top = 200.0
@@ -324,15 +336,15 @@ level = 7
 
 [node name="page_minus" type="TextureButton" parent="l_cont" index="8"]
 
+modulate = Color( 1, 1, 1, 0.320431 )
 anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 0.0
 anchor_bottom = 0.5
 margin_left = -85.0
-margin_top = 127.5
+margin_top = -62.5
 margin_right = -21.0
-margin_bottom = 191.5
-rect_rotation = -90.0
+margin_bottom = 1.5
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -344,20 +356,23 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 15 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 16 )
+texture_hover = ExtResource( 17 )
 _sections_unfolded = [ "Rect", "Textures" ]
 
 [node name="page_plus" type="TextureButton" parent="l_cont" index="9"]
 
+modulate = Color( 1, 1, 1, 0.320431 )
 anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 0.0
 anchor_bottom = 0.5
 margin_left = 1097.0
-margin_top = 64.5
+margin_top = -3.5
 margin_right = 1161.0
-margin_bottom = 128.5
-rect_rotation = 90.0
+margin_bottom = 60.5
+rect_rotation = 180.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -369,20 +384,21 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 15 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 16 )
+texture_hover = ExtResource( 17 )
 _sections_unfolded = [ "Rect", "Textures" ]
 
-[node name="oprions" type="Container" parent="." index="6"]
+[node name="options" type="Container" parent="." index="6"]
 
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -508.0
-margin_top = -206.0
+margin_top = -186.0
 margin_right = 507.0
-margin_bottom = 205.0
+margin_bottom = 225.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -390,6 +406,49 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Rect" ]
+
+[node name="glow" type="CheckBox" parent="options" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 24.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+group = null
+flat = false
+align = 0
+
+[node name="Label" type="Label" parent="options/glow" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 30.0
+margin_top = 6.0
+margin_right = 167.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Glowe Effect in Game"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="page_num" type="Label" parent="." index="7"]
 
@@ -453,9 +512,9 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 16 )
-texture_pressed = ExtResource( 16 )
-texture_hover = ExtResource( 17 )
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 18 )
+texture_hover = ExtResource( 19 )
 _sections_unfolded = [ "Textures" ]
 
 [node name="exit" type="TextureButton" parent="." index="10"]
@@ -480,8 +539,8 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 18 )
-texture_hover = ExtResource( 19 )
+texture_normal = ExtResource( 20 )
+texture_hover = ExtResource( 21 )
 _sections_unfolded = [ "Rect", "Textures" ]
 
 [node name="TextureRect" type="TextureRect" parent="exit" index="0"]
@@ -501,17 +560,23 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 20 )
+texture = ExtResource( 22 )
 stretch_mode = 0
 _sections_unfolded = [ "Mouse", "Visibility" ]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="11"]
 
-environment = ExtResource( 21 )
+environment = ExtResource( 23 )
+
+[connection signal="pressed" from="tabs/l_cont" to="tabs/l_cont" method="_on_tab_pressed"]
+
+[connection signal="pressed" from="tabs/options" to="tabs/options" method="_on_tab_pressed"]
 
 [connection signal="pressed" from="l_cont/page_minus" to="." method="_on_page_minus_pressed"]
 
 [connection signal="pressed" from="l_cont/page_plus" to="." method="_on_page_plus_pressed"]
+
+[connection signal="toggled" from="options/glow" to="." method="_on_glow_toggled"]
 
 [connection signal="pressed" from="game_name" to="." method="_on_game_name_pressed"]
 

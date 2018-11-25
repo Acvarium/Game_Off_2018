@@ -3,8 +3,7 @@ extends Control
 export var level = 0 setget set_level
 var lock = true
 export var shortcut_id = -1
-var tabs = ["l_cont", "options"]
-var selected_tab = 0
+
 
 func set_level(value):
 	if global == null:

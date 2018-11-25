@@ -3,22 +3,25 @@ var erast = false
 
 var current_scene = null
 var current_scene_path = ""
-var bloom = false
 
 var level = -1
 var players_lifes = [4,4,4,4]
-var levels = ["level0", "level1","level2","level3","level4","level5","level6","level7"]
+var levels = ["level0", "level1","level2","level3","level4","level5","level6","level7","level7"]
 const MAX_STAGE = 200
 var stage = 1
 var screen_size = Vector2(1280, 720)
 const SAVE_PATH = "user://g2018_savegame.save"
+const SAVE_OPT = "user://SGO_options.save"
+
 var levels_states = {}
+var options = {}
 
 func _ready():
 	var root = get_tree().get_root()
 	print(OS.get_user_data_dir())
 	current_scene = root.get_child( root.get_child_count() -1 )
 	load_game()
+	load_options()
 
 
 func change_level_state(value):
@@ -93,7 +96,7 @@ func save_game():
 			savegame.store_line(to_json( {str(i) : -1}))
 	savegame.close()
 
-# Завантаження гри
+
 func load_game():
 	var save_file = File.new()
 	if !save_file.file_exists(SAVE_PATH) or erast:
@@ -110,3 +113,24 @@ func load_game():
 #			print(current_line.keys()[0] + " " + str(int(current_line.values()[0])))
 			levels_states[current_line.keys()[0]] = int(current_line.values()[0])
 # First we need to create the object and add it to the tree and set its position.
+
+func save_options():
+	var savegame = File.new()
+	savegame.open(SAVE_OPT, File.WRITE)
+	savegame.store_line(to_json(options))
+	savegame.close()
+
+func load_options():
+	var save_file = File.new()
+	if !save_file.file_exists(SAVE_OPT):
+		options.clear()
+		options["glow"] = 1
+		save_options()
+		return null
+	save_file.open(SAVE_OPT, File.READ)
+	while not save_file.eof_reached():
+		var current_line = parse_json(save_file.get_line())
+		if current_line != null:
+			options[current_line.keys()[0]] = int(current_line.values()[0])
+	
+
