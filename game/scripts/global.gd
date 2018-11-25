@@ -1,7 +1,6 @@
 extends Node
 var erast = false
 
-
 var current_scene = null
 var current_scene_path = ""
 
@@ -19,7 +18,6 @@ func _ready():
 	print(OS.get_user_data_dir())
 	current_scene = root.get_child( root.get_child_count() -1 )
 	load_game()
-#	save_game()
 
 
 func change_level_state(value):

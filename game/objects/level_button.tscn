@@ -12,7 +12,7 @@
 [ext_resource path="res://textures/hl_press.png" type="Texture" id=10]
 [ext_resource path="res://textures/hl_hover.png" type="Texture" id=11]
 
-[node name="level_button" type="Panel"]
+[node name="level_button" type="Panel" index="0"]
 
 self_modulate = Color( 1, 0.371094, 0.371094, 1 )
 anchor_left = 0.0

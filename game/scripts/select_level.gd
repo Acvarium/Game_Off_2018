@@ -16,13 +16,10 @@ func set_level(value):
 		if !Engine.editor_hint:
 			$level_num.visible = false
 	if has_node("prev"):
-		var has_prev = false
-		if level >= 0 and level < global.levels.size():
-			var file2Check = File.new()
-			if file2Check.file_exists("res://prev/" + global.levels[level] + ".png"):
-				has_prev = true
+		var has_prev = true
+		if level < 0 or level > global.levels.size():
+			has_prev = false
 		$prev.visible = has_prev
-		
 		if has_prev:
 			$prev/lock.visible = global.check_lock(level) < 0
 			$prev/cup.visible = global.check_lock(level) > 0

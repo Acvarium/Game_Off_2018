@@ -21,7 +21,6 @@ func set_page(_page):
 func _on_page_minus_pressed():
 	set_page(page - 1)
 
-
 func _on_page_plus_pressed():
 	set_page(page + 1)
 
