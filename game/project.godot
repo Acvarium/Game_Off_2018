@@ -10,7 +10,7 @@ config_version=3
 
 [application]
 
-config/name="Game Off 2018"
+config/name="Super Gold Oranda"
 run/main_scene="res://scenes/menu.tscn"
 config/icon="res://icon.png"
 

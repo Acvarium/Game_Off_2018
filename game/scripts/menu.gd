@@ -24,3 +24,6 @@ func _on_page_minus_pressed():
 
 func _on_page_plus_pressed():
 	set_page(page + 1)
+
+func _on_game_name_pressed():
+	OS.shell_open("https://acvarium.itch.io/super-gold-oranda")

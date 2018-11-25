@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/menu.gd" type="Script" id=1]
 [ext_resource path="res://textures/walls_bg.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=4]
 [ext_resource path="res://objects/level_button.tscn" type="PackedScene" id=5]
 [ext_resource path="res://textures/simp/gold.png" type="Texture" id=6]
+[ext_resource path="res://textures/Name.png" type="Texture" id=7]
+[ext_resource path="res://textures/Name_hover.png" type="Texture" id=8]
 
 [node name="menu" type="Control"]
 
@@ -296,8 +298,55 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="Label" type="Label" parent="." index="6"]
+
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "v0.1.0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="game_name" type="TextureButton" parent="." index="7"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -283.0
+margin_top = -128.0
+margin_right = 282.0
+margin_bottom = -79.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
+_sections_unfolded = [ "Textures" ]
+
 [connection signal="pressed" from="l_cont/page_minus" to="." method="_on_page_minus_pressed"]
 
 [connection signal="pressed" from="l_cont/page_plus" to="." method="_on_page_plus_pressed"]
+
+[connection signal="pressed" from="game_name" to="." method="_on_game_name_pressed"]
 
 

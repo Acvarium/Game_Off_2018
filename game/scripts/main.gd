@@ -74,7 +74,7 @@ func _ready():
 	if set_name == "tiles2":
 		set_num = 2
 	
-	if global.levels_states[str(global.level + 1)] < -3:
+	if global.levels_states[str(global.level + 1)] < -7:
 		$ui/skip_button.visible = true
 		
 	$ui/level_name.text = "Level " + str(global.level + 1)
@@ -86,7 +86,8 @@ func _ready():
 	
 func _input(event):
 	if Input.is_action_just_pressed("ui_page_up"):
-		exit()
+		pass
+#		exit()
 	if Input.is_action_just_pressed("ui_cancel"):
 		global.goto_scene("res://scenes/menu.tscn")
 	if  event is InputEventMouseMotion:
@@ -99,6 +100,8 @@ func _input(event):
 		get_tree().paused = false
 		$ui/ready.visible = false
 		$ui/level_name.visible = false
+		$ui/help.visible = false
+		$ui/goldCount.visible = true
 	if Input.is_action_just_pressed("pause"):
 		on_pause = !on_pause
 		get_tree().paused = on_pause
