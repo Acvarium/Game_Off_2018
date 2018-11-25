@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/main_camera.gd" type="Script" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://sounds/v0.ogg" type="AudioStream" id=13]
 [ext_resource path="res://sounds/v1.ogg" type="AudioStream" id=14]
 [ext_resource path="res://sounds/start0.ogg" type="AudioStream" id=15]
-[ext_resource path="res://env.tres" type="Environment" id=16]
 
 [sub_resource type="DynamicFontData" id=1]
 
@@ -31,7 +30,7 @@ use_filter = false
 font_data = SubResource( 1 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Resource", "Settings" ]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -177,6 +176,7 @@ max_lines_visible = -1
 [node name="goldCount" type="Label" parent="ui" index="4"]
 
 pause_mode = 2
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -450,10 +450,6 @@ process_mode = 1
 wait_time = 0.05
 one_shot = true
 autostart = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="6"]
-
-environment = ExtResource( 16 )
 
 [connection signal="pressed" from="ui/skip_button" to="." method="_on_skip_button_pressed"]
 

@@ -13,7 +13,7 @@
 [ext_resource path="res://textures/exit_shadow.png" type="Texture" id=11]
 [ext_resource path="res://env.tres" type="Environment" id=12]
 
-[node name="menu" type="Control"]
+[node name="menu" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -356,6 +356,7 @@ _sections_unfolded = [ "Textures" ]
 
 [node name="exit" type="TextureButton" parent="." index="8"]
 
+editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 0.0
 anchor_right = 1.0

@@ -3,6 +3,7 @@ var erast = false
 
 var current_scene = null
 var current_scene_path = ""
+var bloom = false
 
 var level = -1
 var players_lifes = [4,4,4,4]

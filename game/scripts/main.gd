@@ -83,6 +83,11 @@ func _ready():
 	$main_camera.zoom = Vector2(zzz.x, zzz.y)
 	print(bottom_right)
 	$main_camera.position = ((bottom_right - top_left) * 64) * 0.5 + top_left
+	if global.bloom:
+		var bloom_env_obj = load("res://objects/bloom_env.tscn")
+		var bloom_env = bloom_env_obj.instance()
+		add_child(bloom_env)
+	
 	
 func _input(event):
 	if Input.is_action_just_pressed("ui_page_up"):
