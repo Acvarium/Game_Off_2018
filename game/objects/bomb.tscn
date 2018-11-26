@@ -23,11 +23,83 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 1, 2 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("exp_c:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("exp_l:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("exp_r:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("exp_t:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("exp_b:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("bomb:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=2]
 
 resource_name = "explosion"
-length = 0.5
+length = 0.45
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -37,10 +109,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 3, 4, 3, 4, 0 ]
+"values": [ 3, 4, 3, 4, 0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("exp_l:frame")
@@ -49,10 +121,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 1, 2, 0 ]
+"values": [ 1, 2, 1, 2, 0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("exp_r:frame")
@@ -61,10 +133,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 1, 2, 0 ]
+"values": [ 1, 2, 1, 2, 0 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("exp_t:frame")
@@ -73,10 +145,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 1, 2 ]
+"values": [ 1, 2, 1, 2 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("exp_b:frame")
@@ -85,10 +157,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 1, 2 ]
+"values": [ 1, 2, 1, 2 ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath(".:modulate")
@@ -97,10 +169,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("bomb:visible")
@@ -109,10 +181,10 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ false ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("exp_sound:playing")
@@ -121,13 +193,13 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.1 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
 }
 
-[node name="bomb" type="Position2D"]
+[node name="bomb" type="Position2D" index="0"]
 
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 1 )
@@ -156,7 +228,7 @@ blend_times = [  ]
 
 texture = ExtResource( 3 )
 hframes = 7
-_sections_unfolded = [ "Animation", "Transform" ]
+_sections_unfolded = [ "Animation", "Region", "Transform" ]
 
 [node name="exp_l" type="Sprite" parent="." index="3"]
 
@@ -209,6 +281,17 @@ attenuation = 1.0
 bus = "Master"
 area_mask = 1
 
+[node name="kill_timer" type="Timer" parent="." index="9"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = true
+autostart = false
+
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+
 [connection signal="timeout" from="exp_timer" to="." method="_on_exp_timer_timeout"]
+
+[connection signal="timeout" from="kill_timer" to="." method="_on_kill_timer_timeout"]
 
 

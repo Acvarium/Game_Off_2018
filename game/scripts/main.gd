@@ -119,8 +119,6 @@ func final():
 	for c in fin_map.get_used_cells():
 		tilemap.set_cell(c.x, c.y, fin_map.get_cell(c.x, c.y))
 		
-	pass
-
 func world_to_map(pos):
 	pos = pos + Vector2(cell_size/4, cell_size/4)
 	var cell = Vector2(int(pos.x / cell_size), int(pos.y / cell_size))
@@ -175,6 +173,16 @@ func to_64(pos):
 	pos = tilemap.map_to_world(cell_pos) + Vector2(32,32)
 	return pos
 
+func players_in_rect(AA, BB):
+	var _players = []
+	for p in players:
+		if p.get_ref() != null:
+			var p_pos = p.get_ref().position
+			if p_pos.x > AA.x and p_pos.x < BB.x and p_pos.y > AA.y and p_pos.y < BB.y:
+				_players.append(p)
+			
+	return _players
+
 func play_sound(_name):
 	if $sounds.has_node(_name):
 		$sounds.get_node(_name).play()
@@ -193,22 +201,6 @@ func is_cell_vacant(player):
 		var p_grid_pos = world_to_map(p.get_ref().target_pos) 
 		if abs(p_grid_pos.x - grid_pos.x) < 2 and abs(p_grid_pos.y - grid_pos.y) < 2:
 			is_vacant = false
-#	for x in range(2):
-#		for y in range(2):
-#			if (grid_pos.x + x - 1) < 0 or (grid_pos.x + x - 1) >= world.size():
-#				is_vacant = false
-#			if (grid_pos.y + y - 1) < 0 or (grid_pos.y + y - 1) >= world[0].size():
-#				is_vacant = false
-#			var cell = world[grid_pos.x + x - 1][grid_pos.y + y - 1]
-#			if cell != null:
-#				if cell.get_ref() != player:
-#					is_vacant = false
-#		print(player.name)
-#		var rand_pos = Vector2()
-#		rand_pos.x = randf() * map_size.x + top_left.x
-#		rand_pos.y = randf() * map_size.y + bottom_right.y
-#		player.goal = rand_pos
-#		player.follow_player = false
 	return is_vacant
 
 			

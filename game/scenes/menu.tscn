@@ -24,7 +24,7 @@
 [ext_resource path="res://textures/exit_shadow.png" type="Texture" id=22]
 [ext_resource path="res://env.tres" type="Environment" id=23]
 
-[node name="menu" type="Control" index="0"]
+[node name="menu" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -164,6 +164,7 @@ tile_data = PoolIntArray( -65551, 16, 0, -65550, 21, 0, -65549, 16, 0, -65548, 2
 
 [node name="tabs" type="NinePatchRect" parent="." index="4"]
 
+editor/display_folded = true
 self_modulate = Color( 1, 1, 1, 0.535882 )
 anchor_left = 0.5
 anchor_top = 0.0
@@ -250,7 +251,6 @@ tab_num = 1
 [node name="l_cont" type="Container" parent="." index="5"]
 
 editor/display_folded = true
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -391,6 +391,7 @@ _sections_unfolded = [ "Rect", "Textures" ]
 
 [node name="options" type="Container" parent="." index="6"]
 
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -445,7 +446,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-text = "Glowe Effect in Game"
+text = "Glow Effect in Game"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
