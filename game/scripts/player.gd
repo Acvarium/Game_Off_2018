@@ -206,7 +206,7 @@ func _physics_process(delta):
 				gold_id = 29
 			main_node.replace_cell(drop_pos, gold_id)
 			
-		if bot_class > 0 and gold_slot > 0 and to_drop_gold and c_cell == -1 and !in_the_trap:
+		if bot_class > 0 and gold_slot > 0 and to_drop_gold and c_cell == -1 and !in_the_trap and obstacle(DOWN):
 			allowed_to_pickup = false
 			gold_slot = 0
 			$timers/bot_pickup_timer.wait_time = randf() * 15 + 8
@@ -516,8 +516,6 @@ func toggle_ghost():
 	else:
 		modulate = Color(1,1,1,1)
 		
-	
-
 func obstacle(dir):
 	if dir == UP:
 		return $rays/up.is_colliding() or $rays/up2.is_colliding() 
