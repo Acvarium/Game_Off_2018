@@ -104,9 +104,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35279361"
-     inkscape:cx="-1876.968"
-     inkscape:cy="568.33602"
+     inkscape:zoom="0.17639681"
+     inkscape:cx="-2708.5416"
+     inkscape:cy="717.72782"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -986,6 +986,15 @@
          id="path1056"
          inkscape:connector-curvature="0" />
     </g>
+    <path
+       style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.67432272;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:90.48194885;stroke-opacity:1"
+       d="m -471.113,382.06396 -12.87017,28.97071 h 83.18674 l -12.87018,-28.97071 z"
+       id="path963"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/vit/ProjectG70/godot3/Game_Off_2018/game/textures/tab.png"
+       inkscape:export-xdpi="95"
+       inkscape:export-ydpi="95" />
   </g>
   <style
      id="style1631"
