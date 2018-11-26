@@ -51,9 +51,15 @@ var bot_go_random = true
 var stand_time = 0
 var allowe_to_move = true
 var frozen = false
+var bombs = 0
+
+func pickup_bonus(value):
+	bombs += 1
+	main_node.play_sound("coin")
+	main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
+	print("bbbbbooommmb")
 
 func _ready():
-	
 	main_node = get_node("/root/main")
 	if main_node.is_in_group("view"):
 		set_physics_process(false)
@@ -66,7 +72,10 @@ func _ready():
 	# Визначення позиції появи в місці, де персонаж розташований на початку гри
 	spawn_pos = global_position
 	if bot_class > 0:
-		$colSwitch.play("bot")
+		if bot_class == 1:
+			$colSwitch.play("bot")
+		elif bot_class == 2:
+			$colSwitch.play("bot1")
 	else:
 		$colSwitch.play("player")
 	# Додати даного персонажа до списку персонажів на рівні
@@ -198,6 +207,10 @@ func _physics_process(delta):
 				main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
 		elif c_cell_t == 4:
 			main_node.exit()
+		elif c_cell_t == 5:
+			if bot_class == 0:
+				pickup_bonus("bomb")
+				
 		if bot_class > 0 and gold_slot > 0 and in_the_trap:
 			gold_slot = 0
 			var drop_pos = main_node.world_to_tile_pos(position)
@@ -463,6 +476,8 @@ func t_type(cell):
 		return 3
 	if cell_name == "exit":
 		return 4
+	if cell_name == "bomb":
+		return 5
 	return -1
 
 func set_in_trap(value):
@@ -541,7 +556,11 @@ func _input(event):
 	pass
 	if bot_class == 0:
 		if Input.is_action_just_released("put"):
-			main_node.put_obj("bomb", $points/center.global_position)
+			if bombs > 0:
+				bombs -= 1
+				main_node.put_obj("bomb", $points/center.global_position)
+			else:
+				$sounds/miss.play()
 		if Input.is_action_just_pressed("ghost"):
 			toggle_ghost()
 
