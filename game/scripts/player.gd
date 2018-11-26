@@ -57,6 +57,7 @@ var right_key = false
 var up_key = false
 var down_key = false
 var was_in_trap
+var bot2_dir = Vector2(1, 0)
 
 
 func pickup_bonus(value):
@@ -151,34 +152,51 @@ func _physics_process(delta):
 	# А от якщо це бот...
 #**************************************************************************************************
 #**************************************************************************************************
-	elif bot_class > 0 and nav != null:
-		if path.size() > 0:
-			var d = position.distance_to(path[0])
-			var d_vec = position - path[0]
-			if d > 32:
-				if d_vec.y < 0 and !obstacle(DOWN) and on_the_ladder:
-					down_key = true
-				elif d_vec.x > 0 and !obstacle(LEFT):
-					left_key = true
-				elif d_vec.x < 0 and !obstacle(RIGHT):
-					right_key = true
-				elif d_vec.y < 0 and !obstacle(DOWN):
-					down_key = true
-				if d_vec.y > 0 and can_move_up:
-					up_key = true
-			else:
-				path.remove(0)
+	elif bot_class > 0:
+		if bot_class == 1 and nav != null:
+			if path.size() > 0:
+				var d = position.distance_to(path[0])
+				var d_vec = position - path[0]
+				if d > 32:
+					if d_vec.y < 0 and !obstacle(DOWN) and on_the_ladder:
+						down_key = true
+					elif d_vec.x > 0 and !obstacle(LEFT):
+						left_key = true
+					elif d_vec.x < 0 and !obstacle(RIGHT):
+						right_key = true
+					elif d_vec.y < 0 and !obstacle(DOWN):
+						down_key = true
+					if d_vec.y > 0 and can_move_up:
+						up_key = true
+				else:
+					path.remove(0)
+			
 		
-		# Якщо не в пастці, заборонити повзти вгору
+	#**************************************************************************************************
+		elif bot_class == 2 and !in_the_trap:
+			var cell_on_right = main_node.world_to_tile_pos(position) + Vector2(1,1)
+			var cr = t_type(main_node.get_cell(cell_on_right))
+			var cell_on_left = main_node.world_to_tile_pos(position) + Vector2(-1,1)
+			var cl = t_type(main_node.get_cell(cell_on_left))
+			
+			$coo.text = str(cl) + " " + str(cr)
+			if bot2_dir.x == 1:
+				
+				if obstacle(RIGHT) or cr == -1:
+					bot2_dir.x = -1
+				else:
+					set_keys(false,true,false,false)
+			else:
+				if obstacle(LEFT) or cl == -1:
+					bot2_dir.x = 1
+				else:
+					set_keys(true,false,false,false)
+	# Якщо не в пастці, заборонити повзти вгору
 		if !in_the_trap or last_trap_tile.y != (current_tile_pos.y-1):
 			allowe_to_crawl_up = false
 		# Якщо в пастці та дозволено повзти вгору, тоді повзи
 		if in_the_trap and allowe_to_crawl_up:
-			set_keys(false, false, true, false)
-#**************************************************************************************************
-	
-	
-	
+			set_keys(false, false, true, false)	
 # Додадковий інформаційний вивід, що дозволяє відлагоджувати гру
 	var debug_type = 2
 #	$gold.visible = gold_slot > 0
@@ -265,8 +283,7 @@ func _physics_process(delta):
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x -= 1
 			cell_to_empty.y += 1
-			var cbh = can_be_holed(cell_to_empty)
-			if cbh and !b_press:
+			if can_be_holed(cell_to_empty) and !b_press:
 				b_press = true
 				$sounds/blaster.play()
 				current_hole_L = weakref(main_node.add_empty_cell(cell_to_empty))
@@ -458,14 +475,18 @@ func t_type(cell):
 	var cell_name = main_node.get_tile_name(cell)
 	if cell_name == 'ladder':
 		return 1
-	if cell_name.left(1) == 'p':
+	elif cell_name.left(1) == 'p':
 		return 2
-	if cell_name == "gold":
+	elif cell_name == "gold":
 		return 3
-	if cell_name == "exit":
+	elif cell_name == "exit":
 		return 4
-	if cell_name == "bomb":
+	elif cell_name == "bomb":
 		return 5
+	elif cell_name == "empty":
+		return 6
+	elif cell != -1:
+		return 999
 	return -1
 
 func set_in_trap(value):

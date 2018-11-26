@@ -701,7 +701,7 @@ use_filter = false
 font_data = SubResource( 12 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="player" type="KinematicBody2D" index="0" groups=[
+[node name="player" type="KinematicBody2D" groups=[
 "character",
 ]]
 
@@ -760,7 +760,6 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="rays" type="Node2D" parent="." index="4"]
 
-editor/display_folded = true
 visible = false
 
 [node name="down" type="RayCast2D" parent="rays" index="0"]
