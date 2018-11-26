@@ -52,12 +52,17 @@ var stand_time = 0
 var allowe_to_move = true
 var frozen = false
 var bombs = 0
+var left_key = false
+var right_key = false
+var up_key = false
+var down_key = false
+var was_in_trap
+
 
 func pickup_bonus(value):
 	bombs += 1
 	main_node.play_sound("coin")
 	main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
-	print("bbbbbooommmb")
 
 func _ready():
 	main_node = get_node("/root/main")
@@ -83,12 +88,18 @@ func _ready():
 	if bot_class > 0:
 		$Sprite.texture = preload("res://textures/hero_bot.png")
 
+#--------------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------------
+
+func set_keys(l,r,u,d):
+	left_key = l
+	right_key = r
+	up_key = u
+	down_key = d
+
 func _physics_process(delta):
 	if frozen:
 		return
-	# Визначення поточної позиції в системі координат тайлів
-	var ss = ""
-
 	direction = Vector2()
 	var tile_pos = main_node.to_64(position)
 	var l_tile_pos = main_node.to_64($points/left.global_position)
@@ -105,18 +116,11 @@ func _physics_process(delta):
 	var ld_cell_t = t_type(ld_cell)
 	var d_cell_t = t_type(d_cell)
 	# створення змінних зля бреженнення команд управління
-	var left_key = false
-	var right_key = false
-	var up_key = false
-	var down_key = false
-	
-	
-	ss += str(tile_pos) + " " + str(current_tile_pos)
-#	$coo.text = ss
-	
+	set_keys(false,false,false,false)
+	for r in $rays.get_children():
+		r.force_raycast_update()
 	
 	var can_move_up = !obstacle(UP) and (c_cell_t == 1 or l_cell_t == 1)
-	var can_move_down = !obstacle(DOWN)
 	on_the_ladder = (c_cell_t == 1 or d_cell_t == 1 or l_cell_t == 1 or ld_cell_t == 1)
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
 	
@@ -138,17 +142,15 @@ func _physics_process(delta):
 		# збереження стану комірки з пасткою, для перевірки, чи не було створено нову пастку в тому ж місці
 		last_trap_cell = ltp
 	# Примусове оновлення стану променів
-	for r in $rays.get_children():
-		r.force_raycast_update()
+
 	
 	# Якщо це не бот, записати в змінні управління стан натиснення клавіш
 	if bot_class == 0:
-		left_key = Input.is_action_pressed("ui_left")
-		right_key = Input.is_action_pressed("ui_right")
-		up_key = Input.is_action_pressed("ui_up")
-		down_key = Input.is_action_pressed("ui_down")
+		set_keys(Input.is_action_pressed("ui_left"), Input.is_action_pressed("ui_right"), Input.is_action_pressed("ui_up"), Input.is_action_pressed("ui_down"))
 	
 	# А от якщо це бот...
+#**************************************************************************************************
+#**************************************************************************************************
 	elif bot_class > 0 and nav != null:
 		if path.size() > 0:
 			var d = position.distance_to(path[0])
@@ -156,42 +158,33 @@ func _physics_process(delta):
 			if d > 32:
 				if d_vec.y < 0 and !obstacle(DOWN) and on_the_ladder:
 					down_key = true
-					ss += "down  "
 				elif d_vec.x > 0 and !obstacle(LEFT):
 					left_key = true
-					ss += "left  "
 				elif d_vec.x < 0 and !obstacle(RIGHT):
 					right_key = true
-					ss += "right "
 				elif d_vec.y < 0 and !obstacle(DOWN):
 					down_key = true
-					ss += "down  "
 				if d_vec.y > 0 and can_move_up:
 					up_key = true
-					ss += "up    "
-				
 			else:
 				path.remove(0)
-			
-		# відображення стрілок, що допомагають дізнатись про напрямок, куди намагається рухатись бот
-#		$arrows/up.visible = up_key
-#		$arrows/down.visible = down_key
-#		$arrows/left.visible = left_key
-#		$arrows/right.visible = right_key
 		
 		# Якщо не в пастці, заборонити повзти вгору
 		if !in_the_trap or last_trap_tile.y != (current_tile_pos.y-1):
 			allowe_to_crawl_up = false
 		# Якщо в пастці та дозволено повзти вгору, тоді повзи
 		if in_the_trap and allowe_to_crawl_up:
-			left_key = false
-			right_key = false
-			down_key = false
-			up_key = true
+			set_keys(false, false, true, false)
+#**************************************************************************************************
+	
+	
 	
 # Додадковий інформаційний вивід, що дозволяє відлагоджувати гру
 	var debug_type = 2
 #	$gold.visible = gold_slot > 0
+	
+	
+	
 	if tile_pos.x <= position.x and tile_pos.y <= position.y:
 		if c_cell_t == 3:
 			if bot_class == 0:
@@ -219,6 +212,12 @@ func _physics_process(delta):
 				gold_id = 29
 			main_node.replace_cell(drop_pos, gold_id)
 			
+# Викинути бомбу якщо в пастці бот 2 класу
+		elif bot_class == 2 and gold_slot == 0 and in_the_trap and !was_in_trap:
+			var drop_pos = main_node.world_to_tile_pos(position)
+			var bomb_id = 36
+			main_node.replace_cell(drop_pos, bomb_id)
+
 		if bot_class > 0 and gold_slot > 0 and to_drop_gold and c_cell == -1 and !in_the_trap and obstacle(DOWN):
 			allowed_to_pickup = false
 			gold_slot = 0
@@ -237,6 +236,8 @@ func _physics_process(delta):
 	if allowe_to_crawl_up and in_the_trap:
 		on_the_ladder = true
 	
+
+#--------------------------------------------------------------------------------------------------------------------
 	# Якщо відпущено ліву клавішу буріння
 	if Input.is_action_just_released("B") and main_player:
 		b_press = false
@@ -255,14 +256,16 @@ func _physics_process(delta):
 				current_hole_R.get_ref().play_back()
 		current_hole_R = null
 
+#--------------------------------------------------------------------------------------------------------------------
+# Обробка натискання клавіш свирління
+#--------------------------------------------------------------------------------------------------------------------
+	var fully_on_floor = $rays/down.is_colliding() and $rays/down2.is_colliding() 
 	if abs(direction.y) == 0:
-		if Input.is_action_pressed("B") and main_player and (obstacle(DOWN) or on_the_ladder or on_pipe) and !current_hole_R:
+		if Input.is_action_pressed("B") and main_player and (fully_on_floor or on_the_ladder or on_pipe) and !current_hole_R:
 			var cell_to_empty = main_node.world_to_tile_pos(position)
-			
 			cell_to_empty.x -= 1
 			cell_to_empty.y += 1
 			var cbh = can_be_holed(cell_to_empty)
-
 			if cbh and !b_press:
 				b_press = true
 				$sounds/blaster.play()
@@ -271,9 +274,8 @@ func _physics_process(delta):
 			elif !bb_press:
 				$sounds/miss.play()
 				bb_press = true
-
 			
-		if Input.is_action_pressed("A")  and main_player and (obstacle(DOWN) or on_the_ladder or on_pipe) and !current_hole_L:
+		if Input.is_action_pressed("A")  and main_player and (fully_on_floor or on_the_ladder or on_pipe) and !current_hole_L:
 			var cell_to_empty = main_node.world_to_tile_pos(position)
 			cell_to_empty.x += 1
 			cell_to_empty.y += 1
@@ -287,24 +289,16 @@ func _physics_process(delta):
 			elif !aa_press:
 				$sounds/miss.play()
 				aa_press = true
-			
+#--------------------------------------------------------------------------------------------------------------------
+
 	can_move_up = (up_key and (c_cell_t == 1 or l_cell_t == 1))
-	can_move_down = down_key
-	
-	
-	
-	allowe_to_move = current_hole_L == null and current_hole_R == null
-		
-	if !allowe_to_move:
-		up_key = false
-		left_key = false
-		right_key = false
-		down_key = false
+	if current_hole_L != null or current_hole_R != null:
+		set_keys(false, false, false, false)
 		
 	if in_the_trap and allowe_to_crawl_up:
 		can_move_up = true
 	
-	if can_move_up or can_move_down:
+	if can_move_up or down_key:
 		if tile_pos.x > position.x:
 			var go_right = (c_cell_t == 1 or d_cell_t == 1)
 			if (up_key and c_cell_t == 1 and d_cell_t != 1):
@@ -322,7 +316,6 @@ func _physics_process(delta):
 				direction.x = -1
 				if !is_moving:
 					currentDir = Vector2(-1,0)
-		obstacle(DOWN)
 		if up_key and (c_cell_t == 1 or allowe_to_crawl_up):
 			if !obstacle(UP):
 				direction.y = -1
@@ -350,22 +343,7 @@ func _physics_process(delta):
 			currentDir = Vector2(0,1)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	var on_the_edge = tile_pos.x > position.x and (current_hole_R != null or current_hole_L != null)
-		
-	if on_the_edge:
+	if tile_pos.x > position.x and (current_hole_R != null or current_hole_L != null):
 		if current_hole_R:
 			target_pos = current_hole_R.get_ref().position + Vector2(-64,-64)
 			if position.x > target_pos.x:
@@ -399,6 +377,12 @@ func _physics_process(delta):
 			velocity.y = distance_to_target.y * target_direction.y
 			is_moving = false
 		move_and_collide(velocity)
+		
+		
+
+#--------------------------------------------------------------------------------------------------------------------
+# Анімація
+#--------------------------------------------------------------------------------------------------------------------
 	if current_hole_L or current_hole_R:
 		if $anim.is_playing():
 			$anim.stop()
@@ -408,8 +392,6 @@ func _physics_process(delta):
 			$Sprite.frame = 17
 		elif a_press:
 			$Sprite.frame = 19
-			
-			
 		
 	elif direction.y == 1:
 		if on_the_ladder:
@@ -444,6 +426,12 @@ func _physics_process(delta):
 			if abs(velocity.x) < 3 and !(t_type(c_cell) == 2 or t_type(l_cell) == 2)  and !b_press and !a_press:
 				if $anim.current_animation != "stand":
 					$anim.play("stand")
+	was_in_trap = in_the_trap
+
+
+#--------------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------------
+
 #	if last_pos == position and bot_class > 0:
 #		if (OS.get_ticks_msec() - stand_time) > 100:
 #			random_goal()
@@ -615,6 +603,8 @@ func _on_bot_drop_timer_timeout():
 
 func _on_bot_get_out_timer_timeout():
 	allowe_to_crawl_up = true
+	if bot_class == 2:
+		print("Allowe")
 
 func _on_Area_area_entered(area):
 	if area.is_in_group("level"):

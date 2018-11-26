@@ -674,6 +674,18 @@ tracks/9/keys = {
 "update": 1,
 "values": [ 2 ]
 }
+tracks/10/type = "value"
+tracks/10/path = NodePath("Sprite:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="DynamicFontData" id=12]
 
@@ -694,8 +706,8 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 ]]
 
 input_pickable = false
-collision_layer = 4
-collision_mask = 4
+collision_layer = 2
+collision_mask = 2
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform", "Visibility", "collision" ]
@@ -757,7 +769,7 @@ position = Vector2( -12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 5
+collision_mask = 1
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="down2" type="RayCast2D" parent="rays" index="1"]
@@ -766,7 +778,7 @@ position = Vector2( 12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 5
+collision_mask = 1
 _sections_unfolded = [ "Transform" ]
 
 [node name="right" type="RayCast2D" parent="rays" index="2"]
@@ -775,7 +787,7 @@ position = Vector2( 18, 14 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 20, 0 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="right2" type="RayCast2D" parent="rays" index="3"]
 
@@ -783,7 +795,7 @@ position = Vector2( 18, -6 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 20, 0 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="left" type="RayCast2D" parent="rays" index="4"]
 
@@ -791,7 +803,7 @@ position = Vector2( -18, 14 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( -20, 0 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="left2" type="RayCast2D" parent="rays" index="5"]
 
@@ -799,7 +811,7 @@ position = Vector2( -18, -5 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( -20, 0 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="up" type="RayCast2D" parent="rays" index="6"]
 
@@ -807,7 +819,7 @@ position = Vector2( -8, -13 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, -20 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="up2" type="RayCast2D" parent="rays" index="7"]
 
@@ -815,7 +827,7 @@ position = Vector2( 7, -13 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, -20 )
-collision_mask = 5
+collision_mask = 1
 
 [node name="points" type="Node2D" parent="." index="5"]
 
@@ -870,6 +882,8 @@ _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="sounds" type="Node2D" parent="." index="6"]
 
+editor/display_folded = true
+
 [node name="blaster" type="AudioStreamPlayer2D" parent="sounds" index="0"]
 
 stream = ExtResource( 5 )
@@ -906,7 +920,7 @@ collision_layer = 2
 collision_mask = 2
 audio_bus_override = false
 audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
+_sections_unfolded = [ "Collision", "Visibility" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area" index="0"]
 
