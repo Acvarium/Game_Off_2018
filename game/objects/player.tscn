@@ -759,6 +759,7 @@ area_mask = 1
 "player",
 ]]
 
+editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -830,8 +831,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="timers" type="Node2D" parent="." index="11"]
 
-editor/display_folded = true
-
 [node name="bot_pickup_timer" type="Timer" parent="timers" index="0"]
 
 process_mode = 1
@@ -859,6 +858,13 @@ process_mode = 1
 wait_time = 10.0
 one_shot = true
 autostart = true
+
+[node name="respawn_timer" type="Timer" parent="timers" index="4"]
+
+process_mode = 1
+wait_time = 10.0
+one_shot = true
+autostart = false
 
 [node name="coo" type="Label" parent="." index="12"]
 
@@ -898,5 +904,7 @@ _sections_unfolded = [ "Grow Direction", "Margin", "custom_fonts" ]
 [connection signal="timeout" from="timers/bot_get_out_timer" to="." method="_on_bot_get_out_timer_timeout"]
 
 [connection signal="timeout" from="timers/random_dir_timer" to="." method="_on_random_dir_timer_timeout"]
+
+[connection signal="timeout" from="timers/respawn_timer" to="." method="_on_respwn_timer_timeout"]
 
 

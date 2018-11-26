@@ -70,6 +70,7 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Pause", "Smoothing", "
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -176,6 +177,7 @@ max_lines_visible = -1
 [node name="goldCount" type="Label" parent="ui" index="4"]
 
 pause_mode = 2
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -219,6 +221,7 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="ready" type="Label" parent="ui" index="5"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -266,6 +269,7 @@ _sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
 
 [node name="level_name" type="Label" parent="ui" index="6"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
@@ -344,6 +348,7 @@ _sections_unfolded = [ "Rect", "Textures", "Visibility" ]
 
 [node name="help" type="TextureRect" parent="ui" index="8"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5

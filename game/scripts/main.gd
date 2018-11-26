@@ -20,6 +20,7 @@ var mouse_move_check = 4
 var mouse_last_pos = Vector2()
 var start_pause = true
 var default_zoom = Vector2(0.8,0.8)
+var freezer = Vector2(-640, -640)
 
 func add_player(player):
 	players.append(weakref(player))
@@ -31,6 +32,13 @@ func update_gold_count(value):
 	if gold_found == gold_on_level:
 		final()
 	$ui/goldCount.text = str(gold_found) + "/" + str(gold_on_level)
+
+func get_freezer_pos(player):
+	var _pos = freezer
+	for i in players.size():
+		if players[i].get_ref() == player:
+			_pos.x -= i * 128
+	return _pos
 
 func put_obj(obj_name, _pos):
 	if level.has_node("objects"):
@@ -196,7 +204,7 @@ func is_cell_vacant(player):
 	for p in players:
 		if p == null or !p.get_ref():
 			continue
-		if p.get_ref() == player or p.get_ref().bot_class == 0:
+		if p.get_ref() == player or p.get_ref().bot_class == 0 or p.get_ref().frozen:
 			continue
 		var p_grid_pos = world_to_map(p.get_ref().target_pos) 
 		if abs(p_grid_pos.x - grid_pos.x) < 2 and abs(p_grid_pos.y - grid_pos.y) < 2:

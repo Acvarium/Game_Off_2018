@@ -17,7 +17,7 @@ func kill():
 	var BB = position + half_blast_size
 	var to_die = main_node.players_in_rect(AA, BB)
 	for p in to_die:
-		p.get_ref().die()
+		p.get_ref()._die("exp", 5)
 	
 func _on_exp_timer_timeout():
 	$anim.play("explosion")

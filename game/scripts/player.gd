@@ -50,8 +50,10 @@ var bot_random_dir = UP
 var bot_go_random = true
 var stand_time = 0
 var allowe_to_move = true
+var frozen = false
 
 func _ready():
+	
 	main_node = get_node("/root/main")
 	if main_node.is_in_group("view"):
 		set_physics_process(false)
@@ -73,6 +75,8 @@ func _ready():
 		$Sprite.texture = preload("res://textures/hero_bot.png")
 
 func _physics_process(delta):
+	if frozen:
+		return
 	# Визначення поточної позиції в системі координат тайлів
 	var ss = ""
 
@@ -474,6 +478,14 @@ func set_in_trap(value):
 
 func die():
 	if bot_class > 0:
+		respawn()
+	else:
+		if !ghost_mode:
+			main_node.busted()
+
+func respawn():
+	if bot_class > 0:
+		frozen = false
 		$colSwitch.play("bot")
 		in_the_trap = false
 		last_trap_tile = Vector2()
@@ -485,11 +497,17 @@ func die():
 		direction = Vector2()
 		is_moving = false
 		global_position = spawn_pos
-		if bot_class > 0:
-			update_path()
+		update_path()
+
+func _die(die_type, _time_out):
+	if bot_class == 0:
+		die()
 	else:
-		if !ghost_mode:
-			main_node.busted()
+		if die_type == "exp":
+			frozen = true
+			position = main_node.get_freezer_pos(self)
+			$timers/respawn_timer.wait_time = _time_out
+			$timers/respawn_timer.start()
 
 func toggle_ghost():
 	ghost_mode = !ghost_mode
@@ -595,3 +613,6 @@ func _on_Area_area_exited(area):
 func _on_random_dir_timer_timeout():
 	bot_go_random = true
 	pass
+
+func _on_respwn_timer_timeout():
+	respawn()
