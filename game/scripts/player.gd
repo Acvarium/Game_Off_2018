@@ -58,6 +58,7 @@ var up_key = false
 var down_key = false
 var was_in_trap
 var bot2_dir = Vector2(1, 0)
+var invinc = false
 
 
 func pickup_bonus(value):
@@ -88,7 +89,8 @@ func _ready():
 	main_node.add_player(self)
 	if bot_class > 0:
 		$Sprite.texture = preload("res://textures/hero_bot.png")
-
+	if bot_class == 2:
+		$timers/explosion_timer.start()
 #--------------------------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------------------
 
@@ -179,9 +181,7 @@ func _physics_process(delta):
 			var cell_on_left = main_node.world_to_tile_pos(position) + Vector2(-1,1)
 			var cl = t_type(main_node.get_cell(cell_on_left))
 			
-			$coo.text = str(cl) + " " + str(cr)
 			if bot2_dir.x == 1:
-				
 				if obstacle(RIGHT) or cr == -1:
 					bot2_dir.x = -1
 				else:
@@ -200,7 +200,6 @@ func _physics_process(delta):
 # Додадковий інформаційний вивід, що дозволяє відлагоджувати гру
 	var debug_type = 2
 #	$gold.visible = gold_slot > 0
-	
 	
 	
 	if tile_pos.x <= position.x and tile_pos.y <= position.y:
@@ -231,7 +230,7 @@ func _physics_process(delta):
 			main_node.replace_cell(drop_pos, gold_id)
 			
 # Викинути бомбу якщо в пастці бот 2 класу
-		elif bot_class == 2 and gold_slot == 0 and in_the_trap and !was_in_trap:
+		elif bot_class == 2 and gold_slot == 0 and in_the_trap and !was_in_trap and randf() < 0.3:
 			var drop_pos = main_node.world_to_tile_pos(position)
 			var bomb_id = 36
 			main_node.replace_cell(drop_pos, bomb_id)
@@ -501,6 +500,8 @@ func set_in_trap(value):
 			$colSwitch.play("bot")
 
 func die():
+	if invinc:
+		return
 	if bot_class > 0:
 		respawn()
 	else:
@@ -509,6 +510,7 @@ func die():
 
 func respawn():
 	if bot_class > 0:
+	
 		frozen = false
 		$colSwitch.play("bot")
 		in_the_trap = false
@@ -522,8 +524,12 @@ func respawn():
 		is_moving = false
 		global_position = spawn_pos
 		update_path()
+		if bot_class == 2:
+			$timers/explosion_timer.start()
 
 func _die(die_type, _time_out):
+	if invinc:
+		return
 	if bot_class == 0:
 		die()
 	else:
@@ -532,6 +538,14 @@ func _die(die_type, _time_out):
 			position = main_node.get_freezer_pos(self)
 			$timers/respawn_timer.wait_time = _time_out
 			$timers/respawn_timer.start()
+
+func start_explosion():
+	
+	if in_the_trap or !obstacle(DOWN):
+		$timers/explosion_timer.start()
+	else:
+		frozen = true
+		$anim.play("explode")
 
 func toggle_ghost():
 	ghost_mode = !ghost_mode
@@ -644,3 +658,17 @@ func _on_random_dir_timer_timeout():
 
 func _on_respwn_timer_timeout():
 	respawn()
+
+func _on_anim_animation_finished(anim_name):
+	
+	if anim_name == "explode":
+		invinc = true
+		main_node.put_obj("explosion", $points/center.global_position)
+		$anim.play("cooldown")
+	elif anim_name == "cooldown":
+		invinc = false
+		frozen = false
+		$timers/explosion_timer.start()
+
+func _on_explosion_timer_timeout():
+	start_explosion()

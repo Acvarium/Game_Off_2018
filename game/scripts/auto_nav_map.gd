@@ -2,6 +2,10 @@ tool
 extends Node2D
 export var to_retuild = false
 export var build = 0 setget _rebuild
+var main_node
+var cleared_cells = []
+var cleared_cells_td = []
+
 
 func _rebuild(new_value):
 	if !to_retuild:
@@ -72,8 +76,25 @@ func cell_type(x,y):
 		return 5
 	return -1
 	
-
 func _ready():
+	main_node = get_node("/root/main")
 	print($level.get_used_rect())
-	pass
+
+func _physics_process(delta):
+	for c in cleared_cells:
+		$nav/navMap.set_cell(c.x, c.y, 1)
+	for c in cleared_cells_td:
+		$nav_fa/navMap.set_cell(c.x, c.y, 1)
+	cleared_cells.clear()
+	if main_node.players.size() > 0:
+		for p in main_node.players:
+			if p.get_ref() != null:
+				if p.get_ref().bot_class == 2:
+					var cell_pos = main_node.world_to_tile_pos(p.get_ref().position)
+					if $nav/navMap.get_cell(cell_pos.x, cell_pos.y) != -1:
+						cleared_cells.append(cell_pos)
+					$nav/navMap.set_cell(cell_pos.x, cell_pos.y, -1)
+					if $nav_fa/navMap.get_cell(cell_pos.x, cell_pos.y) != -1:
+						cleared_cells_td.append(cell_pos)
+					$nav_fa/navMap.set_cell(cell_pos.x, cell_pos.y, -1)
 

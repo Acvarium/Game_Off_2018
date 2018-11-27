@@ -389,6 +389,7 @@ _sections_unfolded = [ "Visibility" ]
 [node name="sounds" type="Node2D" parent="." index="3"]
 
 pause_mode = 2
+editor/display_folded = true
 _sections_unfolded = [ "Pause" ]
 __meta__ = {
 "_edit_group_": true,

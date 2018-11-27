@@ -1,11 +1,12 @@
 extends Position2D
 var main_node
 var half_blast_size = Vector2(112,32)
-var is_explothing = false
+export var is_explothing = false
 
 func _ready():
 	set_physics_process(false)
 	main_node = get_node("/root/main")
+
 
 func _physics_process(delta):
 	if is_explothing:
