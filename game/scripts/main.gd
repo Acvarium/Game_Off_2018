@@ -99,7 +99,7 @@ func _ready():
 func _input(event):
 	if Input.is_action_just_pressed("ui_page_up"):
 		pass
-#		exit()
+		exit()
 	if Input.is_action_just_pressed("ui_cancel"):
 		global.goto_scene("res://scenes/menu.tscn")
 	if  event is InputEventMouseMotion:

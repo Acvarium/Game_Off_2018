@@ -466,7 +466,7 @@ func can_be_holed(cell_pos):
 		up_cell_pos.y -= 1
 		var up_cell = main_node.get_cell(up_cell_pos)
 		var up_cell_name = main_node.get_tile_name(up_cell)
-		if up_cell == -1 or up_cell_name == "ladder_top":
+		if up_cell == -1 or up_cell_name == "ladder_top" or up_cell_name == "empty":
 			return true
 	return false
 
@@ -483,7 +483,10 @@ func t_type(cell):
 	elif cell_name == "bomb":
 		return 5
 	elif cell_name == "empty":
-		return 6
+		if bot_class == 0:
+			return -1
+		else:
+			return 6
 	elif cell != -1:
 		return 999
 	return -1
