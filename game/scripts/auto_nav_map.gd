@@ -5,6 +5,8 @@ export var build = 0 setget _rebuild
 var main_node
 var cleared_cells = []
 var cleared_cells_td = []
+export var fit_cam_x = false
+export var title = ""
 
 
 func _rebuild(new_value):
@@ -88,15 +90,16 @@ func _process(delta):
 	cleared_cells.clear()
 	cleared_cells_td.clear()
 	if main_node != null:
-		if main_node.players.size() > 0:
-			for p in main_node.players:
-				if p.get_ref() != null:
-					if p.get_ref().bot_class == 2:
-						var cell_pos = main_node.world_to_tile_pos(p.get_ref().position)
-						if $nav/navMap.get_cell(cell_pos.x, cell_pos.y) != -1:
-							cleared_cells.append(cell_pos)
-						$nav/navMap.set_cell(cell_pos.x, cell_pos.y, -1)
-						if $nav_fa/navMap.get_cell(cell_pos.x, cell_pos.y) != -1:
-							cleared_cells_td.append(cell_pos)
-						$nav_fa/navMap.set_cell(cell_pos.x, cell_pos.y, -1)
+		pass
+#		if main_node.players.size() > 0:
+#			for p in main_node.players:
+#				if p.get_ref() != null:
+#					if p.get_ref().bot_class == 2:
+#						var cell_pos = main_node.world_to_tile_pos(p.get_ref().position)
+#						if $nav/navMap.get_cell(cell_pos.x, cell_pos.y) != -1:
+#							cleared_cells.append(cell_pos)
+#						$nav/navMap.set_cell(cell_pos.x, cell_pos.y, -1)
+#						if $nav_fa/navMap.get_cell(cell_pos.x, cell_pos.y) != -1:
+#							cleared_cells_td.append(cell_pos)
+#						$nav_fa/navMap.set_cell(cell_pos.x, cell_pos.y, -1)
 

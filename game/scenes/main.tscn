@@ -67,10 +67,11 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Pause", "Smoothing", "
 
 [node name="level" parent="." index="1" instance=ExtResource( 3 )]
 
+title = ""
+
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -221,7 +222,6 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="ready" type="Label" parent="ui" index="5"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -267,7 +267,54 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
 
-[node name="level_name" type="Label" parent="ui" index="6"]
+[node name="title" type="Label" parent="ui" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -262.0
+margin_bottom = -199.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Level Titel"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts", "custom_styles" ]
+
+[node name="TextureRect2" type="TextureRect" parent="ui/title" index="0"]
+
+modulate = Color( 1, 1, 1, 0.563529 )
+show_behind_parent = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 339.0
+margin_top = -16.0
+margin_right = -341.0
+margin_bottom = 7.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 0
+_sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
+
+[node name="level_name" type="Label" parent="ui" index="7"]
 
 editor/display_folded = true
 anchor_left = 0.5
@@ -318,7 +365,7 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
 
-[node name="skip_button" type="TextureButton" parent="ui" index="7"]
+[node name="skip_button" type="TextureButton" parent="ui" index="8"]
 
 visible = false
 anchor_left = 1.0
@@ -346,7 +393,7 @@ texture_pressed = ExtResource( 8 )
 texture_hover = ExtResource( 9 )
 _sections_unfolded = [ "Rect", "Textures", "Visibility" ]
 
-[node name="help" type="TextureRect" parent="ui" index="8"]
+[node name="help" type="TextureRect" parent="ui" index="9"]
 
 editor/display_folded = true
 anchor_left = 0.5

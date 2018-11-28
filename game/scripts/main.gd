@@ -65,8 +65,22 @@ func put_obj(obj_name, _pos):
 		level.get_node("objects").add_child(obj_inst)
 		obj_inst.global_position = w_pos
 
+func window_resized():
+	print("Resizing: ", get_viewport_rect().size)
+	var to_fit = true
+	if level.get("fit_cam_x") != null:
+		if level.fit_cam_x:
+			fit_cam_to_width()
+			
+
+func fit_cam_to_width():
+	var zzz = ((bottom_right - top_left )) / get_viewport_rect().size
+	$main_camera.zoom = Vector2(zzz.x, zzz.x)
+	$main_camera.position = (((bottom_right - top_left) * 64) * 0.5 + top_left)
+
 func _ready():
 	randomize()
+	get_tree().get_root().connect("size_changed", self, "window_resized")
 	level = $level
 	global = get_node("/root/global")
 	if global.level != -1:
@@ -104,15 +118,16 @@ func _ready():
 		
 	$ui/level_name.text = "Level " + str(global.level + 1)
 	default_zoom = $main_camera.zoom
+	
 	var zzz = ((bottom_right - top_left )) / global.screen_size
-	$main_camera.zoom = Vector2(zzz.x, zzz.y)
-	print(bottom_right)
+	$main_camera.zoom = Vector2(zzz.x, zzz.x)
 	$main_camera.position = ((bottom_right - top_left) * 64) * 0.5 + top_left
 	if global.options["glow"]:
 		var bloom_env_obj = load("res://objects/bloom_env.tscn")
 		var bloom_env = bloom_env_obj.instance()
 		add_child(bloom_env)
 	init_bonus_cells()
+
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_page_up"):
@@ -125,10 +140,15 @@ func _input(event):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
 		$mouse_move_timer.start()
 	elif start_pause:
-		$main_camera.zoom = default_zoom
+		var to_fit = false
+		if level.get("fit_cam_x") != null:
+			to_fit = level.fit_cam_x
+		if !to_fit:
+			$main_camera.zoom = default_zoom
 		start_pause = false
 		get_tree().paused = false
 		$ui/ready.visible = false
+		$ui/title.visible = false
 		$ui/level_name.visible = false
 		$ui/help.visible = false
 		$ui/goldCount.visible = true
@@ -285,7 +305,12 @@ func _on_mouse_move_timer_timeout():
 func _on_start_pause_timer_timeout():
 	if start_pause:
 		play_sound("start")
-		$ui/ready.visible = true
+		$ui/ready.visible = false
+		if level.get("title") != null:
+			$ui/title.visible = level.title != ""
+			$ui/title.text = level.title
+		else:
+			$ui/title.visible = false
 		$ui/level_name.visible = true
 		get_tree().paused = true
 
