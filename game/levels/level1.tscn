@@ -60,8 +60,6 @@ _sections_unfolded = [ "Material", "Visibility" ]
 
 [node name="nav" type="Navigation2D" parent="." index="2"]
 
-editor/display_folded = true
-
 [node name="navMap" type="TileMap" parent="nav" index="0"]
 
 visible = false

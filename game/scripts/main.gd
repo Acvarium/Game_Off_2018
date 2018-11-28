@@ -21,6 +21,7 @@ var mouse_last_pos = Vector2()
 var start_pause = true
 var default_zoom = Vector2(0.8,0.8)
 var freezer = Vector2(-640, -640)
+var cells_for_bonuses = []
 
 func add_player(player):
 	players.append(weakref(player))
@@ -39,6 +40,14 @@ func get_freezer_pos(player):
 		if players[i].get_ref() == player:
 			_pos.x -= i * 128
 	return _pos
+
+func init_bonus_cells():
+	if level.has_node("nav/navMap"):
+		var nav = level.get_node("nav/navMap")
+		var _tile_map = level.get_node("level")
+		for nc in nav.get_used_cells():
+			if _tile_map.get_cell(nc.x, nc.y) == -1:
+				cells_for_bonuses.append(nc)
 
 func put_obj(obj_name, _pos):
 	if level.has_node("objects"):
@@ -95,7 +104,8 @@ func _ready():
 		var bloom_env_obj = load("res://objects/bloom_env.tscn")
 		var bloom_env = bloom_env_obj.instance()
 		add_child(bloom_env)
-	
+	init_bonus_cells()
+
 func _input(event):
 	if Input.is_action_just_pressed("ui_page_up"):
 		pass
