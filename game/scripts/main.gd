@@ -22,10 +22,13 @@ var start_pause = true
 var default_zoom = Vector2(0.8,0.8)
 var freezer = Vector2(-640, -640)
 var cells_for_bonuses = []
+var multiplayer_count = 0
+var exited = 0
 
 func add_player(player):
 	players.append(weakref(player))
 	if player.bot_class == 0:
+		multiplayer_count += 1
 		$main_camera.set_target(player)
 
 func update_gold_count(value):
@@ -253,8 +256,10 @@ func calculate_map_bounds(_tilemap):
 	$main_camera.limit_bottom = bottom_right.y 
 
 func exit():
-	get_tree().paused = true
-	play_sound("v1")
+	exited += 1
+	if exited >= multiplayer_count:
+		get_tree().paused = true
+		play_sound("v1")
 
 func busted():
 	$main_camera.zoom_in(0.6)
