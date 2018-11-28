@@ -612,18 +612,17 @@ func _on_cooldown_timeout():
 
 func random_goal():
 	follow_player = false
-	var rand_pos = Vector2()
-	rand_pos.x = randf() * main_node.map_size.x + main_node.top_left.x
-	rand_pos.y = randf() * main_node.map_size.y + main_node.top_left.y	
+	var rand_b_pos = main_node.get_random_bonus_cell()
+	var rand_pos = main_node.tile_to_world_pos(rand_b_pos)
 	goal = rand_pos
 	if nav != null and bot_class > 0:
 		update_path()
 
 func _on_nav_update_timeout():
 	follow_player = true
-#	if path.size() > 0:
-#		if randi()%path.size() > 5:
-#			random_goal()
+	if path.size() > 0:
+		if randi()%path.size() > 5 or randf() < 0.15:
+			random_goal()
 	if nav != null and bot_class > 0:
 		update_path()
 		$nav_update.wait_time = randf() * 0.5 + 0.5

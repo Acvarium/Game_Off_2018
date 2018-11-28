@@ -49,6 +49,10 @@ func init_bonus_cells():
 			if _tile_map.get_cell(nc.x, nc.y) == -1:
 				cells_for_bonuses.append(nc)
 
+func get_random_bonus_cell():
+	var r = randi()%cells_for_bonuses.size()
+	return cells_for_bonuses[r]
+	
 func put_obj(obj_name, _pos):
 	if level.has_node("objects"):
 		var cell_pos = world_to_map(_pos)
@@ -59,6 +63,7 @@ func put_obj(obj_name, _pos):
 		obj_inst.global_position = w_pos
 
 func _ready():
+	randomize()
 	level = $level
 	global = get_node("/root/global")
 	if global.level != -1:
