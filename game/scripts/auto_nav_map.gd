@@ -80,12 +80,13 @@ func _ready():
 	main_node = get_node("/root/main")
 	print($level.get_used_rect())
 
-func _physics_process(delta):
+func _process(delta):
 	for c in cleared_cells:
 		$nav/navMap.set_cell(c.x, c.y, 1)
 	for c in cleared_cells_td:
 		$nav_fa/navMap.set_cell(c.x, c.y, 1)
 	cleared_cells.clear()
+	cleared_cells_td.clear()
 	if main_node != null:
 		if main_node.players.size() > 0:
 			for p in main_node.players:
