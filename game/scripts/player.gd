@@ -484,6 +484,8 @@ func t_type(cell):
 	var cell_name = main_node.get_tile_name(cell)
 	if cell_name == 'ladder':
 		return 1
+	elif cell_name.left(1) == 'l':
+		return 998
 	elif cell_name.left(1) == 'p':
 		return 2
 	elif cell_name == "gold":

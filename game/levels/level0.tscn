@@ -8,7 +8,7 @@
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=6]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=7]
 
-[node name="level" type="Node2D"]
+[node name="level" type="Node2D" index="0"]
 
 pause_mode = 1
 script = ExtResource( 1 )
@@ -205,7 +205,7 @@ main_player = false
 
 pause_mode = 1
 position = Vector2( 992, 288 )
-bot_class = 2
+bot_class = 1
 main_player = false
 
 [node name="bot3" parent="bots" index="2" instance=ExtResource( 7 )]
