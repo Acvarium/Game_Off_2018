@@ -25,6 +25,8 @@ func _ready():
 		$vCam.position = top_left * 64
 		var zzz = ((bottom_right - top_left + Vector2(1,1)) * 64) / global.screen_size
 		print(zzz)
+		if (zzz.y - zzz.x) > 2:
+			zzz.y = zzz.x + 2
 		$vCam.zoom = Vector2(zzz.x, zzz.y)
 		
 		level.get_node("level").tile_set = load("res://tiles/tiles_simp.tres")

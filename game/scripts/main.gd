@@ -133,7 +133,7 @@ func _ready():
 	$ui/level_name.text = "Level " + str(global.level + 1)
 	default_zoom = $main_camera.zoom
 	
-	var zzz = ((bottom_right - top_left )) / global.screen_size
+	var zzz = ((bottom_right - top_left )) / get_viewport_rect().size
 	$main_camera.zoom = Vector2(zzz.x, zzz.x)
 	$main_camera.position = ((bottom_right - top_left) * 64) * 0.5 + top_left
 	if global.options["glow"]:

@@ -120,6 +120,10 @@ func _physics_process(delta):
 	var l_cell_t = t_type(l_cell)
 	var ld_cell_t = t_type(ld_cell)
 	var d_cell_t = t_type(d_cell)
+#	$coo.text = str(c_cell_t) + " " + str(l_cell_t) + " " + str(ld_cell_t) + " " + str(d_cell_t)
+	
+	if c_cell_t == 999 or l_cell_t == 999:
+		die()
 	# створення змінних зля бреженнення команд управління
 	set_keys(false,false,false,false)
 	for r in $rays.get_children():
@@ -614,11 +618,12 @@ func _on_cooldown_timeout():
 
 func random_goal():
 	follow_player = false
-	var rand_b_pos = main_node.get_random_bonus_cell()
-	var rand_pos = main_node.tile_to_world_pos(rand_b_pos)
-	goal = rand_pos
-	if nav != null and bot_class > 0:
-		update_path()
+	if randf() < 0.3 or path.size() < 1:
+		var rand_b_pos = main_node.get_random_bonus_cell()
+		var rand_pos = main_node.tile_to_world_pos(rand_b_pos)
+		goal = rand_pos
+		if nav != null and bot_class > 0:
+			update_path()
 
 func _on_nav_update_timeout():
 	follow_player = true
