@@ -24,11 +24,18 @@ var freezer = Vector2(-640, -640)
 var cells_for_bonuses = []
 var multiplayer_count = 0
 var exited = 0
+var under_control = []
+var players_in_exit = 0
 
 func add_player(player):
+	for p in players:
+		if player == p.get_ref():
+			return
 	players.append(weakref(player))
 	if player.bot_class == 0:
 		multiplayer_count += 1
+		print("------" + player.name)
+		under_control.append(weakref(player))
 		$main_camera.set_target(player)
 
 func update_gold_count(value):
@@ -65,6 +72,12 @@ func put_obj(obj_name, _pos):
 		level.get_node("objects").add_child(obj_inst)
 		obj_inst.global_position = w_pos
 
+func multi_exit(value):
+	players_in_exit += value
+	print(str(players_in_exit) + " / " + str(under_control.size()))
+	if players_in_exit == under_control.size() and gold_found == gold_on_level:
+		exit()
+
 func window_resized():
 	print("Resizing: ", get_viewport_rect().size)
 	var to_fit = true
@@ -84,6 +97,7 @@ func _ready():
 	level = $level
 	global = get_node("/root/global")
 	if global.level != -1:
+		
 		$level.queue_free()
 		var level_file = load("res://levels/" + global.levels[global.level] + ".tscn")
 		var new_level = level_file.instance()
@@ -276,10 +290,8 @@ func calculate_map_bounds(_tilemap):
 	$main_camera.limit_bottom = bottom_right.y 
 
 func exit():
-	exited += 1
-	if exited >= multiplayer_count:
-		get_tree().paused = true
-		play_sound("v1")
+	get_tree().paused = true
+	play_sound("v1")
 
 func busted():
 	$main_camera.zoom_in(0.6)

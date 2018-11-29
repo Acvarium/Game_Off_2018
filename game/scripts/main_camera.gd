@@ -12,16 +12,23 @@ func _ready():
 func zoom_in(value):
 	zoom = Vector2(value,value)
 	if target != null:
-		position = target.position
+		position = target.get_ref().position
 	
 
 func _physics_process(delta):
-	if target != null:
-		position = target.position
-#		var c_AA = main_node.top_left + (view_field * 0.5)
-#		var c_BB = main_node.bottom_right - (view_field * 0.5)
-#		position.x = clamp(position.x, c_AA.x, c_BB.x)
-#		position.y = clamp(position.y, c_AA.y, c_BB.y)
-#
+	var multi_target = main_node.under_control.size() > 1
+		
+	var current_target = target
+	if multi_target:
+		var pos_y = INF
+		for uc in main_node.under_control:
+			if uc.get_ref() != null:
+				if uc.get_ref().position.y < pos_y:
+					pos_y = uc.get_ref().position.y
+					current_target = uc
+	if current_target != null:
+		position = current_target.get_ref().position
+
+
 func set_target(_target):
-	target = _target
+	target = weakref(_target)

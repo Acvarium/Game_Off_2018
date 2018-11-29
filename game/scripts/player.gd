@@ -86,11 +86,13 @@ func _ready():
 	else:
 		$colSwitch.play("player")
 	# Додати даного персонажа до списку персонажів на рівні
-	main_node.add_player(self)
 	if bot_class > 0:
 		$Sprite.texture = preload("res://textures/hero_bot.png")
 	if bot_class == 2:
 		$timers/explosion_timer.start()
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	main_node.add_player(self)
 #--------------------------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------------------
 

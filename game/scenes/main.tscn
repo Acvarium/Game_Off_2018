@@ -67,8 +67,6 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Pause", "Smoothing", "
 
 [node name="level" parent="." index="1" instance=ExtResource( 3 )]
 
-title = ""
-
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
