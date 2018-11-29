@@ -12,6 +12,7 @@ enum ENTITY_TYPES {UP, DOWN, LEFT, RIGHT}
 var cooldown = true
 var current_hole_L = null
 var current_hole_R = null
+const BOMB_MAX_SPEED = 250
 
 var gold = 0
 var nav = null
@@ -86,9 +87,12 @@ func _ready():
 	else:
 		$colSwitch.play("player")
 	# Додати даного персонажа до списку персонажів на рівні
-	if bot_class > 0:
+	if bot_class == 1:
 		$Sprite.texture = preload("res://textures/hero_bot.png")
 	if bot_class == 2:
+		$Sprite.texture = preload("res://textures/bomb_anim.png")
+		max_speed = BOMB_MAX_SPEED
+		$anim.playback_speed = 0.6
 		$timers/explosion_timer.start()
 	yield(get_tree(),"idle_frame")
 	yield(get_tree(),"idle_frame")

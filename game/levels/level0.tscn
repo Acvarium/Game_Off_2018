@@ -19,8 +19,6 @@ __meta__ = {
 }
 to_retuild = false
 build = 0
-fit_cam_x = false
-title = ""
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="0"]
 

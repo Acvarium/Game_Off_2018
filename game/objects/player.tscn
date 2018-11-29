@@ -13,7 +13,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 26, 13.6084 )
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=2]
 
 resource_name = "cooldown"
 length = 0.5
@@ -29,12 +29,11 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 0.258824, 0.258824, 1 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
-resource_name = "explode"
 length = 2.0
 loop = false
 step = 0.1
@@ -63,7 +62,7 @@ tracks/1/keys = {
 "values": [ 22 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
 length = 0.3
 loop = true
@@ -93,7 +92,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 
 length = 0.4
 loop = true
@@ -123,7 +122,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
 length = 0.4
 loop = true
@@ -153,7 +152,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
 length = 0.9
 loop = true
@@ -171,7 +170,7 @@ tracks/0/keys = {
 "values": [ 4, 3 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
 length = 0.4
 loop = true
@@ -201,12 +200,12 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=9]
 
 custom_solver_bias = 0.0
 extents = Vector2( 23.9017, 25.233 )
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
 length = 0.3
 loop = false
@@ -332,7 +331,7 @@ tracks/9/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 
 length = 0.3
 loop = false
@@ -464,13 +463,13 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.261719, 0.261719, 1 ) ]
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
 
 length = 0.3
 loop = false
@@ -596,7 +595,7 @@ tracks/9/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 
 length = 0.3
 loop = false
@@ -734,18 +733,18 @@ tracks/10/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFontData" id=13]
+[sub_resource type="DynamicFontData" id=14]
 
 hinting = 2
 font_path = "res://fonts/LiberationMono-Regular.ttf"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=15]
 
 size = 32
 use_mipmaps = false
 use_filter = false
-font_data = SubResource( 13 )
+font_data = SubResource( 14 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [node name="player" type="KinematicBody2D" index="0" groups=[
@@ -797,13 +796,13 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/cooldown = SubResource( 15 )
-anims/explode = SubResource( 2 )
-anims/fall = SubResource( 3 )
-anims/left = SubResource( 4 )
-anims/right = SubResource( 5 )
-anims/stand = SubResource( 6 )
-anims/up = SubResource( 7 )
+anims/cooldown = SubResource( 2 )
+anims/explode = SubResource( 3 )
+anims/fall = SubResource( 4 )
+anims/left = SubResource( 5 )
+anims/right = SubResource( 6 )
+anims/stand = SubResource( 7 )
+anims/up = SubResource( 8 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -975,7 +974,7 @@ _sections_unfolded = [ "Collision", "Visibility" ]
 
 visible = false
 position = Vector2( 0, 5 )
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="nav_update" type="Timer" parent="." index="8"]
 
@@ -991,10 +990,10 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/bot = SubResource( 9 )
-anims/bot1 = SubResource( 10 )
-anims/in_trap = SubResource( 11 )
-anims/player = SubResource( 12 )
+anims/bot = SubResource( 10 )
+anims/bot1 = SubResource( 11 )
+anims/in_trap = SubResource( 12 )
+anims/player = SubResource( 13 )
 blend_times = [  ]
 
 [node name="arrows" type="Node2D" parent="." index="10"]
@@ -1090,7 +1089,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 15 )
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
