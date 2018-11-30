@@ -112,6 +112,14 @@ func set_keys(l,r,u,d):
 
 func _physics_process(delta):
 	if frozen:
+		if $anim.is_playing():
+			if $anim.current_animation == "explode" and !obstacle(DOWN):
+				$anim.stop()
+				$Sprite.modulate = Color(1,1,1)
+				frozen = false
+				$sounds/pss.play()
+				
+			pass
 		return
 
 	direction = Vector2()
@@ -460,7 +468,7 @@ func _physics_process(delta):
 				if $anim.current_animation != "stand":
 					$anim.play("stand")
 	was_in_trap = in_the_trap
-	if bot_class == 2 and !is_moving and to_explode:
+	if bot_class == 2 and !is_moving and to_explode and tile_pos.x <= position.x and tile_pos.y <= position.y:
 		start_explosion()
 
 #--------------------------------------------------------------------------------------------------------------------

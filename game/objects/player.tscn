@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://textures/hero.png" type="Texture" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://sounds/blaster.ogg" type="AudioStream" id=4]
 [ext_resource path="res://sounds/miss.ogg" type="AudioStream" id=5]
 [ext_resource path="res://sounds/teleport1.ogg" type="AudioStream" id=6]
-[ext_resource path="res://textures/arrow.png" type="Texture" id=7]
+[ext_resource path="res://sounds/pss.ogg" type="AudioStream" id=7]
+[ext_resource path="res://textures/arrow.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -747,7 +748,7 @@ use_filter = false
 font_data = SubResource( 14 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="player" type="KinematicBody2D" index="0" groups=[
+[node name="player" type="KinematicBody2D" groups=[
 "character",
 ]]
 
@@ -975,6 +976,17 @@ attenuation = 1.0
 bus = "Master"
 area_mask = 1
 
+[node name="pss" type="AudioStreamPlayer2D" parent="sounds" index="4"]
+
+stream = ExtResource( 7 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
 [node name="Area" type="Area2D" parent="." index="7" groups=[
 "player",
 ]]
@@ -1026,28 +1038,28 @@ _sections_unfolded = [ "Transform" ]
 [node name="up" type="Sprite" parent="arrows" index="0"]
 
 visible = false
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="right" type="Sprite" parent="arrows" index="1"]
 
 visible = false
 rotation = 1.5708
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="down" type="Sprite" parent="arrows" index="2"]
 
 visible = false
 rotation = 3.14159
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="left" type="Sprite" parent="arrows" index="3"]
 
 visible = false
 rotation = 4.71239
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="timers" type="Node2D" parent="." index="11"]

@@ -1,7 +1,8 @@
-extends Position2D
+extends KinematicBody2D
 var main_node
 var half_blast_size = Vector2(112,32)
 export var is_explothing = false
+
 
 func _ready():
 	set_physics_process(false)

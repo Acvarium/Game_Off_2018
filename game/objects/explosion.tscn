@@ -162,10 +162,14 @@ tracks/6/keys = {
 "values": [ true ]
 }
 
-[node name="bomb" type="Position2D"]
+[node name="bomb" type="KinematicBody2D" index="0"]
 
 pause_mode = 1
 scale = Vector2( 1.2, 1.2 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Pause", "Transform", "Visibility" ]
 is_explothing = true
@@ -199,7 +203,8 @@ _sections_unfolded = [ "Animation", "Transform" ]
 [node name="exp_r" type="Sprite" parent="." index="3"]
 
 position = Vector2( 64, 0 )
-scale = Vector2( -1, 1 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
 texture = ExtResource( 2 )
 hframes = 7
 frame = 1

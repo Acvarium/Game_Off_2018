@@ -13,8 +13,6 @@
 script = ExtResource( 1 )
 to_retuild = false
 build = 0
-fit_cam_x = false
-title = ""
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="0"]
 
@@ -172,7 +170,6 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 "level",
 ]]
 
-visible = false
 mode = 0
 tile_set = ExtResource( 6 )
 cell_size = Vector2( 64, 64 )
@@ -189,7 +186,7 @@ collision_layer = 1027
 collision_mask = 1027
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( 131098, 32, 0, 196634, 30, 0, 262170, 30, 0, 327706, 30, 0, 393242, 30, 0, 458778, 30, 0, 524314, 30, 0, 589850, 30, 0 )
+tile_data = PoolIntArray( 131077, 32, 0, 196613, 30, 0, 262149, 30, 0, 327685, 30, 0 )
 _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
 [node name="objects" type="Node2D" parent="." index="7"]

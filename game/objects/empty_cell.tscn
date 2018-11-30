@@ -6,7 +6,7 @@
 [ext_resource path="res://textures/walls.png" type="Texture" id=4]
 [ext_resource path="res://textures/splash_anim.png" type="Texture" id=5]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=1]
 
 resource_name = "water"
 length = 0.4
@@ -25,7 +25,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=2]
 
 resource_name = "close"
 length = 0.4
@@ -176,7 +176,7 @@ tracks/11/keys = {
 "values": [ Color( 0.175095, 0.457313, 0.996094, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
 length = 0.4
 loop = false
@@ -326,17 +326,17 @@ tracks/11/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.175095, 0.457313, 0.996094, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
 extents = Vector2( 31, 31 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 
 custom_solver_bias = 0.0
 extents = Vector2( 31, 1 )
 
-[sub_resource type="SegmentShape2D" id=5]
+[sub_resource type="SegmentShape2D" id=6]
 
 custom_solver_bias = 0.0
 a = Vector2( -32, 32 )
@@ -365,7 +365,7 @@ autoplay = "water"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 0.3
-anims/water = SubResource( 6 )
+anims/water = SubResource( 1 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -382,7 +382,6 @@ _sections_unfolded = [ "Animation", "Pause", "Transform", "Visibility" ]
 
 [node name="Sprite2" type="Sprite" parent="." index="3"]
 
-modulate = Color( 0.292938, 0.53484, 0.996652, 1 )
 light_mask = 16
 texture = ExtResource( 4 )
 vframes = 8
@@ -403,9 +402,9 @@ root_node = NodePath("..")
 autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
-playback_speed = 1.0
-anims/close = SubResource( 7 )
-anims/open = SubResource( 2 )
+playback_speed = 1.1
+anims/close = SubResource( 2 )
+anims/open = SubResource( 3 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
@@ -426,7 +425,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 
 visible = false
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="prop_player_timeout" type="Timer" parent="." index="7"]
 
@@ -450,7 +449,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
 
 position = Vector2( 0, -31 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." index="9"]
 
@@ -466,7 +465,7 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" index="0"]
 
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="Label" type="Label" parent="." index="10"]
 
@@ -493,11 +492,10 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="splash" type="Sprite" parent="." index="11"]
 
-modulate = Color( 1, 1, 1, 0.415177 )
+modulate = Color( 1, 1, 1, 0.154706 )
 position = Vector2( 0, -32 )
 texture = ExtResource( 5 )
 hframes = 6
-frame = 2
 _sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
