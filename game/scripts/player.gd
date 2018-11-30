@@ -61,6 +61,7 @@ var down_key = false
 var was_in_trap
 var bot2_dir = Vector2(1, 0)
 var invinc = false
+var to_explode = false
 
 
 func pickup_bonus(value):
@@ -95,6 +96,7 @@ func _ready():
 		$Sprite.texture = preload("res://textures/bomb_anim.png")
 		max_speed = BOMB_MAX_SPEED
 		$anim.playback_speed = 0.6
+		$timers/explosion_timer.wait_time = randf() * 6 + 2
 		$timers/explosion_timer.start()
 	yield(get_tree(),"idle_frame")
 	yield(get_tree(),"idle_frame")
@@ -111,6 +113,7 @@ func set_keys(l,r,u,d):
 func _physics_process(delta):
 	if frozen:
 		return
+
 	direction = Vector2()
 	var tile_pos = main_node.to_64(position)
 	var l_tile_pos = main_node.to_64($points/left.global_position)
@@ -405,9 +408,9 @@ func _physics_process(delta):
 			velocity.y = distance_to_target.y * target_direction.y
 			is_moving = false
 		move_and_collide(velocity)
-		
-		
 
+		
+		
 #--------------------------------------------------------------------------------------------------------------------
 # Анімація
 #--------------------------------------------------------------------------------------------------------------------
@@ -455,7 +458,8 @@ func _physics_process(delta):
 				if $anim.current_animation != "stand":
 					$anim.play("stand")
 	was_in_trap = in_the_trap
-
+	if bot_class == 2 and !is_moving and to_explode:
+		start_explosion()
 
 #--------------------------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------------------
@@ -530,7 +534,7 @@ func die():
 func respawn():
 	print("resp " + name)
 	if bot_class > 0:
-	
+		
 		frozen = false
 		$colSwitch.play("bot")
 		in_the_trap = false
@@ -544,6 +548,9 @@ func respawn():
 		is_moving = false
 		global_position = spawn_pos
 		update_path()
+		if bot_class == 2:
+			$timers/explosion_timer.start()
+		$sounds/teleport.play()
 		if bot_class == 2:
 			$timers/explosion_timer.start()
 
@@ -560,7 +567,8 @@ func _die(die_type, _time_out):
 			$timers/respawn_timer.start()
 
 func start_explosion():
-	
+	to_explode = false
+	$timers/explosion_timer.wait_time = 6
 	if in_the_trap or !obstacle(DOWN):
 		$timers/explosion_timer.start()
 	else:
@@ -698,4 +706,5 @@ func _on_anim_animation_finished(anim_name):
 		$timers/explosion_timer.start()
 
 func _on_explosion_timer_timeout():
-	start_explosion()
+#	start_explosion()
+	to_explode = true

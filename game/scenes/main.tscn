@@ -86,6 +86,7 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Pause", "Smoothing", "
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
