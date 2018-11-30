@@ -46,6 +46,7 @@ func _process(delta):
 			$Label.text = ""
 
 func _ready():
+
 	main_node = get_node("/root/main")
 	sprite = $Sprite
 	frames = frames1
@@ -57,6 +58,9 @@ func _ready():
 		cells = cells2
 		$Sprite.visible = false
 		$Sprite2.visible = true
+	var t = OS.get_ticks_msec()/1000.0
+	var m = $water_anim.get_animation("water").length
+	$water_anim.seek(fmod(t,m))
 		
 
 func set_cell(_cell):

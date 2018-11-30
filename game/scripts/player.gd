@@ -62,6 +62,7 @@ var was_in_trap
 var bot2_dir = Vector2(1, 0)
 var invinc = false
 var to_explode = false
+var explosion_started = false
 
 
 func pickup_bonus(value):
@@ -706,5 +707,4 @@ func _on_anim_animation_finished(anim_name):
 		$timers/explosion_timer.start()
 
 func _on_explosion_timer_timeout():
-#	start_explosion()
 	to_explode = true
