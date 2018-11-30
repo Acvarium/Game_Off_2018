@@ -208,7 +208,7 @@ main_player = false
 [node name="bot5" parent="bots" index="1" instance=ExtResource( 7 )]
 
 pause_mode = 1
-position = Vector2( 992, 288 )
+position = Vector2( 1248, 512 )
 bot_class = 1
 main_player = false
 

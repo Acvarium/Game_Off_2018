@@ -27,6 +27,7 @@ var allowed_to_pickup = true
 var follow_player = true
 var last_pos = Vector2()
 var ghost_mode = false
+export var player_side = 0
 
 export var bot_class = 0
 export var main_player = true
@@ -66,6 +67,7 @@ func pickup_bonus(value):
 	bombs += 1
 	main_node.play_sound("coin")
 	main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
+	main_node.set_bomb_count(bombs, player_side)
 
 func _ready():
 	main_node = get_node("/root/main")
@@ -597,6 +599,7 @@ func _input(event):
 		if Input.is_action_just_released("put"):
 			if bombs > 0:
 				bombs -= 1
+				main_node.set_bomb_count(bombs, player_side)
 				main_node.put_obj("bomb", $points/center.global_position)
 			else:
 				$sounds/miss.play()

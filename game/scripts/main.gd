@@ -142,6 +142,15 @@ func _ready():
 		add_child(bloom_env)
 	init_bonus_cells()
 
+func set_bomb_count(bombs, player_side):
+	var slot = $ui/slots1
+	if player_side == 1:
+		slot = $ui/slots2
+	slot.visible = bombs > 0
+	slot.get_node("Label").visible = bombs > 1
+	slot.get_node("ex0").visible = bombs > 0
+	slot.get_node("Label").text = "x" + str(bombs)
+		
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_page_up"):

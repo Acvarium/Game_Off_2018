@@ -760,6 +760,7 @@ _sections_unfolded = [ "Collision", "Transform", "Visibility", "collision" ]
 __meta__ = {
 "_edit_group_": true
 }
+player_side = 0
 bot_class = 0
 main_player = true
 last_trap_tile = Vector2( 0, 0 )

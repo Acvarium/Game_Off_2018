@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/main_camera.gd" type="Script" id=2]
@@ -10,11 +10,13 @@
 [ext_resource path="res://textures/skip_button.png" type="Texture" id=8]
 [ext_resource path="res://textures/skip_button_hover.png" type="Texture" id=9]
 [ext_resource path="res://textures/help_line.png" type="Texture" id=10]
-[ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=11]
-[ext_resource path="res://sounds/busted.ogg" type="AudioStream" id=12]
-[ext_resource path="res://sounds/v0.ogg" type="AudioStream" id=13]
-[ext_resource path="res://sounds/v1.ogg" type="AudioStream" id=14]
-[ext_resource path="res://sounds/start0.ogg" type="AudioStream" id=15]
+[ext_resource path="res://textures/simp/spark.png" type="Texture" id=11]
+[ext_resource path="res://textures/bomb_cell.png" type="Texture" id=12]
+[ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=13]
+[ext_resource path="res://sounds/busted.ogg" type="AudioStream" id=14]
+[ext_resource path="res://sounds/v0.ogg" type="AudioStream" id=15]
+[ext_resource path="res://sounds/v1.ogg" type="AudioStream" id=16]
+[ext_resource path="res://sounds/start0.ogg" type="AudioStream" id=17]
 
 [sub_resource type="DynamicFontData" id=1]
 
@@ -29,6 +31,20 @@ use_mipmaps = false
 use_filter = false
 font_data = SubResource( 1 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Resource", "Settings" ]
+
+[sub_resource type="DynamicFontData" id=3]
+
+hinting = 2
+font_path = "res://fonts/Minimal5x7.ttf"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="DynamicFont" id=4]
+
+size = 50
+use_mipmaps = false
+use_filter = false
+font_data = SubResource( 3 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Font/fallback", "Resource", "Settings" ]
 
 [node name="main" type="Node2D"]
 
@@ -176,16 +192,14 @@ max_lines_visible = -1
 [node name="goldCount" type="Label" parent="ui" index="4"]
 
 pause_mode = 2
-editor/display_folded = true
 visible = false
-anchor_left = 0.0
+anchor_left = 0.5
 anchor_top = 0.0
-anchor_right = 0.0
+anchor_right = 0.5
 anchor_bottom = 0.0
-margin_left = 41.0
-margin_top = 15.0
-margin_right = 147.0
-margin_bottom = 53.0
+margin_left = -53.0
+margin_right = 53.0
+margin_bottom = 38.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -213,7 +227,7 @@ texture = ExtResource( 5 )
 pause_mode = 2
 modulate = Color( 1, 1, 1, 0.292824 )
 show_behind_parent = true
-position = Vector2( 21.2122, 10.3718 )
+position = Vector2( 35.2122, 12.3718 )
 scale = Vector2( 2.68016, 0.847618 )
 texture = ExtResource( 6 )
 _sections_unfolded = [ "Visibility" ]
@@ -433,6 +447,132 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
 
+[node name="slots1" type="Control" parent="ui" index="10"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="ex0" type="Sprite" parent="ui/slots1" index="0"]
+
+editor/display_folded = true
+self_modulate = Color( 0.245667, 0.448041, 0.546875, 1 )
+position = Vector2( 32, 32 )
+scale = Vector2( 16, 16 )
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="ex1" type="Sprite" parent="ui/slots1/ex0" index="0"]
+
+modulate = Color( 0, 0, 0, 1 )
+scale = Vector2( 0.85, 0.85 )
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="bomb_cell" type="Sprite" parent="ui/slots1/ex0" index="1"]
+
+position = Vector2( -0.0247498, -1.57097 )
+scale = Vector2( 0.101831, 0.101831 )
+texture = ExtResource( 12 )
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="Label" type="Label" parent="ui/slots1" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 5.0
+margin_top = 36.0
+margin_right = 60.0
+margin_bottom = 68.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 4 )
+text = "x1"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="slots2" type="Control" parent="ui" index="11"]
+
+visible = false
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="ex0" type="Sprite" parent="ui/slots2" index="0"]
+
+editor/display_folded = true
+self_modulate = Color( 0.245667, 0.448041, 0.546875, 1 )
+position = Vector2( 8, 32 )
+scale = Vector2( 16, 16 )
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="ex1" type="Sprite" parent="ui/slots2/ex0" index="0"]
+
+modulate = Color( 0, 0, 0, 1 )
+scale = Vector2( 0.85, 0.85 )
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="bomb_cell" type="Sprite" parent="ui/slots2/ex0" index="1"]
+
+position = Vector2( -0.0247498, -1.57097 )
+scale = Vector2( 0.101831, 0.101831 )
+texture = ExtResource( 12 )
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="Label" type="Label" parent="ui/slots2" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -19.0
+margin_top = 36.0
+margin_right = 36.0
+margin_bottom = 68.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 4 )
+text = "x1"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="sounds" type="Node2D" parent="." index="3"]
 
 pause_mode = 2
@@ -445,7 +585,7 @@ __meta__ = {
 
 [node name="coin" type="AudioStreamPlayer" parent="sounds" index="0"]
 
-stream = ExtResource( 11 )
+stream = ExtResource( 13 )
 volume_db = -10.0
 pitch_scale = 1.0
 autoplay = false
@@ -454,7 +594,7 @@ bus = "Master"
 
 [node name="busted" type="AudioStreamPlayer" parent="sounds" index="1"]
 
-stream = ExtResource( 12 )
+stream = ExtResource( 14 )
 volume_db = -15.0
 pitch_scale = 1.0
 autoplay = false
@@ -463,7 +603,7 @@ bus = "Master"
 
 [node name="v0" type="AudioStreamPlayer" parent="sounds" index="2"]
 
-stream = ExtResource( 13 )
+stream = ExtResource( 15 )
 volume_db = -15.0
 pitch_scale = 1.0
 autoplay = false
@@ -472,7 +612,7 @@ bus = "Master"
 
 [node name="v1" type="AudioStreamPlayer" parent="sounds" index="3"]
 
-stream = ExtResource( 14 )
+stream = ExtResource( 16 )
 volume_db = -15.0
 pitch_scale = 1.0
 autoplay = false
@@ -481,7 +621,7 @@ bus = "Master"
 
 [node name="start" type="AudioStreamPlayer" parent="sounds" index="4"]
 
-stream = ExtResource( 15 )
+stream = ExtResource( 17 )
 volume_db = -10.0
 pitch_scale = 1.0
 autoplay = false
