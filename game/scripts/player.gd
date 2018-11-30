@@ -523,7 +523,7 @@ func die():
 		respawn()
 	else:
 		if !ghost_mode:
-			main_node.busted()
+			main_node.busted(position)
 
 func respawn():
 	print("resp " + name)

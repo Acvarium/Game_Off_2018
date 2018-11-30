@@ -302,8 +302,10 @@ func exit():
 	get_tree().paused = true
 	play_sound("v1")
 
-func busted():
+func busted(_pos):
 	$main_camera.zoom_in(0.6)
+	$main_camera.fallow = false
+	$main_camera.position = _pos
 	play_sound("busted")
 	get_tree().paused = true
 

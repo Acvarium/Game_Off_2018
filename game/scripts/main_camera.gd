@@ -3,6 +3,7 @@ var target = null
 var main_node
 var view_field = Vector2()
 var global
+var fallow = true
 
 func _ready():
 	main_node = get_node("/root/main")
@@ -16,8 +17,9 @@ func zoom_in(value):
 	
 
 func _physics_process(delta):
+	if !fallow:
+		return
 	var multi_target = main_node.under_control.size() > 1
-		
 	var current_target = target
 	if multi_target:
 		var pos_y = INF
