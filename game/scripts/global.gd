@@ -6,7 +6,7 @@ var current_scene_path = ""
 
 var level = -1
 var players_lifes = [4,4,4,4]
-var levels = ["level8", "level0", "level1","level2","level3","level4","level5","level6","level7"]
+var levels = ["level0", "level1","level2","level9", "level3","level4","level5","level6","level8"]
 const MAX_STAGE = 200
 var stage = 1
 var screen_size = Vector2(1280, 720)

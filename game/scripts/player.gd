@@ -211,7 +211,7 @@ func _physics_process(delta):
 			set_keys(false, false, true, false)	
 # Додадковий інформаційний вивід, що дозволяє відлагоджувати гру
 	var debug_type = 2
-#	$gold.visible = gold_slot > 0
+	$gold.visible = gold_slot > 0
 	
 	
 	if tile_pos.x <= position.x and tile_pos.y <= position.y:
@@ -501,6 +501,8 @@ func t_type(cell):
 			return -1
 		else:
 			return 6
+	elif cell_name.left(8) == "ground_h":
+		return 7
 	elif cell != -1:
 		return 999
 	return -1
