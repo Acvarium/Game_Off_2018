@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/main_camera.gd" type="Script" id=2]
@@ -13,10 +13,11 @@
 [ext_resource path="res://textures/simp/spark.png" type="Texture" id=11]
 [ext_resource path="res://textures/bomb_cell.png" type="Texture" id=12]
 [ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=13]
-[ext_resource path="res://sounds/busted.ogg" type="AudioStream" id=14]
-[ext_resource path="res://sounds/v0.ogg" type="AudioStream" id=15]
-[ext_resource path="res://sounds/v1.ogg" type="AudioStream" id=16]
-[ext_resource path="res://sounds/start0.ogg" type="AudioStream" id=17]
+[ext_resource path="res://sounds/single.ogg" type="AudioStream" id=14]
+[ext_resource path="res://sounds/busted.ogg" type="AudioStream" id=15]
+[ext_resource path="res://sounds/v0.ogg" type="AudioStream" id=16]
+[ext_resource path="res://sounds/v1.ogg" type="AudioStream" id=17]
+[ext_resource path="res://sounds/start0.ogg" type="AudioStream" id=18]
 
 [sub_resource type="DynamicFontData" id=1]
 
@@ -46,7 +47,7 @@ use_filter = false
 font_data = SubResource( 3 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Font/fallback", "Resource", "Settings" ]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -578,7 +579,6 @@ _sections_unfolded = [ "custom_fonts" ]
 [node name="sounds" type="Node2D" parent="." index="3"]
 
 pause_mode = 2
-editor/display_folded = true
 _sections_unfolded = [ "Pause" ]
 __meta__ = {
 "_edit_group_": true,
@@ -594,16 +594,16 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="busted" type="AudioStreamPlayer" parent="sounds" index="1"]
+[node name="bom" type="AudioStreamPlayer" parent="sounds" index="1"]
 
 stream = ExtResource( 14 )
-volume_db = -15.0
+volume_db = -10.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="v0" type="AudioStreamPlayer" parent="sounds" index="2"]
+[node name="busted" type="AudioStreamPlayer" parent="sounds" index="2"]
 
 stream = ExtResource( 15 )
 volume_db = -15.0
@@ -612,7 +612,7 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="v1" type="AudioStreamPlayer" parent="sounds" index="3"]
+[node name="v0" type="AudioStreamPlayer" parent="sounds" index="3"]
 
 stream = ExtResource( 16 )
 volume_db = -15.0
@@ -621,9 +621,18 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="start" type="AudioStreamPlayer" parent="sounds" index="4"]
+[node name="v1" type="AudioStreamPlayer" parent="sounds" index="4"]
 
 stream = ExtResource( 17 )
+volume_db = -15.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="start" type="AudioStreamPlayer" parent="sounds" index="5"]
+
+stream = ExtResource( 18 )
 volume_db = -10.0
 pitch_scale = 1.0
 autoplay = false

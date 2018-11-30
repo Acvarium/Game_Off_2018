@@ -66,7 +66,7 @@ var explosion_started = false
 
 func pickup_bonus(value):
 	bombs += 1
-	main_node.play_sound("coin")
+	main_node.play_sound("bom")
 	main_node.replace_cell(main_node.world_to_tile_pos(position),-1)
 	main_node.set_bomb_count(bombs, player_side)
 
