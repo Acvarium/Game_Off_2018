@@ -201,9 +201,10 @@ tracks/7/keys = {
 
 [node name="bomb" type="Position2D"]
 
+pause_mode = 1
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+_sections_unfolded = [ "Pause", "Transform", "Visibility" ]
 is_explothing = false
 
 [node name="bomb" type="Sprite" parent="." index="0"]

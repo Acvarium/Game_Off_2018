@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/auto_nav_map.gd" type="Script" id=1]
 [ext_resource path="res://textures/walls_bg.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://tiles/navTiles.tres" type="TileSet" id=5]
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=6]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/empty_cell.tscn" type="PackedScene" id=8]
 
 [node name="level" type="Node2D"]
 
@@ -223,5 +224,13 @@ main_player = false
 
 pause_mode = 1
 position = Vector2( 1248, 1024 )
+
+[node name="empty_cell" parent="." index="10" instance=ExtResource( 8 )]
+
+position = Vector2( 896, 640 )
+
+[node name="empty_cell2" parent="." index="11" instance=ExtResource( 8 )]
+
+position = Vector2( 896, 640 )
 
 

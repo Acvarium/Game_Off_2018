@@ -164,9 +164,10 @@ tracks/6/keys = {
 
 [node name="bomb" type="Position2D"]
 
+pause_mode = 1
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+_sections_unfolded = [ "Pause", "Transform", "Visibility" ]
 is_explothing = true
 
 [node name="anim" type="AnimationPlayer" parent="." index="0"]
