@@ -199,7 +199,7 @@ tracks/7/keys = {
 "values": [ true ]
 }
 
-[node name="bomb" type="KinematicBody2D" index="0"]
+[node name="bomb" type="KinematicBody2D"]
 
 pause_mode = 1
 scale = Vector2( 1.2, 1.2 )
@@ -296,6 +296,26 @@ one_shot = true
 autostart = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="10"]
+
+[node name="rays" type="Node2D" parent="." index="11"]
+
+[node name="down" type="RayCast2D" parent="rays" index="0"]
+
+position = Vector2( -12, 27 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 20 )
+collision_mask = 5
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="down2" type="RayCast2D" parent="rays" index="1"]
+
+position = Vector2( 12, 27 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 20 )
+collision_mask = 5
+_sections_unfolded = [ "Transform" ]
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 

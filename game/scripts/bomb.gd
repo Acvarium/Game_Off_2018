@@ -2,16 +2,37 @@ extends KinematicBody2D
 var main_node
 var half_blast_size = Vector2(112,32)
 export var is_explothing = false
-
+var velocity = 0
+var is_moving = false
+var target_y = 0
+var max_speed = 300
 
 func _ready():
 	set_physics_process(false)
 	main_node = get_node("/root/main")
-
+	if has_node("rays"):
+		set_physics_process(true)
 
 func _physics_process(delta):
 	if is_explothing:
 		kill()
+	if has_node("rays"):
+		$rays/down.force_raycast_update()
+		$rays/down2.force_raycast_update()
+		if !$rays/down.is_colliding() and !$rays/down2.is_colliding() and !is_moving:
+			var current_cell = main_node.world_to_map(position)
+			target_y = main_node.map_to_world(current_cell + Vector2(0,1)).y
+			is_moving = true
+		if is_moving:
+			var speed = max_speed
+			velocity = speed * delta
+			var distance_to_target = abs(target_y - position.y)
+			if abs(velocity) > distance_to_target:
+				velocity = distance_to_target
+				is_moving = false
+			move_and_collide(Vector2(0, velocity))
+		
+		
 
 func kill():
 	var cell_pos = main_node.world_to_tile_pos(position)

@@ -162,7 +162,7 @@ tracks/6/keys = {
 "values": [ true ]
 }
 
-[node name="bomb" type="KinematicBody2D" index="0"]
+[node name="bomb" type="KinematicBody2D"]
 
 pause_mode = 1
 scale = Vector2( 1.2, 1.2 )

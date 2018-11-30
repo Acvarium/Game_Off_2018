@@ -8,7 +8,7 @@
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=6]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=7]
 
-[node name="level" type="Node2D"]
+[node name="level" type="Node2D" index="0"]
 
 pause_mode = 1
 script = ExtResource( 1 )
