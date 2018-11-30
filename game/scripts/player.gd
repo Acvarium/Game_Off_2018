@@ -64,7 +64,6 @@ var invinc = false
 var to_explode = false
 var explosion_started = false
 
-
 func pickup_bonus(value):
 	bombs += 1
 	main_node.play_sound("coin")
@@ -286,6 +285,8 @@ func _physics_process(delta):
 		aa_press = false
 		if current_hole_R != null:
 			if current_hole_R.get_ref():
+				
+				
 				current_hole_R.get_ref().play_back()
 		current_hole_R = null
 
@@ -300,7 +301,7 @@ func _physics_process(delta):
 			cell_to_empty.y += 1
 			if can_be_holed(cell_to_empty) and !b_press:
 				b_press = true
-				$sounds/blaster.play()
+				$sounds/blaster_L.play()
 				current_hole_L = weakref(main_node.add_empty_cell(cell_to_empty))
 				$Sprite.frame = 17
 			elif !bb_press:
@@ -315,7 +316,7 @@ func _physics_process(delta):
 				cell_to_empty.x -= 1
 			if can_be_holed(cell_to_empty) and !a_press:
 				a_press = true
-				$sounds/blaster.play()
+				$sounds/blaster_R.play()
 				current_hole_R = weakref(main_node.add_empty_cell(cell_to_empty))
 				$Sprite.frame = 19
 			elif !aa_press:

@@ -1,17 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/empty_cell.gd" type="Script" id=1]
 [ext_resource path="res://textures/water_anim.png" type="Texture" id=2]
 [ext_resource path="res://textures/sheet.png" type="Texture" id=3]
 [ext_resource path="res://textures/walls.png" type="Texture" id=4]
-[ext_resource path="res://textures/lMasks/6.png" type="Texture" id=5]
-[ext_resource path="res://textures/lMasks/5.png" type="Texture" id=6]
-[ext_resource path="res://textures/lMasks/4.png" type="Texture" id=7]
-[ext_resource path="res://textures/lMasks/3.png" type="Texture" id=8]
-[ext_resource path="res://textures/lMasks/2.png" type="Texture" id=9]
-[ext_resource path="res://textures/lMasks/1.png" type="Texture" id=10]
-[ext_resource path="res://textures/lMasks/0.png" type="Texture" id=11]
-[ext_resource path="res://textures/splash_anim.png" type="Texture" id=12]
+[ext_resource path="res://textures/splash_anim.png" type="Texture" id=5]
 
 [sub_resource type="Animation" id=6]
 
@@ -32,191 +25,155 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=7]
 
 resource_name = "close"
 length = 0.4
 loop = false
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
+tracks/0/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 29.9668 ), Vector2( 0, 0 ) ]
+"update": 1,
+"values": [ true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:scale")
+tracks/1/path = NodePath("StaticBody2D:collision_layer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 0.063539 ), Vector2( 1, 1 ) ]
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 524288, 1, 1 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/2/path = NodePath("StaticBody2D:collision_mask")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ 524288, 1, 1 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("StaticBody2D:collision_mask")
+tracks/3/path = NodePath("Sprite2:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 524288 ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("StaticBody2D:collision_layer")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 524288 ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite2:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0.4 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite2:scale")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
 "times": PoolRealArray( 0.4 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("splash:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.05, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 2, 1, 0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("water:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
 tracks/7/type = "value"
-tracks/7/path = NodePath("Light2D:texture")
+tracks/7/path = NodePath("water:modulate")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 0.05, 0.15, 0.25, 0.3, 0.35, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ]
+"values": [ Color( 1, 1, 1, 0.530353 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("water:visible")
-tracks/8/interp = 1
+tracks/8/path = NodePath("Sprite2:visible")
+tracks/8/interp = 0
 tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.05, 0.05 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false, true, true ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("water:modulate")
+tracks/9/path = NodePath("splash:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
+"times": PoolRealArray( 0, 0.05, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.45098 ), Color( 1, 1, 1, 0.45098 ), Color( 1, 1, 1, 0 ) ]
+"update": 1,
+"values": [ false, true, true ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("splash:frame")
+tracks/10/path = NodePath("splash:modulate")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0.05, 0.15, 0.25, 0.3, 0.35 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 4, 3, 2, 1, 0 ]
+"times": PoolRealArray( 0.05, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.458588 ), Color( 1, 1, 1, 0.154706 ) ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("splash:modulate")
+tracks/11/path = NodePath("Sprite2:modulate")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 0, 0.15, 0.35, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.45098 ), Color( 1, 1, 1, 0.45098 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/12/type = "value"
-tracks/12/path = NodePath("Sprite2:modulate")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
-"times": PoolRealArray( 0, 0.05 ),
+"times": PoolRealArray( 0.05, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/13/type = "value"
-tracks/13/path = NodePath("splash:visible")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/14/type = "value"
-tracks/14/path = NodePath("Sprite2:visible")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"values": [ Color( 0.175095, 0.457313, 0.996094, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -225,184 +182,148 @@ length = 0.4
 loop = false
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
-tracks/0/interp = 2
+tracks/0/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 29.9668 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:scale")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.063539 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("StaticBody2D:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 1, 524288 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("StaticBody2D:collision_mask")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 1, 524288 ]
+}
 tracks/3/type = "value"
-tracks/3/path = NodePath("StaticBody2D:collision_layer")
+tracks/3/path = NodePath("Sprite2:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 1, 524288 ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("StaticBody2D:collision_mask")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 1, 524288 ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite2:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
 }
-tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite2:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
 }
-tracks/7/type = "value"
-tracks/7/path = NodePath("Light2D:texture")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.35, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 5 ) ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("splash:modulate")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0.05, 0.1, 0.3, 0.35, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.45302 ), Color( 1, 1, 1, 0.45098 ), Color( 1, 1, 1, 0.215451 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("splash:frame")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
-"times": PoolRealArray( 0.1, 0.2, 0.3, 0.35 ),
+tracks/5/type = "value"
+tracks/5/path = NodePath("splash:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.35 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 2, 4, 5 ]
+"values": [ 0, 1, 2, 3 ]
 }
-tracks/10/type = "value"
-tracks/10/path = NodePath("water:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
+tracks/6/type = "value"
+tracks/6/path = NodePath("water:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
 "times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, true ]
 }
-tracks/11/type = "value"
-tracks/11/path = NodePath("water:modulate")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
-"times": PoolRealArray( 0.3, 0.4 ),
+tracks/7/type = "value"
+tracks/7/path = NodePath("water:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.35, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.45302 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.530353 ) ]
 }
-tracks/12/type = "value"
-tracks/12/path = NodePath("Sprite2:visible")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
+tracks/8/type = "value"
+tracks/8/path = NodePath("Sprite2:visible")
+tracks/8/interp = 0
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
 "times": PoolRealArray( 0.35, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
-tracks/13/type = "value"
-tracks/13/path = NodePath("Sprite2:modulate")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
+tracks/9/type = "value"
+tracks/9/path = NodePath("splash:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.35, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.46875, 0.67627, 1, 1 ), Color( 0, 0.2323, 0.675781, 0 ) ]
-}
-tracks/14/type = "value"
-tracks/14/path = NodePath("splash:visible")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ true, true, false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("splash:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.35 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.154706 ), Color( 1, 1, 1, 0.458588 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Sprite2:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.35 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.175095, 0.457313, 0.996094, 1 ) ]
 }
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -421,7 +342,7 @@ custom_solver_bias = 0.0
 a = Vector2( -32, 32 )
 b = Vector2( 32, 32 )
 
-[node name="empty_cell" type="Node2D" index="0"]
+[node name="empty_cell" type="Node2D"]
 
 pause_mode = 1
 script = ExtResource( 1 )
@@ -434,6 +355,7 @@ light_mask = 65536
 position = Vector2( 0, -1 )
 texture = ExtResource( 2 )
 hframes = 4
+frame = 2
 _sections_unfolded = [ "Animation", "Transform", "Visibility" ]
 
 [node name="water_anim" type="AnimationPlayer" parent="." index="1"]
@@ -460,12 +382,13 @@ _sections_unfolded = [ "Animation", "Pause", "Transform", "Visibility" ]
 
 [node name="Sprite2" type="Sprite" parent="." index="3"]
 
+modulate = Color( 0.292938, 0.53484, 0.996652, 1 )
 light_mask = 16
 texture = ExtResource( 4 )
 vframes = 8
 hframes = 16
 frame = 35
-_sections_unfolded = [ "Animation", "Material", "Transform", "Visibility" ]
+_sections_unfolded = [ "Animation", "Material", "Transform", "Visibility", "Z Index" ]
 
 [node name="Timer" type="Timer" parent="." index="4"]
 
@@ -481,7 +404,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/close = SubResource( 1 )
+anims/close = SubResource( 7 )
 anims/open = SubResource( 2 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
@@ -568,39 +491,14 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility" ]
 
-[node name="Light2D" type="Light2D" parent="." index="11"]
+[node name="splash" type="Sprite" parent="." index="11"]
 
-scale = Vector2( 4, 4 )
-enabled = true
-editor_only = false
-texture = ExtResource( 11 )
-offset = Vector2( 0, 0 )
-texture_scale = 1.0
-color = Color( 1, 1, 1, 1 )
-energy = 1.0
-mode = 3
-range_height = 0.0
-range_z_min = -1024
-range_z_max = 1024
-range_layer_min = 0
-range_layer_max = 0
-range_item_cull_mask = 16
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 0 )
-shadow_buffer_size = 2048
-shadow_gradient_length = 0.0
-shadow_filter = 0
-shadow_filter_smooth = 0.0
-shadow_item_cull_mask = 16
-_sections_unfolded = [ "Range", "Shadow", "Transform" ]
-
-[node name="splash" type="Sprite" parent="." index="12"]
-
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 1, 1, 1, 0.415177 )
 position = Vector2( 0, -32 )
-texture = ExtResource( 12 )
+texture = ExtResource( 5 )
 hframes = 6
-_sections_unfolded = [ "Animation", "Transform", "Visibility" ]
+frame = 2
+_sections_unfolded = [ "Animation", "Transform", "Visibility", "Z Index" ]
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
