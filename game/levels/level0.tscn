@@ -8,7 +8,7 @@
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=6]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=7]
 
-[node name="level" type="Node2D" index="0"]
+[node name="level" type="Node2D"]
 
 pause_mode = 1
 script = ExtResource( 1 )
@@ -19,6 +19,8 @@ __meta__ = {
 }
 to_retuild = false
 build = 0
+fit_cam_x = false
+title = ""
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="0"]
 
@@ -72,6 +74,8 @@ scale = Vector2( 1.68421, 1.48837 )
 texture = ExtResource( 3 )
 
 [node name="black" type="Node2D" parent="." index="2"]
+
+editor/display_folded = true
 
 [node name="sq" type="TextureRect" parent="black" index="0"]
 

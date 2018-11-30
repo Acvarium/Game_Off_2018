@@ -211,7 +211,7 @@ func kill_in_cell(cell_pos):
 		if p.get_ref() != null:
 			var p_cell_pos32 = world_to_tile_pos(p.get_ref().position - Vector2(32,0))
 			if p_cell_pos32 == cell_pos or p.get_ref().current_tile_pos == cell_pos:
-				p.get_ref().die()
+				p.get_ref()._die("exp", 0.1)
 
 func get_cell(cell_pos):
 	return tilemap.get_cell(cell_pos.x, cell_pos.y)

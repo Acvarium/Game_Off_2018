@@ -201,7 +201,7 @@ custom_solver_bias = 0.0
 a = Vector2( -32, 32 )
 b = Vector2( 32, 32 )
 
-[node name="empty_cell" type="Node2D"]
+[node name="empty_cell" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]

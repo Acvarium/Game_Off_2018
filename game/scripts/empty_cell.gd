@@ -89,13 +89,7 @@ func _on_Timer_timeout():
 func close_out():
 	main_node.kill_in_cell(cell_pos)
 	main_node.replace_cell(cell_pos, cell)
-	if player_inside != null:
-		player_inside.set_in_trap(false)
-		player_inside.die()
-		player_inside = null
-	yield(get_tree(),"idle_frame")
-	yield(get_tree(),"idle_frame")
-	main_node.kill_in_cell(cell_pos)
+
 	queue_free()
 
 func _on_anim_animation_finished(anim_name):

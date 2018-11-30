@@ -127,7 +127,7 @@ func _physics_process(delta):
 #	$coo.text = str(c_cell_t) + " " + str(l_cell_t) + " " + str(ld_cell_t) + " " + str(d_cell_t)
 	
 	if c_cell_t == 999 or l_cell_t == 999:
-		die()
+		_die("exp", 0.1)
 	# створення змінних зля бреженнення команд управління
 	set_keys(false,false,false,false)
 	for r in $rays.get_children():
@@ -524,6 +524,7 @@ func die():
 			main_node.busted()
 
 func respawn():
+	print("resp " + name)
 	if bot_class > 0:
 	
 		frozen = false
@@ -624,7 +625,7 @@ func _on_cooldown_timeout():
 
 func random_goal():
 	follow_player = false
-	if randf() < 0.3 or path.size() < 1:
+	if randf() < 0.15 or path.size() < 1:
 		var rand_b_pos = main_node.get_random_bonus_cell()
 		var rand_pos = main_node.tile_to_world_pos(rand_b_pos)
 		goal = rand_pos
@@ -643,7 +644,7 @@ func _on_nav_update_timeout():
 		
 func _on_Area_body_entered(body):
 	if body.is_in_group("level"):
-		die()
+		_die("exp", 0.1)
 
 func _on_bot_pickup_timer_timeout():
 	allowed_to_pickup = true
@@ -658,11 +659,11 @@ func _on_bot_get_out_timer_timeout():
 
 func _on_Area_area_entered(area):
 	if area.is_in_group("level"):
-		die()
+		_die("exp", 0.1)
 	if bot_class == 0:
 		if area.is_in_group("player"):
 			if area.get_parent().bot_class > 0:
-				die()
+				_die("exp", 0.1)
 
 func _on_Area_area_exited(area):
 	pass # replace with function body
@@ -672,7 +673,13 @@ func _on_random_dir_timer_timeout():
 	pass
 
 func _on_respwn_timer_timeout():
-	respawn()
+	var spawner_obj = load("res://objects/spawner.tscn")
+	var spawner = spawner_obj.instance()
+	get_parent().add_child(spawner)
+	spawner.set_player(self)
+	spawner.position = spawn_pos
+	
+#	respawn()
 
 func _on_anim_animation_finished(anim_name):
 	
