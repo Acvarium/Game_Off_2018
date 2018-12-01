@@ -699,9 +699,19 @@ func set_goal(new_goal):
 	update_path()
 
 func update_path():
+	
 	var c_nav = nav
 	if follow_player and goal_obj != null:
+		
 		goal = goal_obj.position
+		var dir_vec = (goal - position).normalized() * direct_ray_length
+		$direct.cast_to = dir_vec
+		$direct.force_raycast_update()
+		if $direct.is_colliding():
+			if $direct.get_collider() == goal_obj:
+				path.clear()
+				path.append(goal)
+				return
 	if (position.y - goal.y) < -32 and nav_from_above != null:
 		c_nav = nav_from_above
 	if c_nav != null:
