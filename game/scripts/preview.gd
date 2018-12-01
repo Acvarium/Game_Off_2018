@@ -9,7 +9,8 @@ func _ready():
 		
 		var level = level_obj.instance()
 		add_child(level)
-		
+		if level.has_node("canvas"):
+			level.get_node("canvas").free()
 		var used_cells = level.get_node("level").get_used_cells()
 		var top_left = Vector2(INF, INF)
 		var bottom_right = Vector2(-INF, -INF)

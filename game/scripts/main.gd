@@ -160,7 +160,11 @@ func _input(event):
 		zoom_out = true
 	if Input.is_action_just_released("zoom_out") and zoom_out:
 		zoom_out = false
-		$main_camera.zoom = default_zoom
+		var to_fit = false
+		if level.get("fit_cam_x") != null:
+			to_fit = level.fit_cam_x
+		if !to_fit:
+			$main_camera.zoom = default_zoom
 	if Input.is_action_just_pressed("ui_page_up") and global.debug:
 		exit()
 	if Input.is_action_just_pressed("debug"):
