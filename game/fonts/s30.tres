@@ -3,14 +3,13 @@
 [sub_resource type="DynamicFontData" id=5]
 
 hinting = 2
-font_path = "res://fonts/Minimal5x7.ttf"
-_sections_unfolded = [ "Resource" ]
+font_path = "res://fonts/LiberationMono-Regular.ttf"
 
 [resource]
 
-size = 100
+size = 30
 use_mipmaps = false
 use_filter = false
 font_data = SubResource( 5 )
-_sections_unfolded = [ "Extra Spacing", "Font", "Resource", "Settings" ]
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 

@@ -13,10 +13,11 @@
 pause_mode = 1
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
-to_retuild = false
+to_rebuild = false
 build = 0
 fit_cam_x = true
 title = "Parallel Realities"
+help_info = ""
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="0"]
 

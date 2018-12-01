@@ -11,8 +11,11 @@
 [node name="level" type="Node2D"]
 
 script = ExtResource( 1 )
-to_retuild = false
+to_rebuild = false
 build = 0
+fit_cam_x = false
+title = ""
+help_info = "You can collect bombs and drop them with 'S'"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="0"]
 

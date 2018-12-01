@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/main_camera.gd" type="Script" id=2]
@@ -7,17 +7,19 @@
 [ext_resource path="res://textures/gold.png" type="Texture" id=5]
 [ext_resource path="res://textures/b.png" type="Texture" id=6]
 [ext_resource path="res://fonts/pixel100.tres" type="DynamicFont" id=7]
-[ext_resource path="res://textures/skip_button.png" type="Texture" id=8]
-[ext_resource path="res://textures/skip_button_hover.png" type="Texture" id=9]
-[ext_resource path="res://textures/help_line.png" type="Texture" id=10]
-[ext_resource path="res://textures/simp/spark.png" type="Texture" id=11]
-[ext_resource path="res://textures/bomb_cell.png" type="Texture" id=12]
-[ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=13]
-[ext_resource path="res://sounds/single.ogg" type="AudioStream" id=14]
-[ext_resource path="res://sounds/busted.ogg" type="AudioStream" id=15]
-[ext_resource path="res://sounds/v0.ogg" type="AudioStream" id=16]
-[ext_resource path="res://sounds/v1.ogg" type="AudioStream" id=17]
-[ext_resource path="res://sounds/start0.ogg" type="AudioStream" id=18]
+[ext_resource path="res://fonts/s30.tres" type="DynamicFont" id=8]
+[ext_resource path="res://textures/skip_button.png" type="Texture" id=9]
+[ext_resource path="res://textures/skip_button_hover.png" type="Texture" id=10]
+[ext_resource path="res://textures/help_line.png" type="Texture" id=11]
+[ext_resource path="res://textures/simp/spark.png" type="Texture" id=12]
+[ext_resource path="res://textures/bomb_cell.png" type="Texture" id=13]
+[ext_resource path="res://sounds/coin.ogg" type="AudioStream" id=14]
+[ext_resource path="res://sounds/single.ogg" type="AudioStream" id=15]
+[ext_resource path="res://sounds/busted.ogg" type="AudioStream" id=16]
+[ext_resource path="res://sounds/v0.ogg" type="AudioStream" id=17]
+[ext_resource path="res://sounds/v1.ogg" type="AudioStream" id=18]
+[ext_resource path="res://sounds/start0.ogg" type="AudioStream" id=19]
+[ext_resource path="res://scripts/canvas.gd" type="Script" id=20]
 
 [sub_resource type="DynamicFontData" id=1]
 
@@ -33,6 +35,19 @@ use_filter = false
 font_data = SubResource( 1 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Resource", "Settings" ]
 
+[sub_resource type="DynamicFontData" id=5]
+
+hinting = 2
+font_path = "res://fonts/LiberationMono-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=6]
+
+size = 52
+use_mipmaps = false
+use_filter = false
+font_data = SubResource( 5 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Font/fallback", "Settings" ]
+
 [sub_resource type="DynamicFontData" id=3]
 
 hinting = 2
@@ -47,7 +62,7 @@ use_filter = false
 font_data = SubResource( 3 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Font/fallback", "Resource", "Settings" ]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -84,11 +99,13 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Pause", "Smoothing", "
 
 [node name="level" parent="." index="1" instance=ExtResource( 3 )]
 
+title = ""
+help_info = ""
+
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
-editor/display_folded = true
-layer = 1
+layer = 100
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
@@ -238,6 +255,7 @@ _sections_unfolded = [ "Visibility" ]
 [node name="ready" type="Label" parent="ui" index="5"]
 
 editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -283,23 +301,72 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
 
-[node name="title" type="Label" parent="ui" index="6"]
+[node name="help_dark" type="TextureRect" parent="ui" index="6"]
 
-editor/display_folded = true
+modulate = Color( 1, 1, 1, 0.618784 )
+show_behind_parent = true
 anchor_left = 0.0
-anchor_top = 0.5
+anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -262.0
-margin_bottom = -199.0
+anchor_bottom = 1.0
+margin_left = -51.0
+margin_top = 562.0
+margin_right = 51.0
+margin_bottom = 34.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 0
+_sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
+
+[node name="help_info" type="Label" parent="ui" index="7"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -402.0
+margin_top = -148.0
+margin_right = 402.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 7 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 1, 0.984375, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Ready!"
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Margin", "custom_colors", "custom_fonts", "custom_styles" ]
+
+[node name="title" type="Label" parent="ui" index="8"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -346.0
+margin_bottom = -283.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 0, 0.742188, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Level Titel"
 align = 1
@@ -310,15 +377,15 @@ _sections_unfolded = [ "custom_colors", "custom_fonts", "custom_styles" ]
 
 [node name="TextureRect2" type="TextureRect" parent="ui/title" index="0"]
 
-modulate = Color( 1, 1, 1, 0.563529 )
+modulate = Color( 1, 1, 1, 0.955804 )
 show_behind_parent = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 339.0
+margin_left = -20.0
 margin_top = -16.0
-margin_right = -341.0
+margin_right = 18.0
 margin_bottom = 7.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -331,9 +398,10 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
 
-[node name="level_name" type="Label" parent="ui" index="7"]
+[node name="level_name" type="Label" parent="ui" index="9"]
 
 editor/display_folded = true
+visible = false
 anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
@@ -382,7 +450,7 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
 
-[node name="skip_button" type="TextureButton" parent="ui" index="8"]
+[node name="skip_button" type="TextureButton" parent="ui" index="10"]
 
 visible = false
 anchor_left = 1.0
@@ -405,12 +473,12 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 8 )
-texture_pressed = ExtResource( 8 )
-texture_hover = ExtResource( 9 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 9 )
+texture_hover = ExtResource( 10 )
 _sections_unfolded = [ "Rect", "Textures", "Visibility" ]
 
-[node name="help" type="TextureRect" parent="ui" index="9"]
+[node name="help" type="TextureRect" parent="ui" index="11"]
 
 editor/display_folded = true
 anchor_left = 0.5
@@ -426,7 +494,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
@@ -450,7 +518,7 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Visibility" ]
 
-[node name="slots1" type="Control" parent="ui" index="10"]
+[node name="slots1" type="Control" parent="ui" index="12"]
 
 visible = false
 anchor_left = 0.0
@@ -472,21 +540,21 @@ editor/display_folded = true
 self_modulate = Color( 0.245667, 0.448041, 0.546875, 1 )
 position = Vector2( 32, 32 )
 scale = Vector2( 16, 16 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="ex1" type="Sprite" parent="ui/slots1/ex0" index="0"]
 
 modulate = Color( 0, 0, 0, 1 )
 scale = Vector2( 0.85, 0.85 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="bomb_cell" type="Sprite" parent="ui/slots1/ex0" index="1"]
 
 position = Vector2( -0.0247498, -1.57097 )
 scale = Vector2( 0.101831, 0.101831 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Label" type="Label" parent="ui/slots1" index="1"]
@@ -513,7 +581,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="slots2" type="Control" parent="ui" index="11"]
+[node name="slots2" type="Control" parent="ui" index="13"]
 
 visible = false
 anchor_left = 1.0
@@ -535,21 +603,21 @@ editor/display_folded = true
 self_modulate = Color( 0.245667, 0.448041, 0.546875, 1 )
 position = Vector2( 8, 32 )
 scale = Vector2( 16, 16 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="ex1" type="Sprite" parent="ui/slots2/ex0" index="0"]
 
 modulate = Color( 0, 0, 0, 1 )
 scale = Vector2( 0.85, 0.85 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="bomb_cell" type="Sprite" parent="ui/slots2/ex0" index="1"]
 
 position = Vector2( -0.0247498, -1.57097 )
 scale = Vector2( 0.101831, 0.101831 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Label" type="Label" parent="ui/slots2" index="1"]
@@ -587,7 +655,7 @@ __meta__ = {
 
 [node name="coin" type="AudioStreamPlayer" parent="sounds" index="0"]
 
-stream = ExtResource( 13 )
+stream = ExtResource( 14 )
 volume_db = -10.0
 pitch_scale = 1.0
 autoplay = false
@@ -596,7 +664,7 @@ bus = "Master"
 
 [node name="bom" type="AudioStreamPlayer" parent="sounds" index="1"]
 
-stream = ExtResource( 14 )
+stream = ExtResource( 15 )
 volume_db = -10.0
 pitch_scale = 1.0
 autoplay = false
@@ -605,7 +673,7 @@ bus = "Master"
 
 [node name="busted" type="AudioStreamPlayer" parent="sounds" index="2"]
 
-stream = ExtResource( 15 )
+stream = ExtResource( 16 )
 volume_db = -15.0
 pitch_scale = 1.0
 autoplay = false
@@ -614,7 +682,7 @@ bus = "Master"
 
 [node name="v0" type="AudioStreamPlayer" parent="sounds" index="3"]
 
-stream = ExtResource( 16 )
+stream = ExtResource( 17 )
 volume_db = -15.0
 pitch_scale = 1.0
 autoplay = false
@@ -623,7 +691,7 @@ bus = "Master"
 
 [node name="v1" type="AudioStreamPlayer" parent="sounds" index="4"]
 
-stream = ExtResource( 17 )
+stream = ExtResource( 18 )
 volume_db = -15.0
 pitch_scale = 1.0
 autoplay = false
@@ -632,7 +700,7 @@ bus = "Master"
 
 [node name="start" type="AudioStreamPlayer" parent="sounds" index="5"]
 
-stream = ExtResource( 18 )
+stream = ExtResource( 19 )
 volume_db = -10.0
 pitch_scale = 1.0
 autoplay = false
@@ -672,6 +740,12 @@ collision_mask = 1
 occluder_light_mask = 1
 format = 1
 tile_data = PoolIntArray(  )
+
+[node name="canvas" type="Node2D" parent="." index="7"]
+
+z_index = 200
+script = ExtResource( 20 )
+_sections_unfolded = [ "Z Index" ]
 
 [connection signal="pressed" from="ui/skip_button" to="." method="_on_skip_button_pressed"]
 

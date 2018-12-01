@@ -1,12 +1,12 @@
 extends Node
 var erast = false
-
+var debug = false
 var current_scene = null
 var current_scene_path = ""
 
 var level = -1
 var players_lifes = [4,4,4,4]
-var levels = ["level0", "level10", "level9", "level1", "level2", "level3","level4","level5","level6","level8"]
+var levels = ["level0", "level6", "level10", "level9", "level1", "level2", "level3","level4","level5", "level8"]
 const MAX_STAGE = 200
 var stage = 1
 var screen_size = Vector2(1280, 720)

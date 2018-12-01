@@ -60,8 +60,10 @@ func init_bonus_cells():
 				cells_for_bonuses.append(nc)
 
 func get_random_bonus_cell():
-	var r = randi()%cells_for_bonuses.size()
-	return cells_for_bonuses[r]
+	if cells_for_bonuses.size() > 0:
+		var r = randi()%cells_for_bonuses.size()
+		return cells_for_bonuses[r]
+	return null
 	
 func put_obj(obj_name, _pos):
 	if level.has_node("objects"):
@@ -150,12 +152,14 @@ func set_bomb_count(bombs, player_side):
 	slot.get_node("Label").visible = bombs > 1
 	slot.get_node("ex0").visible = bombs > 0
 	slot.get_node("Label").text = "x" + str(bombs)
-		
 
 func _input(event):
-	if Input.is_action_just_pressed("ui_page_up"):
-		pass
+	if Input.is_action_just_pressed("ui_page_up") and global.debug:
 		exit()
+	if Input.is_action_just_pressed("debug"):
+		$canvas.lines = []
+		$canvas.update()
+		global.debug = !global.debug 
 	if Input.is_action_just_pressed("ui_cancel"):
 		global.goto_scene("res://scenes/menu.tscn")
 	if  event is InputEventMouseMotion:
@@ -172,6 +176,13 @@ func _input(event):
 		get_tree().paused = false
 		$ui/ready.visible = false
 		$ui/title.visible = false
+		$ui/help_info.visible = false
+		$ui/help_dark.visible = false
+		if level.has_node("canvas"):
+			level.get_node("canvas").free()
+			
+		
+		
 		$ui/level_name.visible = false
 		$ui/help.visible = false
 		$ui/goldCount.visible = true
@@ -330,6 +341,24 @@ func busted(_pos):
 
 
 func _process(delta):
+	if !on_pause and global.debug:
+		var colors = [
+		Color(1,0,0),
+		Color(1,1,0),
+		Color(0,1,0),
+		Color(0,1,1),
+		Color(0,0,1)]
+		
+		$canvas.lines = []
+		var a = 0	
+		var i = 0
+		for p in players:
+			p.get_ref().add_debug_lines(a,colors[i])
+			a += 2
+			i += 1
+			if i >= colors.size():
+				i = 0
+		$canvas.update()
 	if $ui/grid.visible and !on_pause:
 		print_world()
 
@@ -346,14 +375,26 @@ func _on_mouse_move_timer_timeout():
 
 func _on_start_pause_timer_timeout():
 	if start_pause:
-		play_sound("start")
+		if !level.has_node("start_music"):
+			play_sound("start")
 		$ui/ready.visible = false
 		if level.get("title") != null:
 			$ui/title.visible = level.title != ""
 			$ui/title.text = level.title
 		else:
 			$ui/title.visible = false
-		$ui/level_name.visible = true
+			
+		if level.get("help_info") != null:
+			$ui/help_info.visible = level.help_info != ""
+			$ui/help_dark.visible = level.help_info != ""
+			
+			$ui/help_info.text = level.help_info
+		else:
+			$ui/help_info.visible = false
+			$ui/help_dark.visible = false
+			
+		
+		$ui/level_name.visible = !$ui/title.visible
 		get_tree().paused = true
 
 func _on_skip_button_pressed():

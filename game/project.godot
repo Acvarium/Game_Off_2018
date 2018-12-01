@@ -83,6 +83,8 @@ put=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","d
  ]
 ghost=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777224,"unicode":0,"echo":false,"script":null)
  ]
+debug=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":16777244,"unicode":0,"echo":false,"script":null)
+ ]
 
 [rendering]
 

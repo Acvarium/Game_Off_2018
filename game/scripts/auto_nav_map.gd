@@ -1,16 +1,16 @@
 tool
 extends Node2D
-export var to_retuild = false
+export var to_rebuild = false
 export var build = 0 setget _rebuild
 var main_node
 var cleared_cells = []
 var cleared_cells_td = []
 export var fit_cam_x = false
 export var title = ""
-
+export var help_info = ""
 
 func _rebuild(new_value):
-	if !to_retuild:
+	if !to_rebuild:
 		return
 	if !has_node("nav"):
 		return

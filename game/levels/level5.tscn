@@ -11,8 +11,11 @@
 [node name="level" type="Node2D"]
 
 script = ExtResource( 1 )
-to_retuild = true
+to_rebuild = false
 build = 0
+fit_cam_x = false
+title = ""
+help_info = ""
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="0"]
 
@@ -91,8 +94,6 @@ stretch_mode = 0
 
 [node name="nav" type="Navigation2D" parent="." index="3"]
 
-editor/display_folded = true
-
 [node name="navMap" type="TileMap" parent="nav" index="0"]
 
 visible = false
@@ -117,8 +118,6 @@ tile_data = PoolIntArray( 196613, 1, 0, 196614, 1, 0, 196615, 1, 0, 196616, 1, 0
 _sections_unfolded = [ "Cell", "Visibility" ]
 
 [node name="nav_fa" type="Navigation2D" parent="." index="4"]
-
-editor/display_folded = true
 
 [node name="navMap" type="TileMap" parent="nav_fa" index="0"]
 
