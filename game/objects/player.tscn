@@ -12,7 +12,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 26, 13.6084 )
+extents = Vector2( 22.7251, 18.8576 )
 
 [sub_resource type="Animation" id=2]
 
@@ -742,13 +742,13 @@ _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="DynamicFont" id=15]
 
-size = 32
+size = 16
 use_mipmaps = false
 use_filter = false
 font_data = SubResource( 14 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="player" type="KinematicBody2D" groups=[
+[node name="player" type="KinematicBody2D" index="0" groups=[
 "character",
 ]]
 
@@ -786,8 +786,7 @@ _sections_unfolded = [ "Animation", "Transform", "Visibility" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 
-visible = false
-position = Vector2( 0, -10 )
+position = Vector2( 0, -7 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Visibility" ]
 
@@ -810,15 +809,12 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="rays" type="Node2D" parent="." index="4"]
 
-editor/display_folded = true
-visible = false
-
 [node name="down" type="RayCast2D" parent="rays" index="0"]
 
 position = Vector2( -12, 27 )
 enabled = true
 exclude_parent = true
-cast_to = Vector2( 0, 20 )
+cast_to = Vector2( 0, 30 )
 collision_mask = 5
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
@@ -827,7 +823,7 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 position = Vector2( 12, 27 )
 enabled = true
 exclude_parent = true
-cast_to = Vector2( 0, 20 )
+cast_to = Vector2( 0, 30 )
 collision_mask = 5
 _sections_unfolded = [ "Transform" ]
 
@@ -836,7 +832,7 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( 18, 14 )
 enabled = true
 exclude_parent = true
-cast_to = Vector2( 20, 0 )
+cast_to = Vector2( 30, 0 )
 collision_mask = 5
 
 [node name="right2" type="RayCast2D" parent="rays" index="3"]
@@ -844,7 +840,7 @@ collision_mask = 5
 position = Vector2( 18, -6 )
 enabled = true
 exclude_parent = true
-cast_to = Vector2( 20, 0 )
+cast_to = Vector2( 30, 0 )
 collision_mask = 5
 
 [node name="left" type="RayCast2D" parent="rays" index="4"]
@@ -852,7 +848,7 @@ collision_mask = 5
 position = Vector2( -18, 14 )
 enabled = true
 exclude_parent = true
-cast_to = Vector2( -20, 0 )
+cast_to = Vector2( -30, 0 )
 collision_mask = 5
 
 [node name="left2" type="RayCast2D" parent="rays" index="5"]
@@ -860,7 +856,7 @@ collision_mask = 5
 position = Vector2( -18, -5 )
 enabled = true
 exclude_parent = true
-cast_to = Vector2( -20, 0 )
+cast_to = Vector2( -30, 0 )
 collision_mask = 5
 
 [node name="up" type="RayCast2D" parent="rays" index="6"]
@@ -868,7 +864,7 @@ collision_mask = 5
 position = Vector2( -8, -13 )
 enabled = true
 exclude_parent = true
-cast_to = Vector2( 0, -20 )
+cast_to = Vector2( 0, -30 )
 collision_mask = 5
 
 [node name="up2" type="RayCast2D" parent="rays" index="7"]
@@ -876,7 +872,7 @@ collision_mask = 5
 position = Vector2( 7, -13 )
 enabled = true
 exclude_parent = true
-cast_to = Vector2( 0, -20 )
+cast_to = Vector2( 0, -30 )
 collision_mask = 5
 
 [node name="points" type="Node2D" parent="." index="5"]
@@ -931,6 +927,8 @@ texture = ExtResource( 3 )
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="sounds" type="Node2D" parent="." index="6"]
+
+editor/display_folded = true
 
 [node name="blaster_L" type="AudioStreamPlayer2D" parent="sounds" index="0"]
 

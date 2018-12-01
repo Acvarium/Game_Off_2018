@@ -63,6 +63,8 @@ var bot2_dir = Vector2(1, 0)
 var invinc = false
 var to_explode = false
 var explosion_started = false
+#					 left   right   up     down
+var bot_neighbors = [false, false, false, false]
 
 func pickup_bonus(value):
 	bombs += 1
@@ -87,6 +89,8 @@ func _ready():
 			$colSwitch.play("bot")
 		elif bot_class == 2:
 			$colSwitch.play("bot1")
+			if randf() < 0.5:
+				bot2_dir = Vector2(-1, 0)
 	else:
 		$colSwitch.play("player")
 	# Додати даного персонажа до списку персонажів на рівні
@@ -122,6 +126,7 @@ func _physics_process(delta):
 			pass
 		return
 
+	
 	direction = Vector2()
 	var tile_pos = main_node.to_64(position)
 	var l_tile_pos = main_node.to_64($points/left.global_position)
@@ -145,6 +150,11 @@ func _physics_process(delta):
 	set_keys(false,false,false,false)
 	for r in $rays.get_children():
 		r.force_raycast_update()
+		
+#	if bot_class > 0:
+#		find_bot_neighbors()
+		
+		
 	
 	var can_move_up = !obstacle(UP) and (c_cell_t == 1 or l_cell_t == 1)
 	on_the_ladder = (c_cell_t == 1 or d_cell_t == 1 or l_cell_t == 1 or ld_cell_t == 1)
@@ -595,6 +605,32 @@ func toggle_ghost():
 	else:
 		modulate = Color(1,1,1,1)
 		
+
+func is_bot_around(ray):
+	if ray.is_colliding():
+		return true
+		if ray.get_collider() != null:
+			if ray.get_collider().get("bot_class") != null:
+				if ray.get_collider().bot_class > 0:
+					return true
+	return false
+
+func find_bot_neighbors():
+	for i in range(4):
+		bot_neighbors[i] = false
+	var sides = ["left", "right", "up", "down"]
+	for i in range(4):
+		for j in range(2):
+			var n = ""
+			if j == 1:
+				n == "2"
+			if is_bot_around(get_node("rays/" + sides[i] + n)):
+				bot_neighbors[i] = true
+	var sss = ""
+	for i in range(4):
+		sss += str(int(bot_neighbors[i])) + " "
+	$coo.text = sss
+
 func obstacle(dir):
 	if dir == UP:
 		return $rays/up.is_colliding() or $rays/up2.is_colliding() 
@@ -606,11 +642,13 @@ func obstacle(dir):
 				return true
 		return $rays/down.is_colliding() or $rays/down2.is_colliding() 
 	elif dir == LEFT:
+		$coo.text = ""
 		if $rays/left2.is_colliding():
 			var col_obj = $rays/left2.get_collider()
 			if col_obj.is_in_group("character"):
 				if col_obj.bot_class > 0:
 					pass
+					$coo.text = "adadad"
 		$rays/left.get_collider()
 		return $rays/left.is_colliding() or $rays/left2.is_colliding()
 	elif dir == RIGHT:
