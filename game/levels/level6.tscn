@@ -8,7 +8,7 @@
 [ext_resource path="res://tiles/tiles2.tres" type="TileSet" id=6]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=7]
 
-[node name="level" type="Node2D"]
+[node name="level" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 to_rebuild = false
@@ -93,8 +93,6 @@ scale = Vector2( 1.87134, 1.80731 )
 texture = ExtResource( 4 )
 
 [node name="nav" type="Navigation2D" parent="." index="3"]
-
-editor/display_folded = true
 
 [node name="navMap" type="TileMap" parent="nav" index="0"]
 
