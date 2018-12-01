@@ -31,6 +31,7 @@ export var player_side = 0
 
 export var bot_class = 0
 export var main_player = true
+var canvas = null
 
 var on_the_floor = false
 
@@ -63,6 +64,7 @@ var bot2_dir = Vector2(1, 0)
 var invinc = false
 var to_explode = false
 var explosion_started = false
+var direct_ray_length = 320
 #					 left   right   up     down
 var bot_neighbors = [false, false, false, false]
 
@@ -74,6 +76,7 @@ func pickup_bonus(value):
 
 func _ready():
 	main_node = get_node("/root/main")
+	canvas = main_node.get_node("canvas")
 	if main_node.is_in_group("view"):
 		set_physics_process(false)
 		visible = false
@@ -108,6 +111,14 @@ func _ready():
 #--------------------------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------------------
 
+func add_debug_lines(shift, col):
+	if path.size() > 0 and bot_class == 1:
+		var shift_vec = Vector2(shift, shift)
+		var cp = position
+		for p in path:
+			canvas.lines.append([cp + shift_vec, p + shift_vec, col])
+			cp = p
+
 func set_keys(l,r,u,d):
 	left_key = l
 	right_key = r
@@ -115,7 +126,6 @@ func set_keys(l,r,u,d):
 	down_key = d
 
 func _physics_process(delta):
-	
 	if frozen:
 		if $anim.is_playing():
 			if $anim.current_animation == "explode" and !obstacle(DOWN):
@@ -153,8 +163,8 @@ func _physics_process(delta):
 	for r in $rays.get_children():
 		r.force_raycast_update()
 		
-#	if bot_class > 0:
-#		find_bot_neighbors()
+	if bot_class > 0:
+		find_bot_neighbors()
 		
 	if bot_class == 1:
 		find_bot_neighbors()
@@ -618,7 +628,8 @@ func is_bot_around(ray):
 		var col_obj = ray.get_collider()
 		if col_obj.is_in_group("character"):
 			if col_obj.bot_class > 0:
-				return true
+				if direction != col_obj.direction:
+					return true
 #		if ray.get_collider() != null:
 #			if ray.get_collider().get("bot_class") != null:
 #				if ray.get_collider().bot_class > 0:
@@ -628,10 +639,11 @@ func is_bot_around(ray):
 func find_bot_neighbors():
 	var hn = false
 	for r in $rays.get_children():
-		if is_bot_around(r):
-			hn = true
-#	if hn and randf() < 0.2:
-#		random_goal()
+		if r.is_in_group("a"):
+			if is_bot_around(r):
+				hn = true
+	if hn and randf() < 0.2:
+		random_goal()
 
 
 
@@ -702,7 +714,6 @@ func _on_cooldown_timeout():
 	cooldown = true
 
 func random_goal():
-	return
 	var to_random = true
 	if !follow_player and randf() < 0.5:
 		 to_random = false
@@ -720,9 +731,9 @@ func random_goal():
 	
 func _on_nav_update_timeout():
 	follow_player = true
-	if path.size() > 0:
-		if randi()%path.size() > 5:
-			random_goal()
+#	if path.size() > 0:
+#		if randi()%path.size() > 5:
+#			random_goal()
 	if nav != null and bot_class > 0:
 		update_path()
 		$nav_update.wait_time = randf() * 0.5 + 0.5

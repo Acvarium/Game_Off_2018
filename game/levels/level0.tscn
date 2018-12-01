@@ -19,6 +19,8 @@ __meta__ = {
 }
 to_retuild = false
 build = 0
+fit_cam_x = false
+title = ""
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="0"]
 
@@ -195,6 +197,8 @@ _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 [node name="objects" type="Node2D" parent="." index="7"]
 
 [node name="bots" type="Node2D" parent="." index="8"]
+
+editor/display_folded = true
 
 [node name="bot2" parent="bots" index="0" instance=ExtResource( 7 )]
 

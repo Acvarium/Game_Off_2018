@@ -332,6 +332,24 @@ func busted(_pos):
 
 
 func _process(delta):
+	if !on_pause:
+		var colors = [
+		Color(1,0,0),
+		Color(1,1,0),
+		Color(0,1,0),
+		Color(0,1,1),
+		Color(0,0,1)]
+		
+		$canvas.lines = []
+		var a = 0
+		var i = 0
+		for p in players:
+			p.get_ref().add_debug_lines(a,colors[i])
+			a += 2
+			i += 1
+			if i > colors.size():
+				i = 0
+		$canvas.update()
 	if $ui/grid.visible and !on_pause:
 		print_world()
 
