@@ -827,7 +827,16 @@ cast_to = Vector2( 0, 30 )
 collision_mask = 5
 _sections_unfolded = [ "Transform" ]
 
-[node name="right" type="RayCast2D" parent="rays" index="2"]
+[node name="down3" type="RayCast2D" parent="rays" index="2"]
+
+position = Vector2( 20, 27 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 30, 30 )
+collision_mask = 5
+_sections_unfolded = [ "Transform" ]
+
+[node name="right" type="RayCast2D" parent="rays" index="3"]
 
 position = Vector2( 18, 14 )
 enabled = true
@@ -835,7 +844,7 @@ exclude_parent = true
 cast_to = Vector2( 30, 0 )
 collision_mask = 5
 
-[node name="right2" type="RayCast2D" parent="rays" index="3"]
+[node name="right2" type="RayCast2D" parent="rays" index="4"]
 
 position = Vector2( 18, -6 )
 enabled = true
@@ -843,7 +852,15 @@ exclude_parent = true
 cast_to = Vector2( 30, 0 )
 collision_mask = 5
 
-[node name="left" type="RayCast2D" parent="rays" index="4"]
+[node name="right3" type="RayCast2D" parent="rays" index="5"]
+
+position = Vector2( 18, -13 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 30, -30 )
+collision_mask = 5
+
+[node name="left" type="RayCast2D" parent="rays" index="6"]
 
 position = Vector2( -18, 14 )
 enabled = true
@@ -851,7 +868,15 @@ exclude_parent = true
 cast_to = Vector2( -30, 0 )
 collision_mask = 5
 
-[node name="left2" type="RayCast2D" parent="rays" index="5"]
+[node name="left4" type="RayCast2D" parent="rays" index="7"]
+
+position = Vector2( -18, 18 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( -30, 30 )
+collision_mask = 5
+
+[node name="left2" type="RayCast2D" parent="rays" index="8"]
 
 position = Vector2( -18, -5 )
 enabled = true
@@ -859,7 +884,15 @@ exclude_parent = true
 cast_to = Vector2( -30, 0 )
 collision_mask = 5
 
-[node name="up" type="RayCast2D" parent="rays" index="6"]
+[node name="left3" type="RayCast2D" parent="rays" index="9"]
+
+position = Vector2( -18, -11 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( -30, -30 )
+collision_mask = 5
+
+[node name="up" type="RayCast2D" parent="rays" index="10"]
 
 position = Vector2( -8, -13 )
 enabled = true
@@ -867,7 +900,7 @@ exclude_parent = true
 cast_to = Vector2( 0, -30 )
 collision_mask = 5
 
-[node name="up2" type="RayCast2D" parent="rays" index="7"]
+[node name="up2" type="RayCast2D" parent="rays" index="11"]
 
 position = Vector2( 7, -13 )
 enabled = true

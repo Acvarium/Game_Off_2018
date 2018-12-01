@@ -60,8 +60,10 @@ func init_bonus_cells():
 				cells_for_bonuses.append(nc)
 
 func get_random_bonus_cell():
-	var r = randi()%cells_for_bonuses.size()
-	return cells_for_bonuses[r]
+	if cells_for_bonuses.size() > 0:
+		var r = randi()%cells_for_bonuses.size()
+		return cells_for_bonuses[r]
+	return null
 	
 func put_obj(obj_name, _pos):
 	if level.has_node("objects"):

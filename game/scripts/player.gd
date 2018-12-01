@@ -115,6 +115,7 @@ func set_keys(l,r,u,d):
 	down_key = d
 
 func _physics_process(delta):
+	
 	if frozen:
 		if $anim.is_playing():
 			if $anim.current_animation == "explode" and !obstacle(DOWN):
@@ -125,7 +126,8 @@ func _physics_process(delta):
 				
 			pass
 		return
-
+#	for i in range(4):
+#		bot_neighbors[i] = false
 	
 	direction = Vector2()
 	var tile_pos = main_node.to_64(position)
@@ -154,8 +156,8 @@ func _physics_process(delta):
 #	if bot_class > 0:
 #		find_bot_neighbors()
 		
-		
-	
+	if bot_class == 1:
+		find_bot_neighbors()
 	var can_move_up = !obstacle(UP) and (c_cell_t == 1 or l_cell_t == 1)
 	on_the_ladder = (c_cell_t == 1 or d_cell_t == 1 or l_cell_t == 1 or ld_cell_t == 1)
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
@@ -342,6 +344,11 @@ func _physics_process(delta):
 				aa_press = true
 #--------------------------------------------------------------------------------------------------------------------
 
+	if bot_neighbors[0]:
+		set_keys(false,true,false,false)
+	if bot_neighbors[3]:
+		set_keys(false,true,true,false)
+		
 	can_move_up = (up_key and (c_cell_t == 1 or l_cell_t == 1))
 	if current_hole_L != null or current_hole_R != null:
 		set_keys(false, false, false, false)
@@ -608,28 +615,40 @@ func toggle_ghost():
 
 func is_bot_around(ray):
 	if ray.is_colliding():
-		return true
-		if ray.get_collider() != null:
-			if ray.get_collider().get("bot_class") != null:
-				if ray.get_collider().bot_class > 0:
-					return true
+		var col_obj = ray.get_collider()
+		if col_obj.is_in_group("character"):
+			if col_obj.bot_class > 0:
+				return true
+#		if ray.get_collider() != null:
+#			if ray.get_collider().get("bot_class") != null:
+#				if ray.get_collider().bot_class > 0:
+#					return true
 	return false
 
 func find_bot_neighbors():
-	for i in range(4):
-		bot_neighbors[i] = false
-	var sides = ["left", "right", "up", "down"]
-	for i in range(4):
-		for j in range(2):
-			var n = ""
-			if j == 1:
-				n == "2"
-			if is_bot_around(get_node("rays/" + sides[i] + n)):
-				bot_neighbors[i] = true
-	var sss = ""
-	for i in range(4):
-		sss += str(int(bot_neighbors[i])) + " "
-	$coo.text = sss
+	var hn = false
+	for r in $rays.get_children():
+		if is_bot_around(r):
+			hn = true
+#	if hn and randf() < 0.2:
+#		random_goal()
+
+
+
+#	for i in range(4):
+#		bot_neighbors[i] = false
+#	var sides = ["left", "right", "up", "down"]
+#	for i in range(4):
+#		for j in range(2):
+#			var n = ""
+#			if j == 1:
+#				n == "2"
+#			if is_bot_around(get_node("rays/" + sides[i] + n)):
+#				bot_neighbors[i] = true
+#	var sss = ""
+#	for i in range(4):
+#		sss += str(int(bot_neighbors[i])) + " "
+#	$coo.text = sss
 
 func obstacle(dir):
 	if dir == UP:
@@ -642,14 +661,6 @@ func obstacle(dir):
 				return true
 		return $rays/down.is_colliding() or $rays/down2.is_colliding() 
 	elif dir == LEFT:
-		$coo.text = ""
-		if $rays/left2.is_colliding():
-			var col_obj = $rays/left2.get_collider()
-			if col_obj.is_in_group("character"):
-				if col_obj.bot_class > 0:
-					pass
-					$coo.text = "adadad"
-		$rays/left.get_collider()
 		return $rays/left.is_colliding() or $rays/left2.is_colliding()
 	elif dir == RIGHT:
 		return $rays/right.is_colliding() or $rays/right2.is_colliding()
@@ -683,23 +694,34 @@ func update_path():
 		c_nav = nav_from_above
 	if c_nav != null:
 		path = c_nav.get_simple_path(position, goal, false)
+	if path.size() == 0:
+		random_goal()
+	$coo.text = str(path.size())
 
 func _on_cooldown_timeout():
 	cooldown = true
 
 func random_goal():
-	follow_player = false
-	if randf() < 0.15 or path.size() < 1:
+	return
+	var to_random = true
+	if !follow_player and randf() < 0.5:
+		 to_random = false
+	if !follow_player and path.size() < 1:
+		to_random = true
+	if to_random:
+		follow_player = false
+	#	if randf() < 0.15 or path.size() < 1:
 		var rand_b_pos = main_node.get_random_bonus_cell()
-		var rand_pos = main_node.tile_to_world_pos(rand_b_pos)
-		goal = rand_pos
-		if nav != null and bot_class > 0:
-			update_path()
-
+		if rand_b_pos != null:
+			var rand_pos = main_node.tile_to_world_pos(rand_b_pos)
+			goal = rand_pos
+			if nav != null and bot_class > 0:
+				update_path()
+	
 func _on_nav_update_timeout():
 	follow_player = true
 	if path.size() > 0:
-		if randi()%path.size() > 5 or randf() < 0.15:
+		if randi()%path.size() > 5:
 			random_goal()
 	if nav != null and bot_class > 0:
 		update_path()
