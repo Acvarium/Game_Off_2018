@@ -26,6 +26,7 @@ var multiplayer_count = 0
 var exited = 0
 var under_control = []
 var players_in_exit = 0
+var zoom_out = false
 
 func add_player(player):
 	for p in players:
@@ -154,6 +155,12 @@ func set_bomb_count(bombs, player_side):
 	slot.get_node("Label").text = "x" + str(bombs)
 
 func _input(event):
+	if Input.is_action_just_pressed("zoom_out") and !zoom_out:
+		fit_cam_to_width()
+		zoom_out = true
+	if Input.is_action_just_released("zoom_out") and zoom_out:
+		zoom_out = false
+		$main_camera.zoom = default_zoom
 	if Input.is_action_just_pressed("ui_page_up") and global.debug:
 		exit()
 	if Input.is_action_just_pressed("debug"):
@@ -180,8 +187,6 @@ func _input(event):
 		$ui/help_dark.visible = false
 		if level.has_node("canvas"):
 			level.get_node("canvas").free()
-			
-		
 		
 		$ui/level_name.visible = false
 		$ui/help.visible = false
@@ -333,7 +338,7 @@ func exit():
 	play_sound("v1")
 
 func busted(_pos):
-	$main_camera.zoom_in(0.6)
+	$main_camera.zoom_in(0.5)
 	$main_camera.fallow = false
 	$main_camera.position = _pos
 	play_sound("busted")

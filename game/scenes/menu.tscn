@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scripts/menu.gd" type="Script" id=1]
 [ext_resource path="res://textures/walls_bg.png" type="Texture" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://textures/exit_hover.png" type="Texture" id=21]
 [ext_resource path="res://textures/exit_shadow.png" type="Texture" id=22]
 [ext_resource path="res://env.tres" type="Environment" id=23]
+[ext_resource path="res://sounds/menu_music.ogg" type="AudioStream" id=24]
 
 [node name="menu" type="Control"]
 
@@ -488,7 +489,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-text = "v0.1.1"
+text = "v0.2.0"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -569,6 +570,17 @@ _sections_unfolded = [ "Mouse", "Visibility" ]
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="11"]
 
 environment = ExtResource( 23 )
+
+[node name="music" type="Node2D" parent="." index="12"]
+
+[node name="menu_music0" type="AudioStreamPlayer" parent="music" index="0"]
+
+stream = ExtResource( 24 )
+volume_db = -25.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Master"
 
 [connection signal="pressed" from="tabs/l_cont" to="tabs/l_cont" method="_on_tab_pressed"]
 

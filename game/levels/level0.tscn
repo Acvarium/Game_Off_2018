@@ -10,7 +10,7 @@
 [ext_resource path="res://textures/startCommix.png" type="Texture" id=8]
 [ext_resource path="res://sounds/level0_music.ogg" type="AudioStream" id=9]
 
-[node name="level" type="Node2D" index="0"]
+[node name="level" type="Node2D"]
 
 pause_mode = 1
 script = ExtResource( 1 )
