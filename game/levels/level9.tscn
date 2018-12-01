@@ -9,7 +9,7 @@
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://textures/startCommix2.png" type="Texture" id=8]
 
-[node name="level" type="Node2D" index="0"]
+[node name="level" type="Node2D"]
 
 pause_mode = 1
 script = ExtResource( 1 )

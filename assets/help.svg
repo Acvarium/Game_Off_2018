@@ -168,8 +168,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="274.21296"
-     inkscape:cy="376.4769"
+     inkscape:cx="213.61545"
+     inkscape:cy="486.03442"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -210,7 +210,7 @@
        id="rect2165"
        width="340.44318"
        height="22.23543"
-       x="-63.739838"
+       x="-90.652115"
        y="182.80296"
        ry="0"
        inkscape:export-filename="/home/vit/ProjectG70/godot3/Game_Off_2018/game/textures/help_line.png"
@@ -288,12 +288,13 @@
        inkscape:export-xdpi="94.976791"
        inkscape:export-ydpi="94.976791" />
     <g
-       id="g2356"
+       id="g3281"
+       transform="matrix(0.97798187,0,0,1.0006245,1.7519711,-0.12149516)"
        inkscape:export-filename="/home/vit/ProjectG70/godot3/Game_Off_2018/game/textures/help_line.png"
        inkscape:export-xdpi="94.976791"
        inkscape:export-ydpi="94.976791">
       <g
-         transform="translate(31.586503)"
+         transform="matrix(0.92792582,0,0,0.92792582,-14.361001,14.0218)"
          id="g2303">
         <g
            id="g2035"
@@ -331,7 +332,7 @@
              sodipodi:role="line">Menu</tspan></text>
       </g>
       <g
-         transform="translate(73.347099)"
+         transform="matrix(0.92792582,0,0,0.92792582,79.819699,14.0218)"
          id="g2093">
         <g
            id="g2019"
@@ -392,7 +393,7 @@
              style="font-weight:bold;text-align:start;text-anchor:start;fill:#ffffff;stroke-width:0.10890226px">Drill</tspan></text>
       </g>
       <g
-         transform="translate(-21.544659)"
+         transform="matrix(0.92792582,0,0,0.92792582,-14.796296,14.0218)"
          id="g2295">
         <g
            id="g1944"
@@ -528,7 +529,7 @@
              sodipodi:role="line">Move</tspan></text>
       </g>
       <g
-         transform="translate(-14.234189)"
+         transform="matrix(0.92792582,0,0,0.92792582,15.270509,14.0218)"
          id="g2270">
         <g
            transform="translate(33.639881)"
@@ -564,6 +565,44 @@
              x="50.731728"
              id="tspan2248"
              sodipodi:role="line">Drop</tspan></text>
+      </g>
+      <g
+         id="g3109"
+         transform="matrix(0.92792582,0,0,0.92792582,-71.460791,14.0218)">
+        <g
+           id="g3103"
+           transform="translate(33.639881)">
+          <rect
+             style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.15054786;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:90.48194885;stroke-opacity:1"
+             id="rect3097"
+             width="13.682473"
+             height="13.682473"
+             x="1.0411482"
+             y="187.70555"
+             ry="2.2804129" />
+          <text
+             id="text3101"
+             y="198.99387"
+             x="7.879406"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.20040512px;line-height:3.17718863px;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.12708755px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-weight:bold;fill:#ffffff;stroke-width:0.12708755px"
+               y="198.99387"
+               x="7.879406"
+               id="tspan3099"
+               sodipodi:role="line">Z</tspan></text>
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.4546175px;line-height:2.72255635px;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.10890226px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           x="50.731728"
+           y="198.28349"
+           id="text3107"><tspan
+             sodipodi:role="line"
+             id="tspan3105"
+             x="50.731728"
+             y="198.28349"
+             style="font-weight:bold;text-align:start;text-anchor:start;fill:#ffffff;stroke-width:0.10890226px">Zoom Out</tspan></text>
       </g>
     </g>
   </g>
