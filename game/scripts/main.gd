@@ -198,6 +198,25 @@ func world_to_tile(pos):
 	var tile = tilemap.get_cell(cell_pos.x, cell_pos.y)
 	return tile
 
+func spawn_around(cell_pos, obj_type):
+	var _cell = -1
+	if obj_type == "gold":
+		_cell = 29
+	else:
+		return
+		
+	if (tilemap.get_cell(cell_pos.x, cell_pos.y)) == -1:
+		replace_cell(cell_pos, _cell)
+		return
+	elif cells_for_bonuses.size() > 0:
+		var dist = INF
+		var closest = Vector2()
+		for c in cells_for_bonuses:
+			if cell_pos.distance_to(c) < dist and tilemap.get_cell(c.x, c.y) == -1:
+				dist = cell_pos.distance_to(c)
+				closest = c
+		replace_cell(closest, _cell)
+
 func world_to_tile_pos(pos):
 	pos = pos + Vector2(tile_cell_size/4, tile_cell_size/4)
 	var cell_pos = Vector2(int(pos.x / tile_cell_size), int(pos.y / tile_cell_size))

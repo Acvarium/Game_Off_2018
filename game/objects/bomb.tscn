@@ -305,7 +305,7 @@ position = Vector2( -12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 5
+collision_mask = 1
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="down2" type="RayCast2D" parent="rays" index="1"]
@@ -314,7 +314,7 @@ position = Vector2( 12, 27 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 5
+collision_mask = 1
 _sections_unfolded = [ "Transform" ]
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

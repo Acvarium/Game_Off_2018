@@ -571,6 +571,9 @@ func _die(die_type, _time_out):
 		die()
 	else:
 		if die_type == "exp":
+			if gold_slot > 0:
+				main_node.spawn_around(current_tile_pos, "gold")
+				gold_slot = 0
 			frozen = true
 			position = main_node.get_freezer_pos(self)
 			$timers/respawn_timer.wait_time = _time_out
