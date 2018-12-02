@@ -8,6 +8,7 @@ var player_inside = null
 var mode = 0
 var sprite
 var cells
+var no_blast = false
 
 var cells1 = [
 "ground",
@@ -37,7 +38,6 @@ var frames1 = [4, 3, 5, 6]
 var frames2 = [5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 37, 38, 40, 41]
 
 var frames
-
 func _process(delta):
 	if $Label.visible:
 		if player_inside != null:
@@ -46,7 +46,6 @@ func _process(delta):
 			$Label.text = ""
 
 func _ready():
-
 	main_node = get_node("/root/main")
 	sprite = $Sprite
 	frames = frames1

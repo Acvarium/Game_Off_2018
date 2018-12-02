@@ -6,6 +6,7 @@ var velocity = 0
 var is_moving = false
 var target_y = 0
 var max_speed = 300
+var destroy = false
 
 func _ready():
 	set_physics_process(false)
@@ -15,6 +16,14 @@ func _ready():
 
 func _physics_process(delta):
 	if is_explothing:
+		if !destroy:
+			destroy = true
+			var cell_pos = main_node.world_to_tile_pos(position)
+			main_node.replace_cell(cell_pos, -1)
+			main_node.replace_cell(cell_pos + Vector2(1,0), -1)
+			main_node.replace_cell(cell_pos + Vector2(-1,0), -1)
+			
+			
 		kill()
 	if has_node("rays"):
 		$rays/down.force_raycast_update()
@@ -32,8 +41,6 @@ func _physics_process(delta):
 				is_moving = false
 			move_and_collide(Vector2(0, velocity))
 		
-		
-
 func kill():
 	var cell_pos = main_node.world_to_tile_pos(position)
 	var AA = position - half_blast_size

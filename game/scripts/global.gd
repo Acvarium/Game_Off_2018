@@ -1,6 +1,6 @@
 extends Node
 var erast = false
-var debug = false
+var debug = true
 var current_scene = null
 var current_scene_path = ""
 

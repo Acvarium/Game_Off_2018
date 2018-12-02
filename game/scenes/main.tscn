@@ -35,34 +35,34 @@ use_filter = false
 font_data = SubResource( 1 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Resource", "Settings" ]
 
-[sub_resource type="DynamicFontData" id=5]
+[sub_resource type="DynamicFontData" id=3]
 
 hinting = 2
 font_path = "res://fonts/LiberationMono-Regular.ttf"
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=4]
 
 size = 52
 use_mipmaps = false
 use_filter = false
-font_data = SubResource( 5 )
+font_data = SubResource( 3 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Font/fallback", "Settings" ]
 
-[sub_resource type="DynamicFontData" id=3]
+[sub_resource type="DynamicFontData" id=5]
 
 hinting = 2
 font_path = "res://fonts/Minimal5x7.ttf"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=6]
 
 size = 50
 use_mipmaps = false
 use_filter = false
-font_data = SubResource( 3 )
+font_data = SubResource( 5 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Font/fallback", "Resource", "Settings" ]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" index="0"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -99,12 +99,12 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Pause", "Smoothing", "
 
 [node name="level" parent="." index="1" instance=ExtResource( 3 )]
 
-title = ""
-help_info = ""
+to_retuild = false
 
 [node name="ui" type="CanvasLayer" parent="." index="2"]
 
 pause_mode = 1
+editor/display_folded = true
 layer = 100
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -365,7 +365,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0.742188, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Level Titel"
@@ -573,7 +573,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 text = "x1"
 align = 2
 percent_visible = 1.0
@@ -636,7 +636,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 text = "x1"
 align = 2
 percent_visible = 1.0
@@ -647,6 +647,7 @@ _sections_unfolded = [ "custom_fonts" ]
 [node name="sounds" type="Node2D" parent="." index="3"]
 
 pause_mode = 2
+editor/display_folded = true
 _sections_unfolded = [ "Pause" ]
 __meta__ = {
 "_edit_group_": true,

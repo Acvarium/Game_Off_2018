@@ -65,6 +65,7 @@ var to_explode = false
 var explosion_started = false
 #					 left   right   up     down
 var bot_neighbors = [false, false, false, false]
+var to_fly = false
 
 func pickup_bonus(value):
 	bombs += 1
@@ -168,7 +169,8 @@ func _physics_process(delta):
 	var can_move_up = !obstacle(UP) and (c_cell_t == 1 or l_cell_t == 1)
 	on_the_ladder = (c_cell_t == 1 or d_cell_t == 1 or l_cell_t == 1 or ld_cell_t == 1)
 	var on_pipe = (c_cell_t == 2 or l_cell_t == 2) and tile_pos.y <= position.y
-	
+	if global.debug and to_fly:
+		on_the_ladder = true
 	current_tile_pos = main_node.world_to_tile_pos(position)
 	# Визначення поточної позиції в тайловій системі зі зміщенням вправо на пів тайла
 	var current_tile_pos_minus32 = main_node.world_to_tile_pos(position - Vector2(32,0))
@@ -352,13 +354,16 @@ func _physics_process(delta):
 #--------------------------------------------------------------------------------------------------------------------
 
 	can_move_up = (up_key and (c_cell_t == 1 or l_cell_t == 1))
+	
 	if current_hole_L != null or current_hole_R != null:
 		set_keys(false, false, false, false)
 		
 	if in_the_trap and allowe_to_crawl_up:
 		can_move_up = true
 	
-	if can_move_up or down_key:
+	
+	
+	if can_move_up or down_key or (up_key and to_fly and global.debug):
 		if tile_pos.x > position.x:
 			var go_right = (c_cell_t == 1 or d_cell_t == 1)
 			if (up_key and c_cell_t == 1 and d_cell_t != 1):
@@ -376,7 +381,7 @@ func _physics_process(delta):
 				direction.x = -1
 				if !is_moving:
 					currentDir = Vector2(-1,0)
-		if up_key and (c_cell_t == 1 or allowe_to_crawl_up):
+		if up_key and (c_cell_t == 1 or allowe_to_crawl_up or (to_fly and global.debug)):
 			if !obstacle(UP):
 				direction.y = -1
 				if !is_moving:
@@ -660,6 +665,8 @@ func obstacle(dir):
 
 func _input(event):
 	if bot_class == 0:
+		if Input.is_action_just_pressed("fly"):
+			to_fly = !to_fly
 		if Input.is_action_just_released("put"):
 			if bombs > 0:
 				bombs -= 1
